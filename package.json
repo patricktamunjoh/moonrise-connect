@@ -1,0 +1,26 @@
+{
+  "name": "games.moonrise.cloudsahoyconnect",
+  "version": "1.0.0",
+  "displayName": "Clouds Ahoy! Connect",
+  "description": "A network library for easy remote function execution.",
+  "unity": "2019.1",
+  "documentationUrl": "https://github.com/TheMoonrise/clouds-ahoy-connect/blob/main/QUICKSTART.md",
+  "changelogUrl": "https://github.com/TheMoonrise/clouds-ahoy-connect/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/TheMoonrise/clouds-ahoy-connect/blob/main/LICENSE.md",
+  "keywords": [
+    "Networking",
+    "Steamworks"
+  ],
+  "author": {
+    "name": "Patrick Tamunjoh",
+    "email": "contact@moonrise.games",
+    "url": "https://moonrise.games"
+  },
+  "samples": [
+    {
+      "displayName": "Block Buster",
+      "description": "A sample setup demonstrating the core functionality of the library.",
+      "path": "Samples~/Sample Block Buster"
+    }
+  ]
+}
