@@ -247,14 +247,14 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         public async Task ShouldCancelEstablishmentTimeoutAfterDroppingConnection() {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var config1 = new NetworkConnectionConfig(hostIdentity, 100);
-            var config2 = new NetworkConnectionConfig(hostIdentity, 900);
+            var config2 = new NetworkConnectionConfig(hostIdentity);
             var sut = NetworkConnectionFactory.Build();
 
             sut.Establish(config1);
-            await Task.Delay(config1.ConnectionEstablishmentTimeoutMs / 2);
 
             sut.Drop();
             sut.Establish(config2);
+
             await Task.Delay(config1.ConnectionEstablishmentTimeoutMs / 2);
 
             Assert.AreEqual(Connectivity.Connecting, sut.Connectivity);
