@@ -25,19 +25,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
         public virtual void Call<T1>(Action<T1> function, T1 p1) {
             function.ThrowIfNull();
             Call(function.Target, function.Method, p1);
-
         }
 
         public virtual void Call<T1, T2>(Action<T1, T2> function, T1 p1, T2 p2) {
             function.ThrowIfNull();
             Call(function.Target, function.Method, p1, p2);
-
         }
 
         public virtual void Call<T1, T2, T3>(Action<T1, T2, T3> function, T1 p1, T2 p2, T3 p3) {
             function.ThrowIfNull();
             Call(function.Target, function.Method, p1, p2, p3);
-
         }
 
         public virtual void Call<T1, T2, T3, T4>(Action<T1, T2, T3, T4> function, T1 p1, T2 p2, T3 p3, T4 p4) {
