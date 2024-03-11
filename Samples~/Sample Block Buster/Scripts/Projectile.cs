@@ -3,6 +3,7 @@ using MoonriseGames.CloudsAhoyConnect.Extensions;
 using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Objects;
 using UnityEngine;
+using static MoonriseGames.CloudsAhoyConnect.Invocation;
 
 [NetworkObject]
 public class Projectile : MonoBehaviour
@@ -19,8 +20,8 @@ public class Projectile : MonoBehaviour
     {
         var character = other.gameObject.GetComponentInParent<Character>();
         if (character != null)
-            this.Send(character.HitByProjectile);
-        this.Send(DestroyAfterCollision);
+            Call(character.HitByProjectile);
+        Call(DestroyAfterCollision);
     }
 
     [NetworkFunction(Groups.Host, Recipients.All)]

@@ -15,11 +15,11 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
 
             Session.Instance = null;
 
-            Assert.DoesNotThrow(() => Invoke(sample.NiladicFunction));
-            Assert.DoesNotThrow(() => Invoke(sample.MonadicFunction, 12));
-            Assert.DoesNotThrow(() => Invoke(sample.DyadicFunction, 12, 42));
-            Assert.DoesNotThrow(() => Invoke(sample.TriadicFunction, 12, 42, 30));
-            Assert.DoesNotThrow(() => Invoke(sample.QuadradicFunction, 12, 42, 30, 55));
+            Assert.DoesNotThrow(() => Call(sample.NiladicFunction));
+            Assert.DoesNotThrow(() => Call(sample.MonadicFunction, 12));
+            Assert.DoesNotThrow(() => Call(sample.DyadicFunction, 12, 42));
+            Assert.DoesNotThrow(() => Call(sample.TriadicFunction, 12, 42, 30));
+            Assert.DoesNotThrow(() => Call(sample.QuadradicFunction, 12, 42, 30, 55));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
 
             Session.Instance = cac;
 
-            Invoke(sample.NiladicFunction);
+            Call(sample.NiladicFunction);
 
             emitter.Verify(x => x.Call(sample.NiladicFunction));
         }
@@ -45,7 +45,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
 
             Session.Instance = cac;
 
-            Invoke(sample.MonadicFunction, 12);
+            Call(sample.MonadicFunction, 12);
 
             emitter.Verify(x => x.Call(sample.MonadicFunction, 12));
         }
@@ -59,7 +59,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
 
             Session.Instance = cac;
 
-            Invoke(sample.DyadicFunction, 12, 42);
+            Call(sample.DyadicFunction, 12, 42);
 
             emitter.Verify(x => x.Call(sample.DyadicFunction, 12, 42));
         }
@@ -73,7 +73,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
 
             Session.Instance = cac;
 
-            Invoke(sample.TriadicFunction, 12, 42, 4);
+            Call(sample.TriadicFunction, 12, 42, 4);
 
             emitter.Verify(x => x.Call(sample.TriadicFunction, 12, 42, 4));
         }
@@ -87,7 +87,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
 
             Session.Instance = cac;
 
-            Invoke(sample.QuadradicFunction, 12, 42, 4, -4);
+            Call(sample.QuadradicFunction, 12, 42, 4, -4);
 
             emitter.Verify(x => x.Call(sample.QuadradicFunction, 12, 42, 4, -4));
         }

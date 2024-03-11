@@ -58,7 +58,7 @@ public class Game : MonoBehaviour {
 
             // Wrap the function arguments and send them on the network to the target Network Function
             // This will invoke the Network Function on all connected game instances
-            Invocation.Invoke(chicken.LayEgg, new Vector2(5, 8), 12f);
+            Invocation.Call(chicken.LayEgg, new Vector2(5, 8), 12f);
         }
     }
 

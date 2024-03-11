@@ -8,6 +8,7 @@ using MoonriseGames.CloudsAhoyConnect.Steam;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.UI;
+using static MoonriseGames.CloudsAhoyConnect.Invocation;
 
 [NetworkObject]
 public class GameManager : MonoBehaviour
@@ -28,30 +29,30 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Character _characterPrefab;
 
-    private CloudsAhoyConnect CloudsAhoyConnect { get; set; }
+    private Session Session { get; set; }
 
     private void Awake()
     {
         // Using the builder a new instance of the library is created
-        var builder = new CloudsAhoyConnect.Builder();
+        var builder = new Session.Builder();
 
         // The library is configured for Steamworks
-        CloudsAhoyConnect = builder.ForSteam().Build();
+        Session = builder.ForSteam().Build();
 
         // Network events can be observed by subscribing to this event
-        CloudsAhoyConnect.OnNetworkConnectionChanged += OnNetworkConnectionChanged;
+        Session.OnNetworkConnectionChanged += OnNetworkConnectionChanged;
     }
 
     private void Update()
     {
-        _networkStatusText.text = $"Network Status: {CloudsAhoyConnect.Connectivity}";
+        _networkStatusText.text = $"Network Status: {Session.Connectivity}";
     }
 
     private void LateUpdate()
     {
         // Every frame incoming messages are collected and processed
-        CloudsAhoyConnect.PollConnection();
-        CloudsAhoyConnect.ProcessQueuedNetworkFunctionCalls();
+        Session.PollConnection();
+        Session.ProcessQueuedNetworkFunctionCalls();
     }
 
     private void InitializeGameSession()
@@ -61,9 +62,9 @@ public class GameManager : MonoBehaviour
         // This is important, because on client instances only the connection to the host has to be established
         // However, on the host ALL clients have to be connected
         // Therefore, it should always be the host instance that kicks off the game session
-        true.Send(SpawnCharacter);
-        if (CloudsAhoyConnect.ConnectedClientsCount > 0)
-            false.Send(SpawnCharacter);
+        Call(SpawnCharacter, true);
+        if (Session.ConnectedClientsCount > 0)
+            Call(SpawnCharacter, false);
     }
 
     private void CleanupGameSession()
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
         // Here, only the character instance is registered, because the game object contains no other Network Objects
         // If the game objects or its children have multiple Network Object behaviours attached, RegisterGameObject should be used
         character.RegisterInstance();
-        character.IsControlledLocally = isHostCharacter == (CloudsAhoyConnect.Role == Roles.Host);
+        character.IsControlledLocally = isHostCharacter == (Session.Role == Roles.Host);
     }
 
     private void OnNetworkConnectionChanged(object sender, NetworkConnectionEventArgs args)
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
 
             case NetworkConnectionEventArgs.Types.ConnectionToClientLost:
                 // This is only called on the host instance
-                CloudsAhoyConnect.DropConnection();
+                Session.DropConnection();
                 break;
         }
     }
@@ -119,7 +120,10 @@ public class GameManager : MonoBehaviour
     {
         // For a solo session, the config should be set as host but without providing any client identities
         var builder = new SteamNetworkConnectionConfig.Builder();
-        var config = builder.WithConnectionEstablishmentTimeout(_connectionTimeout).AsHost().Build();
+        var config = builder
+            .WithConnectionEstablishmentTimeout(_connectionTimeout)
+            .AsHost()
+            .Build();
 
         EstablishConnection(config);
     }
@@ -134,7 +138,10 @@ public class GameManager : MonoBehaviour
         // This is necessary to determine when everyone is connected and the session can be started
         // For Steamworks, clients can be identified using their SteamID
         var builder = new SteamNetworkConnectionConfig.Builder();
-        var config = builder.WithConnectionEstablishmentTimeout(_connectionTimeout).AsHost(friend).Build();
+        var config = builder
+            .WithConnectionEstablishmentTimeout(_connectionTimeout)
+            .AsHost(friend)
+            .Build();
 
         EstablishConnection(config);
     }
@@ -148,7 +155,10 @@ public class GameManager : MonoBehaviour
         // To connect to a session as client, only the identity of the host must be configured
         // It is important that the session already exists, before any client attempts to join
         var builder = new SteamNetworkConnectionConfig.Builder();
-        var config = builder.WithConnectionEstablishmentTimeout(_connectionTimeout).AsClient(friend).Build();
+        var config = builder
+            .WithConnectionEstablishmentTimeout(_connectionTimeout)
+            .AsClient(friend)
+            .Build();
 
         EstablishConnection(config);
     }
@@ -159,14 +169,14 @@ public class GameManager : MonoBehaviour
 
         // Before establishing a new connection, all registered objects must be cleared
         // Failing to do so will prevent function calls to be delivered to the correct objects
-        CloudsAhoyConnect.Reset();
+        Session.Reset();
 
         // Here, all Network Objects in the scene are registered
         // This ensures that all game instances have the same initial state
         // This also allows one of the pre-existing Network Objects to initialize the game
-        CloudsAhoyConnect.RegisterAllGameObjects();
+        Session.RegisterAllGameObjects();
 
-        CloudsAhoyConnect.EstablishConnection(config);
+        Session.EstablishConnection(config);
     }
 
     private void SetConnectionSettingsVisibility(bool isVisible)

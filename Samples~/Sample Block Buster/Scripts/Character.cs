@@ -3,6 +3,7 @@ using MoonriseGames.CloudsAhoyConnect.Extensions;
 using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Objects;
 using UnityEngine;
+using static MoonriseGames.CloudsAhoyConnect.Invocation;
 
 [NetworkObject]
 public class Character : MonoBehaviour
@@ -65,7 +66,7 @@ public class Character : MonoBehaviour
             inputDirection += Vector2.right;
 
         if (inputDirection != MovementDirection)
-            (inputDirection, (Vector2)transform.position).Send(ChangeMovementDirection);
+            Call(ChangeMovementDirection, inputDirection, (Vector2)transform.position);
     }
 
     [NetworkFunction(Groups.All, Recipients.All)]
@@ -86,12 +87,12 @@ public class Character : MonoBehaviour
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var aimDirection = (mousePosition - transform.position).normalized;
 
-        Vector2.SignedAngle(Vector2.up, aimDirection).Send(ChangeAimAngle);
+        Call(ChangeAimAngle, Vector2.SignedAngle(Vector2.up, aimDirection));
 
         var canShootProjectile = Time.time - TimeLastShot > _attackDelay;
 
         if (Input.GetMouseButtonDown(0) && canShootProjectile)
-            ((Vector2)_attackOrigin.position, (Vector2)aimDirection).Send(ValidateShootProjectile);
+            Call(ValidateShootProjectile, (Vector2)_attackOrigin.position, (Vector2)aimDirection);
     }
 
     [NetworkFunction(Groups.All, Recipients.All, Transmission.Unreliable)]
@@ -107,7 +108,7 @@ public class Character : MonoBehaviour
         // This function seems nonsensical because all it does it forward the call to another function
         // However, while the validation can be called by all game instances, the execution can only be called by the host
         // To ensure projectiles are registered in the same order, only the host should be able to make such calls
-        (origin, direction).Send(ExecuteShootProjectile);
+        Call(ExecuteShootProjectile, origin, direction);
     }
 
     [NetworkFunction(Groups.Host, Recipients.All)]

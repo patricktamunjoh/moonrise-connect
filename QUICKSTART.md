@@ -47,7 +47,7 @@ In practice, to ensure the same changes are made in the same order on all game i
 ```c#
 // The final damage is determined inside the Network Function
 public void OnPlayerHit() {
-    Invocation.Invoke(DealDamageToPlayer);
+    Invocation.Call(DealDamageToPlayer);
 }
 
 // Each game instance will detract a different amount from the player's health
@@ -60,7 +60,7 @@ public void DealDamageToPlayer() {
 ```c#
 // Instead, determine the final damage first and send that to all game instances
 public void OnPlayerHit() {
-    Invocation.Invoke(DealDamageToPlayer, Random.Range(1, 3));
+    Invocation.Call(DealDamageToPlayer, Random.Range(1, 3));
 }
 
 [NetworkFunction(Groups.Host, Recipients.All)]
@@ -234,19 +234,19 @@ public class Chicken {
 }
 ```
 
-To call a Network Function and have it be invoked on all recipient instances the `Invocation.Invoke()` static functions can be used. For a function without parameters, call `Invocation.Invoke()` on any object instance, usually `this`, and pass the Network Function as argument. For functions with one parameter, call `Invocation.Invoke()` on the argument and again pass the Network Functions. For functions with multiple parameters, `Invocation.Invoke()` is called on a `Tuple` containing all the arguments in the same order as they appear in the corresponding Network Function.
+To call a Network Function and have it be invoked on all recipient instances the `Invocation.Call()` static functions can be used. For a function without parameters, call `Invocation.Call()` on any object instance, usually `this`, and pass the Network Function as argument. For functions with one parameter, call `Invocation.Call()` on the argument and again pass the Network Functions. For functions with multiple parameters, `Invocation.Call()` is called on a `Tuple` containing all the arguments in the same order as they appear in the corresponding Network Function.
 
 ```c#
 Chicken chicken;
 
-Invocation.Invoke(chicken.LayEgg);
+Invocation.Call(chicken.LayEgg);
 
 // Function arguments are passed after the reference to the network function
-Invocation.Invoke(chicken.HatchEgg, chicken.Egg);
-Invocation.Invoke(chicken.WalkToPosition, new Vector2(4, 9), 12f);
+Invocation.Call(chicken.HatchEgg, chicken.Egg);
+Invocation.Call(chicken.WalkToPosition, new Vector2(4, 9), 12f);
 ```
 
-> :bulb: Because the library does not use code generation, calling a Network Function directly without `Invocation.Invoke()` will invoke the function as usual, only on the current game instance.
+> :bulb: Because the library does not use code generation, calling a Network Function directly without `Invocation.Call()` will invoke the function as usual, only on the current game instance.
 
 ### Debugging
 
@@ -275,7 +275,7 @@ public class Farmer {
     [NetworkFunction(Groups.All, Recipients.Host)]
     public void ValidateCollectEgg(Egg egg) {
         // The host instance validates that the call can be executed
-        if (egg.CanBeCollected) Invocation.Invoke(ExecuteCollectEgg, egg)
+        if (egg.CanBeCollected) Invocation.Call(ExecuteCollectEgg, egg)
     }
 
     [NetworkFunction(Groups.Host, Recipients.All)]
@@ -305,7 +305,7 @@ public class Sprinkler {
         ...
         // On the host instance this is executed immediately
         // On client instances the invocation is skipped
-        Invocation.Invoke(ConsumeWater);
+        Invocation.Call(ConsumeWater);
 
         // Only on the host this will be fulfilled
         if (!IsFilledWithWater) FillWithWater();
@@ -338,7 +338,7 @@ public class Sprinkler {
     private void WaterSurroundingPlants() {
         ...
         // This invocation is now skipped on all game instances
-        Invocation.Invoke(ConsumeWater);
+        Invocation.Call(ConsumeWater);
         if (!IsFilledWithWater) FillWithWater();
     }
 
@@ -346,7 +346,7 @@ public class Sprinkler {
     private void WaterSurroundingPlantsUntilEmpty() {
         // This is an infinite loop because condition is not modified immediately
         while (IsFilledWithWater) {
-            Invocation.Invoke(WaterSurroundingPlants);
+            Invocation.Call(WaterSurroundingPlants);
         }
     }
 
