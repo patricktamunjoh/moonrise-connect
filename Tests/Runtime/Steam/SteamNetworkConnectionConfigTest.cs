@@ -3,11 +3,13 @@ using MoonriseGames.CloudsAhoyConnect.Enums;
 using MoonriseGames.CloudsAhoyConnect.Steam;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
-    public class SteamNetworkConnectionConfigTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+{
+    public class SteamNetworkConnectionConfigTest
+    {
         [Test]
-        public void ShouldConfigureForHost() {
+        public void ShouldConfigureForHost()
+        {
             var host = new SteamNetworkIdentity(12);
             var sut = new SteamNetworkConnectionConfig(host);
 
@@ -17,7 +19,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldConfigureForClient() {
+        public void ShouldConfigureForClient()
+        {
             var clients = new[] { new SteamNetworkIdentity(12) };
             var sut = new NetworkConnectionConfig(clients);
 

@@ -9,23 +9,29 @@ using Moq;
 using NUnit.Framework;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
-    public class SteamNetworkLinkTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+{
+    public class SteamNetworkLinkTest
+    {
         private byte[] Bytes { get; } = Encoding.ASCII.GetBytes("example");
         private SteamNetworkIdentity Identity { get; } = new(12);
 
         [Test]
-        public void ShouldSendDataOnPeerToPeerConnection() {
+        public void ShouldSendDataOnPeerToPeerConnection()
+        {
             var receivedBytes = null as byte[];
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.SendMessageOnPeerToPeerConnection(
-                    It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
-                .Callback<HSteamNetConnection, IntPtr, uint, int>((_, ptr, length, _) => {
-                    receivedBytes = new byte[length];
-                    Marshal.Copy(ptr, receivedBytes, 0, (int)length);
-                }).Returns(EResult.k_EResultOK);
+            proxy
+                .Setup(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
+                .Callback<HSteamNetConnection, IntPtr, uint, int>(
+                    (_, ptr, length, _) =>
+                    {
+                        receivedBytes = new byte[length];
+                        Marshal.Copy(ptr, receivedBytes, 0, (int)length);
+                    }
+                )
+                .Returns(EResult.k_EResultOK);
 
             var sut = new SteamNetworkLink(Identity, default);
 
@@ -35,29 +41,37 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldSendOnPeerToPeerConnection() {
+        public void ShouldSendOnPeerToPeerConnection()
+        {
             var connection = new HSteamNetConnection(12);
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.SendMessageOnPeerToPeerConnection(
-                It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>())).Returns(EResult.k_EResultOK);
+            proxy
+                .Setup(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
+                .Returns(EResult.k_EResultOK);
 
             var sut = new SteamNetworkLink(Identity, connection);
 
             sut.Send(Bytes, Transmission.Reliable);
 
-            proxy.Verify(x => x.SendMessageOnPeerToPeerConnection(It.Is<HSteamNetConnection>(y => connection.Equals(y)), It.IsAny<IntPtr>(),
-                It.IsAny<uint>(), It.IsAny<int>()));
+            proxy.Verify(x => x.SendMessageOnPeerToPeerConnection(It.Is<HSteamNetConnection>(y => connection.Equals(y)), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()));
         }
 
         [Test]
-        public void ShouldDeallocateMemoryAfterSending() {
+        public void ShouldDeallocateMemoryAfterSending()
+        {
             var pointer = new IntPtr();
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.SendMessageOnPeerToPeerConnection(
-                    It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
-                .Callback<HSteamNetConnection, IntPtr, uint, int>((_, ptr, _, _) => { pointer = ptr; }).Returns(EResult.k_EResultOK);
+            proxy
+                .Setup(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
+                .Callback<HSteamNetConnection, IntPtr, uint, int>(
+                    (_, ptr, _, _) =>
+                    {
+                        pointer = ptr;
+                    }
+                )
+                .Returns(EResult.k_EResultOK);
 
             var sut = new SteamNetworkLink(Identity, default);
 
@@ -67,47 +81,55 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldUseCorrectSendFlagsForReliableTransmission() {
+        public void ShouldUseCorrectSendFlagsForReliableTransmission()
+        {
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.SendMessageOnPeerToPeerConnection(
-                It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>())).Returns(EResult.k_EResultOK);
+            proxy
+                .Setup(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
+                .Returns(EResult.k_EResultOK);
 
             var sut = new SteamNetworkLink(Identity, default);
 
             sut.Send(Bytes, Transmission.Reliable);
 
-            proxy.Verify(x => x.SendMessageOnPeerToPeerConnection(
-                It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.Is<int>(y => y == 8)));
+            proxy.Verify(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.Is<int>(y => y == 8)));
         }
 
         [Test]
-        public void ShouldUseCorrectSendFlagsForUnreliableTransmission() {
+        public void ShouldUseCorrectSendFlagsForUnreliableTransmission()
+        {
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.SendMessageOnPeerToPeerConnection(
-                It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>())).Returns(EResult.k_EResultOK);
+            proxy
+                .Setup(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.IsAny<int>()))
+                .Returns(EResult.k_EResultOK);
 
             var sut = new SteamNetworkLink(Identity, default);
 
             sut.Send(Bytes, Transmission.Unreliable);
 
-            proxy.Verify(x => x.SendMessageOnPeerToPeerConnection(
-                It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.Is<int>(y => y == 0)));
+            proxy.Verify(x => x.SendMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr>(), It.IsAny<uint>(), It.Is<int>(y => y == 0)));
         }
 
         [Test]
-        public void ShouldReceiveBytesFromPeerToPeerConnection() {
+        public void ShouldReceiveBytesFromPeerToPeerConnection()
+        {
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.ReceiveMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr[]>()))
-                .Callback<HSteamNetConnection, IntPtr[]>((_, ptr) => {
-                    var message = new SteamNetworkingMessage_t { m_pData = Marshal.AllocHGlobal(Bytes.Length), m_cbSize = Bytes.Length };
-                    Marshal.Copy(Bytes, 0, message.m_pData, message.m_cbSize);
+            proxy
+                .Setup(x => x.ReceiveMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr[]>()))
+                .Callback<HSteamNetConnection, IntPtr[]>(
+                    (_, ptr) =>
+                    {
+                        var message = new SteamNetworkingMessage_t { m_pData = Marshal.AllocHGlobal(Bytes.Length), m_cbSize = Bytes.Length };
+                        Marshal.Copy(Bytes, 0, message.m_pData, message.m_cbSize);
 
-                    ptr[0] = Marshal.AllocHGlobal(Marshal.SizeOf(message));
-                    Marshal.StructureToPtr(message, ptr[0], false);
-                }).Returns(1);
+                        ptr[0] = Marshal.AllocHGlobal(Marshal.SizeOf(message));
+                        Marshal.StructureToPtr(message, ptr[0], false);
+                    }
+                )
+                .Returns(1);
 
             var sut = new SteamNetworkLink(Identity, default);
 
@@ -117,19 +139,25 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldDeallocateMemoryAfterReceiving() {
+        public void ShouldDeallocateMemoryAfterReceiving()
+        {
             var pointer = new IntPtr();
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.ReceiveMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr[]>()))
-                .Callback<HSteamNetConnection, IntPtr[]>((_, ptr) => {
-                    var message = new SteamNetworkingMessage_t { m_pData = Marshal.AllocHGlobal(Bytes.Length), m_cbSize = Bytes.Length };
-                    Marshal.Copy(Bytes, 0, message.m_pData, message.m_cbSize);
+            proxy
+                .Setup(x => x.ReceiveMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr[]>()))
+                .Callback<HSteamNetConnection, IntPtr[]>(
+                    (_, ptr) =>
+                    {
+                        var message = new SteamNetworkingMessage_t { m_pData = Marshal.AllocHGlobal(Bytes.Length), m_cbSize = Bytes.Length };
+                        Marshal.Copy(Bytes, 0, message.m_pData, message.m_cbSize);
 
-                    pointer = Marshal.AllocHGlobal(Marshal.SizeOf(message));
-                    Marshal.StructureToPtr(message, pointer, false);
-                    ptr[0] = pointer;
-                }).Returns(1);
+                        pointer = Marshal.AllocHGlobal(Marshal.SizeOf(message));
+                        Marshal.StructureToPtr(message, pointer, false);
+                        ptr[0] = pointer;
+                    }
+                )
+                .Returns(1);
 
             var sut = new SteamNetworkLink(Identity, default);
 
@@ -139,7 +167,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldReturnNullWhenNoMessageIsReceived() {
+        public void ShouldReturnNullWhenNoMessageIsReceived()
+        {
             var proxy = SteamProxyFactory.BuildMock();
 
             proxy.Setup(x => x.ReceiveMessageOnPeerToPeerConnection(It.IsAny<HSteamNetConnection>(), It.IsAny<IntPtr[]>())).Returns(0);
@@ -152,7 +181,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldClosePeerToPeerConnection() {
+        public void ShouldClosePeerToPeerConnection()
+        {
             var connection = new HSteamNetConnection(12);
             var proxy = SteamProxyFactory.BuildMock();
             var sut = new SteamNetworkLink(Identity, connection);
@@ -163,7 +193,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldClosePeerToPeerConnectionOnlyOnce() {
+        public void ShouldClosePeerToPeerConnectionOnlyOnce()
+        {
             var connection = new HSteamNetConnection(12);
             var proxy = SteamProxyFactory.BuildMock();
             var sut = new SteamNetworkLink(Identity, connection);

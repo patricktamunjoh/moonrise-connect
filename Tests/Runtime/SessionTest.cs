@@ -8,17 +8,19 @@ using NUnit.Framework;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests {
-    public class CloudsAhoyConnectTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests
+{
+    public class SessionTest
+    {
         [Test]
-        public void ShouldRetainProperties() {
+        public void ShouldRetainProperties()
+        {
             var connection = NetworkConnectionFactory.BuildMock().Object;
             var queue = NetworkFunctionQueueFactory.BuildMock().Object;
             var registry = new Mock<NetworkFunctionRegistry>().Object;
             var emitter = NetworkFunctionEmitterFactory.BuildMock().Object;
 
-            var sut = new CloudsAhoyConnect(connection, queue, registry, emitter);
+            var sut = new Session(connection, queue, registry, emitter);
 
             Assert.AreEqual(connection, sut.Connection);
             Assert.AreEqual(queue, sut.Queue);
@@ -27,7 +29,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldProvideRole() {
+        public void ShouldProvideRole()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -38,7 +41,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldNotProvideRoleWhileDisconnected() {
+        public void ShouldNotProvideRoleWhileDisconnected()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -49,7 +53,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldProvideConnectivity() {
+        public void ShouldProvideConnectivity()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -59,7 +64,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldProvideClients() {
+        public void ShouldProvideClients()
+        {
             var clients = new[] { new Mock<NetworkIdentity>().Object };
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
@@ -70,7 +76,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldProvideConnectedClients() {
+        public void ShouldProvideConnectedClients()
+        {
             var clients = new[] { new Mock<NetworkIdentity>().Object };
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
@@ -81,7 +88,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldProvideClientCount() {
+        public void ShouldProvideClientCount()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -91,7 +99,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldProvideConnectedClientCount() {
+        public void ShouldProvideConnectedClientCount()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -101,7 +110,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardNetworkConnectionEvents() {
+        public void ShouldForwardNetworkConnectionEvents()
+        {
             var receivedSender = null as object;
             var receivedArgs = null as NetworkConnectionEventArgs;
             var expectedArgs = NetworkConnectionEventArgs.ForConnectionLost();
@@ -109,7 +119,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
-            sut.OnNetworkConnectionChanged += (sender, eventArgs) => {
+            sut.OnNetworkConnectionChanged += (sender, eventArgs) =>
+            {
                 receivedSender = sender;
                 receivedArgs = eventArgs;
             };
@@ -121,7 +132,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardConnectionEstablishment() {
+        public void ShouldForwardConnectionEstablishment()
+        {
             var config = new NetworkConnectionConfig(new Mock<NetworkIdentity>().Object);
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
@@ -132,7 +144,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardConnectionPolling() {
+        public void ShouldForwardConnectionPolling()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -142,7 +155,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardConnectionDropping() {
+        public void ShouldForwardConnectionDropping()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(connection.Object);
 
@@ -152,7 +166,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardResetting() {
+        public void ShouldForwardResetting()
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var sut = CloudsAhoyConnectFactory.Build(registry.Object);
 
@@ -162,7 +177,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardNetworkCallProcessing() {
+        public void ShouldForwardNetworkCallProcessing()
+        {
             var queue = NetworkFunctionQueueFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(queue.Object);
 
@@ -172,7 +188,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardRegistrationOfAllGameObjects() {
+        public void ShouldForwardRegistrationOfAllGameObjects()
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var sut = CloudsAhoyConnectFactory.Build(registry.Object);
 
@@ -182,7 +199,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldForwardClearingOfAllRegistrations() {
+        public void ShouldForwardClearingOfAllRegistrations()
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var sut = CloudsAhoyConnectFactory.Build(registry.Object);
 
@@ -192,7 +210,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldCorrectlyStartRecordingSnapshot() {
+        public void ShouldCorrectlyStartRecordingSnapshot()
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(registry.Object, connection.Object);
@@ -207,7 +226,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldCorrectlyRestartRecordingSnapshot() {
+        public void ShouldCorrectlyRestartRecordingSnapshot()
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(registry.Object, connection.Object);
@@ -226,7 +246,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldCorrectlyStopRecordingSnapshot() {
+        public void ShouldCorrectlyStopRecordingSnapshot()
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var connection = NetworkConnectionFactory.BuildMock();
             var sut = CloudsAhoyConnectFactory.Build(registry.Object, connection.Object);
@@ -244,7 +265,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests {
         }
 
         [Test]
-        public void ShouldThrowIfStoppingRecordingBeforeStarting() {
+        public void ShouldThrowIfStoppingRecordingBeforeStarting()
+        {
             var sut = CloudsAhoyConnectFactory.Build();
 
             Assert.Throws<InvalidOperationException>(() => sut.StopRecordingAndCollectSnapshot());

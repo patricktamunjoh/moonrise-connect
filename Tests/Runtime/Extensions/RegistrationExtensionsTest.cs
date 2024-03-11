@@ -6,14 +6,16 @@ using Moq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
-    public class RegistrationExtensionsTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+{
+    public class RegistrationExtensionsTest
+    {
         [Test]
-        public void ShouldNotThrowIfInstanceInNull() {
+        public void ShouldNotThrowIfInstanceInNull()
+        {
             var gameObj = new GameObject();
 
-            CloudsAhoyConnect.Instance = null;
+            Session.Instance = null;
 
             Assert.DoesNotThrow(() => gameObj.Register());
             Assert.DoesNotThrow(() => gameObj.Register());
@@ -22,12 +24,13 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldRegisterGameObject() {
+        public void ShouldRegisterGameObject()
+        {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
             var cac = CloudsAhoyConnectFactory.Build(registry.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
             gameObj.Register();
 
@@ -35,12 +38,13 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldRegisterGameObjectOfBehaviour() {
+        public void ShouldRegisterGameObjectOfBehaviour()
+        {
             var behaviour = new GameObject().AddComponent<SampleBehaviour>();
             var registry = new Mock<NetworkFunctionRegistry>();
             var cac = CloudsAhoyConnectFactory.Build(registry.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
             behaviour.RegisterGameObject();
 
@@ -48,26 +52,27 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldRegisterGameObjectWithChildren() {
+        public void ShouldRegisterGameObjectWithChildren()
+        {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
             var cac = CloudsAhoyConnectFactory.Build(registry.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
             gameObj.Register(true);
 
             registry.Verify(x => x.RegisterGameObject(gameObj, true));
         }
 
-
         [Test]
-        public void ShouldRegisterGameObjectOfBehaviourWithChildren() {
+        public void ShouldRegisterGameObjectOfBehaviourWithChildren()
+        {
             var behaviour = new GameObject().AddComponent<SampleBehaviour>();
             var registry = new Mock<NetworkFunctionRegistry>();
             var cac = CloudsAhoyConnectFactory.Build(registry.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
             behaviour.RegisterGameObject(true);
 
@@ -75,26 +80,29 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldReturnSameGameObject() {
+        public void ShouldReturnSameGameObject()
+        {
             var gameObj = new GameObject();
 
             Assert.AreSame(gameObj, gameObj.Register());
         }
 
         [Test]
-        public void ShouldReturnSameBehaviour() {
+        public void ShouldReturnSameBehaviour()
+        {
             var behaviour = new GameObject().AddComponent<SampleBehaviour>();
 
             Assert.AreSame(behaviour, behaviour.RegisterGameObject());
         }
 
         [Test]
-        public void ShouldRegisterObject() {
+        public void ShouldRegisterObject()
+        {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
             var cac = CloudsAhoyConnectFactory.Build(registry.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
             gameObj.RegisterInstance();
 
@@ -102,12 +110,13 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldUnregisterObject() {
+        public void ShouldUnregisterObject()
+        {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
             var cac = CloudsAhoyConnectFactory.Build(registry.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
             gameObj.UnregisterInstance();
 
@@ -115,7 +124,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldReturnSameObject() {
+        public void ShouldReturnSameObject()
+        {
             var behaviour = new GameObject().AddComponent<SampleBehaviour>();
 
             Assert.AreSame(behaviour, behaviour.RegisterInstance());

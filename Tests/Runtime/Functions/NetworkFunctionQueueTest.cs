@@ -8,11 +8,13 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionQueueTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionQueueTest
+    {
         [Test]
-        public void ShouldProcessCalls() {
+        public void ShouldProcessCalls()
+        {
             var sample = new SampleBase();
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.NiladicFunction));
 
@@ -26,7 +28,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldImmediatelyProcessNonDeferredCallsFromSender() {
+        public void ShouldImmediatelyProcessNonDeferredCallsFromSender()
+        {
             var sample = new SampleBase();
             var function = new NetworkFunction(Groups.All, Recipients.All);
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.NiladicFunction), function);
@@ -40,7 +43,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotImmediatelyProcessNonDeferredCallsFromNetwork() {
+        public void ShouldNotImmediatelyProcessNonDeferredCallsFromNetwork()
+        {
             var sample = new SampleBase();
             var function = new NetworkFunction(Groups.All, Recipients.All);
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.NiladicFunction), function);
@@ -54,7 +58,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldImmediatelyProcessCallsOnlyOnce() {
+        public void ShouldImmediatelyProcessCallsOnlyOnce()
+        {
             var sample = new SampleBase();
             var function = new NetworkFunction(Groups.All, Recipients.All);
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.NiladicFunction), function);
@@ -69,7 +74,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProcessCallsWithArguments() {
+        public void ShouldProcessCallsWithArguments()
+        {
             var sample = new SampleBase();
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.MonadicFunction));
             var payload = new NetworkPayload<string, object, object, object>("example");
@@ -85,7 +91,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProcessAllCalls() {
+        public void ShouldProcessAllCalls()
+        {
             var sample = new SampleBase();
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.NiladicFunction));
 
@@ -102,7 +109,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProcessQueuedDelegatesInSameOrder() {
+        public void ShouldProcessQueuedDelegatesInSameOrder()
+        {
             var sample = new SampleBase();
             var functionDelegate = NetworkFunctionDelegateFactory.Build(sample, nameof(SampleBase.MonadicFunction));
             var payload1 = new NetworkPayload<string, object, object, object>("A");
@@ -121,7 +129,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProcessQueuedElementsInSameOrder() {
+        public void ShouldProcessQueuedElementsInSameOrder()
+        {
             const ulong objectId = 12;
 
             var sample = new SampleBase();
@@ -137,7 +146,6 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
             var registry = new Mock<NetworkFunctionRegistry>();
             var sut = new NetworkFunctionQueue(registry.Object);
 
-
             registry.Setup(x => x.GetRegisteredFunctionDelegate(objectId, functionId)).Returns(functionDelegate);
 
             sut.EnqueueDelegate(functionDelegate, payload1, Roles.Host, false);
@@ -150,7 +158,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProcessQueuedNetworkCalls() {
+        public void ShouldProcessQueuedNetworkCalls()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -172,7 +181,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotAccessRegistryForEnqueuingCall() {
+        public void ShouldNotAccessRegistryForEnqueuingCall()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -187,7 +197,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldOnlyAccessRegistryOnceForProcessingCall() {
+        public void ShouldOnlyAccessRegistryOnceForProcessingCall()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -209,7 +220,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProcessQueuedNetworkCallsWithPayload() {
+        public void ShouldProcessQueuedNetworkCallsWithPayload()
+        {
             const ulong objectId = 12;
 
             var payload = new NetworkPayload<string, object, object, object>("example");
@@ -235,14 +247,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldInitializeAsEmpty() {
+        public void ShouldInitializeAsEmpty()
+        {
             var sut = new NetworkFunctionQueue(null);
 
             Assert.True(sut.IsEmpty);
         }
 
         [Test]
-        public void ShouldBeEmptyIfAllElementsWereProcessed() {
+        public void ShouldBeEmptyIfAllElementsWereProcessed()
+        {
             var function = new NetworkFunction(Groups.All, Recipients.All);
             var element = NetworkFunctionDelegateFactory.Build(function);
 
@@ -255,7 +269,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotBeEmptyWhenElementsAreQueued() {
+        public void ShouldNotBeEmptyWhenElementsAreQueued()
+        {
             var function = new NetworkFunction(Groups.All, Recipients.All);
             var element = NetworkFunctionDelegateFactory.Build(function);
 
@@ -267,7 +282,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldQueueNetworkCallsForClearedFunctions() {
+        public void ShouldQueueNetworkCallsForClearedFunctions()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -285,7 +301,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotThrowWhenProcessingNetworkCallsForClearedFunctions() {
+        public void ShouldNotThrowWhenProcessingNetworkCallsForClearedFunctions()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -303,7 +320,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotThrowWhenFailingToFindDelegateAsSenderWhileEnqueuing() {
+        public void ShouldNotThrowWhenFailingToFindDelegateAsSenderWhileEnqueuing()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -319,7 +337,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowWhenFailingToFindDelegateAsSenderWhileProcessing() {
+        public void ShouldThrowWhenFailingToFindDelegateAsSenderWhileProcessing()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -337,7 +356,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotThrowWhenFailingToFindDelegateForUnreliableCallAsReceiverWhileProcessing() {
+        public void ShouldNotThrowWhenFailingToFindDelegateForUnreliableCallAsReceiverWhileProcessing()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -355,7 +375,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowWhenFailingToFindDelegateForReliableCallAsReceiverWhileProcessing() {
+        public void ShouldThrowWhenFailingToFindDelegateForReliableCallAsReceiverWhileProcessing()
+        {
             const ulong objectId = 12;
 
             var functionId = NetworkHashing.Hash("example");
@@ -373,7 +394,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldOnlyQueueElementsThatShouldBeExecuted() {
+        public void ShouldOnlyQueueElementsThatShouldBeExecuted()
+        {
             var function = new NetworkFunction(Groups.All, Recipients.Clients);
             var element = NetworkFunctionDelegateFactory.Build(function);
 
@@ -385,7 +407,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowWhenQueuingNullDelegate() {
+        public void ShouldThrowWhenQueuingNullDelegate()
+        {
             var payload = new NetworkPayload<int, int, int, int>(12);
             var sut = new NetworkFunctionQueue(null);
 
@@ -393,7 +416,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowWhenQueuingNullNetworkCall() {
+        public void ShouldThrowWhenQueuingNullNetworkCall()
+        {
             var sut = new NetworkFunctionQueue(null);
 
             Assert.Throws<ArgumentNullException>(() => sut.EnqueueCall(null, Roles.Client, true));

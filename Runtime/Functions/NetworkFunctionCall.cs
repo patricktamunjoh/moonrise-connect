@@ -6,10 +6,10 @@ using MoonriseGames.CloudsAhoyConnect.Hashing;
 using MoonriseGames.CloudsAhoyConnect.Payloads;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions {
-
-    internal class NetworkFunctionCall {
-
+namespace MoonriseGames.CloudsAhoyConnect.Functions
+{
+    internal class NetworkFunctionCall
+    {
         private int FunctionIdLength => NetworkHashing.HashSizeBytes;
         private int ObjectIdLength => 8;
         private int TransmissionLength => 1;
@@ -23,8 +23,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
 
         public Transmission Transmission { get; private set; }
 
-        public NetworkFunctionCall(ulong objectId, NetworkHash functionId, Transmission transmission) {
-            if (!functionId.IsValid) {
+        public NetworkFunctionCall(ulong objectId, NetworkHash functionId, Transmission transmission)
+        {
+            if (!functionId.IsValid)
+            {
                 const string message = "The provided function id hash is invalid.";
                 throw new InvalidOperationException(message.TrimIndents());
             }
@@ -36,18 +38,22 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
 
         public NetworkFunctionCall(byte[] bytes) => FromBytes(bytes);
 
-        public void EncodePayload(INetworkPayload payload) {
+        public void EncodePayload(INetworkPayload payload)
+        {
             var json = JsonUtility.ToJson(payload);
             Payload = Encoding.UTF8.GetBytes(json);
         }
 
-        public INetworkPayload DecodedPayload(Type type) {
-            if (Payload == null || Payload.Length == 0) return null;
+        public INetworkPayload DecodedPayload(Type type)
+        {
+            if (Payload == null || Payload.Length == 0)
+                return null;
             var json = Encoding.UTF8.GetString(Payload);
             return JsonUtility.FromJson(json, type) as INetworkPayload;
         }
 
-        public byte[] ToBytes() {
+        public byte[] ToBytes()
+        {
             var bytes = new byte[MessageHeaderLength + (Payload?.Length ?? 0)];
 
             bytes[MessageHeaderLength - TransmissionLength] = (byte)Transmission;
@@ -59,9 +65,12 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
             return bytes;
         }
 
-        private void FromBytes(byte[] bytes) {
-            if (bytes.Length < MessageHeaderLength) {
-                const string message = @"The byte array is incomplete and does not meet the required minimum length.
+        private void FromBytes(byte[] bytes)
+        {
+            if (bytes.Length < MessageHeaderLength)
+            {
+                const string message =
+                    @"The byte array is incomplete and does not meet the required minimum length.
                     This might suggest a fault during network transmission or during handling of the message body.";
 
                 throw new InvalidOperationException(message.TrimIndents());
@@ -71,7 +80,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
             FunctionId = new NetworkHash(bytes[ObjectIdLength..(MessageHeaderLength - TransmissionLength)]);
             Transmission = (Transmission)bytes[MessageHeaderLength - TransmissionLength];
 
-            if (bytes.Length > MessageHeaderLength) Payload = bytes[MessageHeaderLength..];
+            if (bytes.Length > MessageHeaderLength)
+                Payload = bytes[MessageHeaderLength..];
         }
     }
 }

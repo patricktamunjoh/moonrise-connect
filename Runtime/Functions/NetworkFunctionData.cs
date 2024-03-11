@@ -3,9 +3,10 @@ using System.Linq;
 using System.Reflection;
 using MoonriseGames.CloudsAhoyConnect.Payloads;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions {
-    internal class NetworkFunctionData {
-
+namespace MoonriseGames.CloudsAhoyConnect.Functions
+{
+    internal class NetworkFunctionData
+    {
         public NetworkFunction Function { get; }
         public MethodInfo MethodInfo { get; }
 
@@ -14,7 +15,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
 
         public NetworkPayloadType PayloadType { get; }
 
-        public NetworkFunctionData(NetworkFunction function, MethodInfo methodInfo) {
+        public NetworkFunctionData(NetworkFunction function, MethodInfo methodInfo)
+        {
             Function = function;
             MethodInfo = methodInfo;
 

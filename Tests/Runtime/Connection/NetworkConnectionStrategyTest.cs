@@ -2,11 +2,13 @@
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
-    public class NetworkConnectionStrategyTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+{
+    public class NetworkConnectionStrategyTest
+    {
         [Test]
-        public void ShouldRetainConnection() {
+        public void ShouldRetainConnection()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var connection = new Mock<NetworkConnection>(strategy.Object, null).Object;
             var sut = new Mock<NetworkConnectionStrategy> { CallBase = true };

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections {
-    public class InvocationCounter {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections
+{
+    public class InvocationCounter
+    {
         private Dictionary<string, List<object[]>> Invocations { get; } = new();
 
-        public bool RecordInvocation(string name, params object[] args) {
+        public bool RecordInvocation(string name, params object[] args)
+        {
             Invocations.TryAdd(name, new List<object[]>());
             Invocations[name].Add(args);
             return true;

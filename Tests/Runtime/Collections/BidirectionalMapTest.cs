@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using MoonriseGames.CloudsAhoyConnect.Collections;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
-    public class BidirectionalMapTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
+{
+    public class BidirectionalMapTest
+    {
         [Test]
-        public void ShouldCorrectlyStoreValuesFromHead() {
+        public void ShouldCorrectlyStoreValuesFromHead()
+        {
             var sut = new BidirectionalMap<string, int> { ["example"] = 12 };
 
             Assert.AreEqual(12, sut["example"]);
@@ -15,7 +17,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldCorrectlyStoreValuesFromTail() {
+        public void ShouldCorrectlyStoreValuesFromTail()
+        {
             var sut = new BidirectionalMap<string, int> { [12] = "example" };
 
             Assert.AreEqual(12, sut["example"]);
@@ -23,7 +26,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldRemovePreviousConnectionIfKeyIsReused() {
+        public void ShouldRemovePreviousConnectionIfKeyIsReused()
+        {
             var sut = new BidirectionalMap<string, int> { [12] = "example", [12] = "testing" };
 
             Assert.False(sut.Contains("example"));
@@ -44,7 +48,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldProvideCorrectCount() {
+        public void ShouldProvideCorrectCount()
+        {
             var sut = new BidirectionalMap<string, int>();
 
             Assert.AreEqual(0, sut.Count);
@@ -60,7 +65,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldNotRemoveMissingValues() {
+        public void ShouldNotRemoveMissingValues()
+        {
             var sut = new BidirectionalMap<string, int>();
 
             Assert.False(sut.Remove("example"));
@@ -68,7 +74,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldCorrectlyRemoveValuesFromHead() {
+        public void ShouldCorrectlyRemoveValuesFromHead()
+        {
             var sut = new BidirectionalMap<string, int> { ["example"] = 12 };
 
             Assert.True(sut.Remove("example"));
@@ -76,7 +83,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldCorrectlyRemoveValuesFromTail() {
+        public void ShouldCorrectlyRemoveValuesFromTail()
+        {
             var sut = new BidirectionalMap<string, int> { [12] = "example" };
 
             Assert.True(sut.Remove(12));
@@ -84,7 +92,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldCorrectlyClearAllValues() {
+        public void ShouldCorrectlyClearAllValues()
+        {
             var sut = new BidirectionalMap<string, int> { [12] = "example" };
 
             sut.Clear();
@@ -92,7 +101,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldContainStoredValues() {
+        public void ShouldContainStoredValues()
+        {
             var sut = new BidirectionalMap<string, int> { [12] = "example" };
 
             Assert.True(sut.Contains("example"));
@@ -100,52 +110,60 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldNotContainMissingValues() {
+        public void ShouldNotContainMissingValues()
+        {
             var sut = new BidirectionalMap<string, int>();
 
             Assert.False(sut.Contains("example"));
             Assert.False(sut.Contains(12));
         }
 
-
         [Test]
-        public void ShouldThrowWhenReadingMissingValue() {
+        public void ShouldThrowWhenReadingMissingValue()
+        {
             var sut = new BidirectionalMap<string, int>();
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut["example"];
             });
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut[12];
             });
         }
 
         [Test]
-        public void ShouldThrowWhenReadingNullKey() {
+        public void ShouldThrowWhenReadingNullKey()
+        {
             var sut = new BidirectionalMap<string, int>();
 
-            Assert.Throws<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
                 var _ = sut[null];
             });
         }
 
         [Test]
-        public void ShouldThrowWhenStoringNullKey() {
+        public void ShouldThrowWhenStoringNullKey()
+        {
             var sut = new BidirectionalMap<string, int>();
 
             Assert.Throws<ArgumentNullException>(() => sut[null] = 12);
         }
 
         [Test]
-        public void ShouldThrowWhenCheckingNullKey() {
+        public void ShouldThrowWhenCheckingNullKey()
+        {
             var sut = new BidirectionalMap<string, int>();
 
             Assert.Throws<ArgumentNullException>(() => sut.Contains(null));
         }
 
         [Test]
-        public void ShouldThrowWhenRemovingNullKey() {
+        public void ShouldThrowWhenRemovingNullKey()
+        {
             var sut = new BidirectionalMap<string, int>();
 
             Assert.Throws<ArgumentNullException>(() => sut.Remove(null));

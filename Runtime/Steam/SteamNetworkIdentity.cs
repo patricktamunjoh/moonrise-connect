@@ -2,14 +2,14 @@
 using MoonriseGames.CloudsAhoyConnect.Connection;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam {
-
+namespace MoonriseGames.CloudsAhoyConnect.Steam
+{
     /// <summary>
     /// Represents a games instance within the network. Each game instance belongs to exactly one Steam user. Create network identities
     /// from the corresponding Steam id of the targeted user. Steam ids can be implicitly cast to a network identities.
     /// </summary>
-    public class SteamNetworkIdentity : NetworkIdentity {
-
+    public class SteamNetworkIdentity : NetworkIdentity
+    {
         private ulong SteamId { get; }
 
         /// <summary>
@@ -30,7 +30,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Steam {
 
         public override int GetHashCode() => HashCode.Combine(SteamId);
 
-        public static implicit operator SteamNetworkingIdentity(SteamNetworkIdentity identity) {
+        public static implicit operator SteamNetworkingIdentity(SteamNetworkIdentity identity)
+        {
             var id = new SteamNetworkingIdentity();
             id.SetSteamID(identity);
             return id;

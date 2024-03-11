@@ -9,24 +9,26 @@ using Moq;
 using NUnit.Framework;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
-    public class SteamNetworkConnectionStrategyTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+{
+    public class SteamNetworkConnectionStrategyTest
+    {
         private SteamNetworkIdentity Identity { get; } = new(12);
 
-        private ESteamNetworkingConnectionState[] ConnectionStateValues { get; } =
-            (ESteamNetworkingConnectionState[])Enum.GetValues(typeof(ESteamNetworkingConnectionState));
+        private ESteamNetworkingConnectionState[] ConnectionStateValues { get; } = (ESteamNetworkingConnectionState[])Enum.GetValues(typeof(ESteamNetworkingConnectionState));
 
-        private IEnumerable<SteamNetConnectionStatusChangedCallback_t> AllCallbackResults() =>
-            ConnectionStateValues.SelectMany(x => ConnectionStateValues, CallbackResult);
+        private IEnumerable<SteamNetConnectionStatusChangedCallback_t> AllCallbackResults() => ConnectionStateValues.SelectMany(x => ConnectionStateValues, CallbackResult);
 
-        protected SteamNetConnectionStatusChangedCallback_t CallbackResult(
-            ESteamNetworkingConnectionState old,
-            ESteamNetworkingConnectionState current
-        ) => new() { m_eOldState = old, m_info = new SteamNetConnectionInfo_t { m_eState = current, m_identityRemote = Identity } };
+        protected SteamNetConnectionStatusChangedCallback_t CallbackResult(ESteamNetworkingConnectionState old, ESteamNetworkingConnectionState current) =>
+            new()
+            {
+                m_eOldState = old,
+                m_info = new SteamNetConnectionInfo_t { m_eState = current, m_identityRemote = Identity }
+            };
 
         [Test]
-        public void ShouldEstablishPeerToPeerConnection() {
+        public void ShouldEstablishPeerToPeerConnection()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -38,14 +40,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldThrowIfTargetIdentityIsNotForSteam() {
+        public void ShouldThrowIfTargetIdentityIsNotForSteam()
+        {
             var sut = new SteamNetworkConnectionStrategy();
 
             Assert.Throws<ArgumentException>(() => sut.EstablishConnectionToHost(null));
         }
 
         [Test]
-        public void ShouldListenForIncomingConnections() {
+        public void ShouldListenForIncomingConnections()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -57,7 +61,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldListenForIncomingConnectionsOnlyOnce() {
+        public void ShouldListenForIncomingConnectionsOnlyOnce()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -72,7 +77,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldStopListeningForIncomingConnections() {
+        public void ShouldStopListeningForIncomingConnections()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -87,7 +93,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldStopListeningForIncomingConnectionsOnlyOnce() {
+        public void ShouldStopListeningForIncomingConnectionsOnlyOnce()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -103,7 +110,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldStopListeningForIncomingConnectionsOnlyAfterStartingToListen() {
+        public void ShouldStopListeningForIncomingConnectionsOnlyAfterStartingToListen()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -115,7 +123,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldListenForIncomingConnectionsAgainAfterStopping() {
+        public void ShouldListenForIncomingConnectionsAgainAfterStopping()
+        {
             var proxy = new Mock<SteamProxy>();
             var sut = new SteamNetworkConnectionStrategy();
 
@@ -131,95 +140,117 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldCorrectlyProcessConnectionEstablishment() {
+        public void ShouldCorrectlyProcessConnectionEstablishment()
+        {
             var callback = null as Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate;
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.CreateConnectionStatusChangedCallback(
-                    It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
-                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x => { callback = x; });
+            proxy
+                .Setup(x => x.CreateConnectionStatusChangedCallback(It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
+                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x =>
+                {
+                    callback = x;
+                });
 
             var sut = new SteamNetworkConnectionStrategy();
             var connection = NetworkConnectionFactory.BuildMock(sut);
 
             var expectedInvocations = ConnectionStateValues.Length - 1;
 
-            foreach (var result in AllCallbackResults()) callback.Invoke(result);
+            foreach (var result in AllCallbackResults())
+                callback.Invoke(result);
 
-            connection.Verify(x => x.ReceiveNewActiveNetworkLink(It.Is<NetworkLink>(x => Identity.Equals(x.Identity))),
-                Times.Exactly(expectedInvocations));
+            connection.Verify(x => x.ReceiveNewActiveNetworkLink(It.Is<NetworkLink>(x => Identity.Equals(x.Identity))), Times.Exactly(expectedInvocations));
         }
 
         [Test]
-        public void ShouldAcceptIncomingClientConnections() {
+        public void ShouldAcceptIncomingClientConnections()
+        {
             var callback = null as Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate;
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.CreateConnectionStatusChangedCallback(
-                    It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
-                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x => { callback = x; });
+            proxy
+                .Setup(x => x.CreateConnectionStatusChangedCallback(It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
+                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x =>
+                {
+                    callback = x;
+                });
 
             var sut = new SteamNetworkConnectionStrategy();
             var connection = NetworkConnectionFactory.BuildMock(sut);
 
             connection.Setup(x => x.Role).Returns(Roles.Host);
 
-
-            foreach (var result in AllCallbackResults()) callback.Invoke(result);
+            foreach (var result in AllCallbackResults())
+                callback.Invoke(result);
 
             proxy.Verify(x => x.AcceptIncomingPeerToPeerConnection(It.IsAny<HSteamNetConnection>()), Times.Once);
         }
 
         [Test]
-        public void ShouldNotAcceptIncomingClientConnectionsAsClient() {
+        public void ShouldNotAcceptIncomingClientConnectionsAsClient()
+        {
             var callback = null as Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate;
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.CreateConnectionStatusChangedCallback(
-                    It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
-                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x => { callback = x; });
+            proxy
+                .Setup(x => x.CreateConnectionStatusChangedCallback(It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
+                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x =>
+                {
+                    callback = x;
+                });
 
             var sut = new SteamNetworkConnectionStrategy();
             var connection = NetworkConnectionFactory.BuildMock(sut);
 
             connection.Setup(x => x.Role).Returns(Roles.Client);
 
-
-            foreach (var result in AllCallbackResults()) callback.Invoke(result);
+            foreach (var result in AllCallbackResults())
+                callback.Invoke(result);
 
             proxy.Verify(x => x.AcceptIncomingPeerToPeerConnection(It.IsAny<HSteamNetConnection>()), Times.Never);
         }
 
         [Test]
-        public void ShouldCorrectlyProcessConnectionDisruption() {
+        public void ShouldCorrectlyProcessConnectionDisruption()
+        {
             var callback = null as Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate;
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.CreateConnectionStatusChangedCallback(
-                    It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
-                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x => { callback = x; });
+            proxy
+                .Setup(x => x.CreateConnectionStatusChangedCallback(It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
+                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x =>
+                {
+                    callback = x;
+                });
 
             var sut = new SteamNetworkConnectionStrategy();
             var connection = NetworkConnectionFactory.BuildMock(sut);
 
-            foreach (var result in AllCallbackResults()) callback.Invoke(result);
+            foreach (var result in AllCallbackResults())
+                callback.Invoke(result);
 
             connection.Verify(x => x.HandleConnectionDisrupted(Identity), Times.Exactly(2));
         }
 
         [Test]
-        public void ShouldCorrectlyProcessFailedConnectionEstablishment() {
+        public void ShouldCorrectlyProcessFailedConnectionEstablishment()
+        {
             var callback = null as Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate;
             var proxy = SteamProxyFactory.BuildMock();
 
-            proxy.Setup(x => x.CreateConnectionStatusChangedCallback(
-                    It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
-                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x => { callback = x; });
+            proxy
+                .Setup(x => x.CreateConnectionStatusChangedCallback(It.IsAny<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>()))
+                .Callback<Callback<SteamNetConnectionStatusChangedCallback_t>.DispatchDelegate>(x =>
+                {
+                    callback = x;
+                });
 
             var sut = new SteamNetworkConnectionStrategy();
             var connection = NetworkConnectionFactory.BuildMock(sut);
 
-            foreach (var result in AllCallbackResults()) callback.Invoke(result);
+            foreach (var result in AllCallbackResults())
+                callback.Invoke(result);
 
             connection.Verify(x => x.HandleConnectionEstablishmentFailed(Identity), Times.Exactly(2));
         }

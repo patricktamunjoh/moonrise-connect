@@ -2,11 +2,13 @@
 using MoonriseGames.CloudsAhoyConnect.Payloads;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads {
-    public class NetworkPayloadTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
+{
+    public class NetworkPayloadTest
+    {
         [Test]
-        public void ShouldAlwaysProvideAllArguments() {
+        public void ShouldAlwaysProvideAllArguments()
+        {
             var sut = new NetworkPayload<string, string, string, string>() as INetworkPayload;
 
             var arguments = sut.Arguments().ToArray();
@@ -15,7 +17,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads {
         }
 
         [Test]
-        public void ShouldProvideArgumentValues() {
+        public void ShouldProvideArgumentValues()
+        {
             var sut = new NetworkPayload<int, int, int, int>(0, 1, 2, 3) as INetworkPayload;
 
             var arguments = sut.Arguments().ToArray();
@@ -27,7 +30,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads {
         }
 
         [Test]
-        public void ShouldProvideDefaultValuesForUninitializedArguments() {
+        public void ShouldProvideDefaultValuesForUninitializedArguments()
+        {
             var sut = new NetworkPayload<string, string, string, string>("example") as INetworkPayload;
 
             var arguments = sut.Arguments().ToArray();

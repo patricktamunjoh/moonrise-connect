@@ -2,11 +2,13 @@
 using MoonriseGames.CloudsAhoyConnect.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
-    public class RecipientsExtensionsTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+{
+    public class RecipientsExtensionsTest
+    {
         [Test]
-        public void ShouldOnlyContainHostInHost() {
+        public void ShouldOnlyContainHostInHost()
+        {
             Assert.True(Recipients.Host.Contains(Roles.Host, true));
             Assert.True(Recipients.Host.Contains(Roles.Host, false));
 
@@ -15,7 +17,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldOnlyContainClientInClients() {
+        public void ShouldOnlyContainClientInClients()
+        {
             Assert.True(Recipients.Clients.Contains(Roles.Client, true));
             Assert.True(Recipients.Clients.Contains(Roles.Client, false));
 
@@ -24,7 +27,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldContainAllExceptSenderInOthers() {
+        public void ShouldContainAllExceptSenderInOthers()
+        {
             Assert.True(Recipients.Others.Contains(Roles.Client, false));
             Assert.True(Recipients.Others.Contains(Roles.Host, false));
 
@@ -33,7 +37,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldContainAllInAll() {
+        public void ShouldContainAllInAll()
+        {
             Assert.True(Recipients.All.Contains(Roles.Client, true));
             Assert.True(Recipients.All.Contains(Roles.Client, false));
             Assert.True(Recipients.All.Contains(Roles.Host, true));

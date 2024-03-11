@@ -12,16 +12,18 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionRegistryTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionRegistryTest
+    {
         private ulong FirstObjectId => NetworkFunctionRegistry.NULL_OBJECT_ID + 1;
 
         [SetUp]
         public void Setup() => Function.ClearScene();
 
         [Test]
-        public void ShouldRegisterAllObjectsInScene() {
+        public void ShouldRegisterAllObjectsInScene()
+        {
             var root1 = new GameObject("example A");
             var root2 = new GameObject("example B");
 
@@ -39,7 +41,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterChildObjectsInScene() {
+        public void ShouldRegisterChildObjectsInScene()
+        {
             var root1 = new GameObject("example A");
             var root2 = new GameObject("example B") { transform = { parent = root1.transform } };
 
@@ -53,7 +56,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterObjectsInAdditionalScene() {
+        public void ShouldRegisterObjectsInAdditionalScene()
+        {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
             var root = new GameObject();
             var behaviour = root.AddComponent<SampleBehaviour>();
@@ -69,7 +73,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterInSceneInAlphabeticalOrder() {
+        public void ShouldRegisterInSceneInAlphabeticalOrder()
+        {
             var root1 = new GameObject("example B");
             var root2 = new GameObject("example A");
 
@@ -84,7 +89,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldMaintainIdsWhenRegisteringIdenticalScene() {
+        public void ShouldMaintainIdsWhenRegisteringIdenticalScene()
+        {
             var root1 = new GameObject("example B");
             var root2 = new GameObject("example A");
 
@@ -114,7 +120,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfObjectsHaveDuplicateNames() {
+        public void ShouldThrowIfObjectsHaveDuplicateNames()
+        {
             var root1 = new GameObject("example");
             var root2 = new GameObject("example");
 
@@ -127,7 +134,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotThrowIfObjectsHaveDuplicateNamesOnDifferentPaths() {
+        public void ShouldNotThrowIfObjectsHaveDuplicateNamesOnDifferentPaths()
+        {
             var root1 = new GameObject("example");
             var root2 = new GameObject("example B");
             var child = new GameObject("example") { transform = { parent = root1.transform } };
@@ -142,7 +150,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotThrowIfObjectsHaveDuplicateNamesButAreNotNetworked() {
+        public void ShouldNotThrowIfObjectsHaveDuplicateNamesButAreNotNetworked()
+        {
             new GameObject("example");
             new GameObject("example");
 
@@ -152,7 +161,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldClearAllRegistrations() {
+        public void ShouldClearAllRegistrations()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -163,7 +173,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldClearAllRegistrationsAndResetCounter() {
+        public void ShouldClearAllRegistrationsAndResetCounter()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -182,7 +193,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldUnregisterObject() {
+        public void ShouldUnregisterObject()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -193,7 +205,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotUnregisterObjectNotRegistered() {
+        public void ShouldNotUnregisterObjectNotRegistered()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -201,14 +214,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfUnregisteringNull() {
+        public void ShouldThrowIfUnregisteringNull()
+        {
             var sut = new NetworkFunctionRegistry();
 
             Assert.Throws<ArgumentNullException>(() => sut.UnregisterObject(null));
         }
 
         [Test]
-        public void ShouldRegisterOnlyParentGameObject() {
+        public void ShouldRegisterOnlyParentGameObject()
+        {
             var root = new GameObject();
             var child = new GameObject { transform = { parent = root.transform } };
 
@@ -224,7 +239,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterAllChildGameObjects() {
+        public void ShouldRegisterAllChildGameObjects()
+        {
             var root = new GameObject();
             var child = new GameObject { transform = { parent = root.transform } };
 
@@ -240,7 +256,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotRegisterGameObjectsWithoutNetworkObjectComponents() {
+        public void ShouldNotRegisterGameObjectsWithoutNetworkObjectComponents()
+        {
             var root = new GameObject();
             var sut = new NetworkFunctionRegistry();
 
@@ -248,7 +265,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfRegisteringNullGameObject() {
+        public void ShouldThrowIfRegisteringNullGameObject()
+        {
             var sut = new NetworkFunctionRegistry();
 
             Assert.Throws<ArgumentNullException>(() => sut.RegisterGameObject(null, false));
@@ -256,7 +274,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterNetworkObjects() {
+        public void ShouldRegisterNetworkObjects()
+        {
             var sample = new SampleNetworkEmpty();
             var sut = new NetworkFunctionRegistry();
 
@@ -265,7 +284,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterInheritedNetworkObjects() {
+        public void ShouldRegisterInheritedNetworkObjects()
+        {
             var sample = new SampleNetworkOnlyBase();
             var sut = new NetworkFunctionRegistry();
 
@@ -274,7 +294,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotRegisterNoneNetworkObjects() {
+        public void ShouldNotRegisterNoneNetworkObjects()
+        {
             var sample = new Sample();
             var sut = new NetworkFunctionRegistry();
 
@@ -282,7 +303,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterObjectsWithUniqueIds() {
+        public void ShouldRegisterObjectsWithUniqueIds()
+        {
             var sample1 = new SampleNetwork();
             var sample2 = new SampleNetwork();
 
@@ -295,7 +317,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterObjectsWithIncreasingIdsStartingOneAfterTheNullId() {
+        public void ShouldRegisterObjectsWithIncreasingIdsStartingOneAfterTheNullId()
+        {
             var sample1 = new SampleNetwork();
             var sample2 = new SampleNetwork();
 
@@ -309,7 +332,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotIncreaseIdCounterForNonNetworkObjects() {
+        public void ShouldNotIncreaseIdCounterForNonNetworkObjects()
+        {
             var sample1 = new Sample();
             var sample2 = new SampleNetwork();
 
@@ -322,7 +346,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterAllNetworkFunctions() {
+        public void ShouldRegisterAllNetworkFunctions()
+        {
             var sample = new SampleNetwork();
             var functionId = NetworkHashing.Hash(typeof(SampleNetwork).GetDeclaredMethod(nameof(SampleNetwork.NetworkFunction)));
 
@@ -335,7 +360,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyRegisterNetworkFunctions() {
+        public void ShouldCorrectlyRegisterNetworkFunctions()
+        {
             var sample = new SampleNetwork();
             var methodInfo = typeof(SampleNetwork).GetDeclaredMethod(nameof(SampleNetwork.NetworkFunction));
             var functionId = NetworkHashing.Hash(methodInfo);
@@ -350,12 +376,12 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterAllNetworkFunctionsOnParent() {
+        public void ShouldRegisterAllNetworkFunctionsOnParent()
+        {
             var sample = new SampleNetwork();
 
             var functionId1 = NetworkHashing.Hash(typeof(SampleNetworkBase).GetDeclaredMethod(nameof(SampleNetworkBase.NetworkFunction)));
-            var functionId2 =
-                NetworkHashing.Hash(typeof(SampleNetworkBase).GetDeclaredMethod(nameof(SampleNetworkBase.NetworkFunctionOnlyBase)));
+            var functionId2 = NetworkHashing.Hash(typeof(SampleNetworkBase).GetDeclaredMethod(nameof(SampleNetworkBase.NetworkFunctionOnlyBase)));
 
             var sut = new NetworkFunctionRegistry();
 
@@ -369,7 +395,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRegisterOverwrittenNetworkFunctionWithoutAttributeOnChild() {
+        public void ShouldRegisterOverwrittenNetworkFunctionWithoutAttributeOnChild()
+        {
             var sample = new SampleNetwork();
             var functionId = NetworkHashing.Hash(typeof(SampleNetwork).GetDeclaredMethod(nameof(SampleNetwork.NetworkFunctionOnlyBase)));
 
@@ -383,7 +410,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldOnlyRegisterNetworkObjects() {
+        public void ShouldOnlyRegisterNetworkObjects()
+        {
             var sample = new Sample();
             var sut = new NetworkFunctionRegistry();
 
@@ -393,7 +421,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotRegisterNonNetworkFunctions() {
+        public void ShouldNotRegisterNonNetworkFunctions()
+        {
             var sample = new SampleNetwork();
             var functionId = NetworkHashing.Hash(typeof(SampleNetwork).GetDeclaredMethod(nameof(SampleNetwork.RegularFunction)));
 
@@ -405,14 +434,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfRegisteringNullObject() {
+        public void ShouldThrowIfRegisteringNullObject()
+        {
             var sut = new NetworkFunctionRegistry();
 
             Assert.Throws<ArgumentNullException>(() => sut.RegisterObject(null));
         }
 
         [Test]
-        public void ShouldThrowIfObjectIsAlreadyRegistered() {
+        public void ShouldThrowIfObjectIsAlreadyRegistered()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -422,7 +453,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfNetworkFunctionIsOverloaded() {
+        public void ShouldThrowIfNetworkFunctionIsOverloaded()
+        {
             var sample = new SampleNetworkOverload();
             var sut = new NetworkFunctionRegistry();
 
@@ -430,7 +462,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideIdForRegisteredObject() {
+        public void ShouldProvideIdForRegisteredObject()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -441,14 +474,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideNullIdIfAccessingIdWithNullObject() {
+        public void ShouldProvideNullIdIfAccessingIdWithNullObject()
+        {
             var sut = new NetworkFunctionRegistry();
 
             Assert.AreEqual(NetworkFunctionRegistry.NULL_OBJECT_ID, sut.GetRegisteredObjectId(null));
         }
 
         [Test]
-        public void ShouldThrowIfAccessingIdOfObjectNotRegistered() {
+        public void ShouldThrowIfAccessingIdOfObjectNotRegistered()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -456,7 +491,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideRegisteredObjectForId() {
+        public void ShouldProvideRegisteredObjectForId()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -469,7 +505,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideNullIfObjectWasPreviouslyRegistered() {
+        public void ShouldProvideNullIfObjectWasPreviouslyRegistered()
+        {
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry();
 
@@ -484,7 +521,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfAccessingIdNotRegistered() {
+        public void ShouldThrowIfAccessingIdNotRegistered()
+        {
             var sut = new NetworkFunctionRegistry();
 
             Assert.Throws<ArgumentException>(() => sut.GetRegisteredObject(12));
@@ -492,7 +530,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideRegisteredFunctionForId() {
+        public void ShouldProvideRegisteredFunctionForId()
+        {
             var sample = new SampleNetwork();
             var methodInfo = typeof(SampleNetwork).GetDeclaredMethod(nameof(SampleNetwork.NetworkFunction));
             var functionId = NetworkHashing.Hash(methodInfo);
@@ -508,7 +547,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideNullIfFunctionIdWasPreviouslyRegistered() {
+        public void ShouldProvideNullIfFunctionIdWasPreviouslyRegistered()
+        {
             var sample = new SampleNetwork();
             var functionId = NetworkHashing.Hash(typeof(SampleNetwork).GetDeclaredMethod(nameof(SampleNetwork.NetworkFunction)));
 
@@ -525,7 +565,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfAccessingFunctionIdNotRegistered() {
+        public void ShouldThrowIfAccessingFunctionIdNotRegistered()
+        {
             var sut = new NetworkFunctionRegistry();
             var sample = new SampleNetwork();
 
@@ -540,7 +581,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRecordObjectRegistrationsToSnapshot() {
+        public void ShouldRecordObjectRegistrationsToSnapshot()
+        {
             var snapshot = new Mock<Snapshot>();
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry { Snapshot = snapshot.Object };
@@ -551,7 +593,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRecordObjectUnregistrationsToSnapshot() {
+        public void ShouldRecordObjectUnregistrationsToSnapshot()
+        {
             var snapshot = new Mock<Snapshot>();
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry { Snapshot = snapshot.Object };
@@ -563,7 +606,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldRecordResetToSnapshot() {
+        public void ShouldRecordResetToSnapshot()
+        {
             var snapshot = new Mock<Snapshot>();
             var sample = new SampleNetwork();
             var sut = new NetworkFunctionRegistry { Snapshot = snapshot.Object };

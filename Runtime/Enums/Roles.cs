@@ -1,8 +1,8 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+{
     /// <summary>The different roles a game instance can hold within the network.</summary>
-    public enum Roles {
-
+    public enum Roles
+    {
         /// <summary>
         /// The game instance acts as the host, facilitating communication to and between all clients instances. Every session features
         /// exactly one host.

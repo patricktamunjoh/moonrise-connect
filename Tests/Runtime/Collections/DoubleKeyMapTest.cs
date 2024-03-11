@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using MoonriseGames.CloudsAhoyConnect.Collections;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
-    public class DoubleKeyMapTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
+{
+    public class DoubleKeyMapTest
+    {
         [Test]
-        public void ShouldCorrectlyStoreValues() {
+        public void ShouldCorrectlyStoreValues()
+        {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12 };
 
             Assert.AreEqual(12, sut["first", "second"]);
         }
 
         [Test]
-        public void ShouldNotRemoveMissingValues() {
+        public void ShouldNotRemoveMissingValues()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
             Assert.False(sut.Remove("first", "second"));
@@ -22,44 +25,52 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldCorrectlyRemoveValues() {
+        public void ShouldCorrectlyRemoveValues()
+        {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12 };
 
             Assert.True(sut.Remove("first", "second"));
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut["first", "second"];
             });
         }
 
         [Test]
-        public void ShouldCorrectlyRemoveValueGroups() {
+        public void ShouldCorrectlyRemoveValueGroups()
+        {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12, ["first", "third"] = 42 };
 
             Assert.True(sut.Remove("first"));
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut["first", "second"];
             });
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut["first", "third"];
             });
         }
 
         [Test]
-        public void ShouldCorrectlyClearAllValues() {
+        public void ShouldCorrectlyClearAllValues()
+        {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12 };
 
             sut.Clear();
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut["first", "second"];
             });
         }
 
         [Test]
-        public void ShouldContainStoredValues() {
+        public void ShouldContainStoredValues()
+        {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12 };
 
             Assert.True(sut.Contains("first", "second"));
@@ -67,38 +78,44 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldNotContainMissingValues() {
+        public void ShouldNotContainMissingValues()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
             Assert.False(sut.Contains("first", "second"));
             Assert.False(sut.Contains("first"));
         }
 
-
         [Test]
-        public void ShouldThrowWhenReadingMissingValue() {
+        public void ShouldThrowWhenReadingMissingValue()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
-            Assert.Throws<KeyNotFoundException>(() => {
+            Assert.Throws<KeyNotFoundException>(() =>
+            {
                 var _ = sut["first", "second"];
             });
         }
 
         [Test]
-        public void ShouldThrowWhenReadingNullKey() {
+        public void ShouldThrowWhenReadingNullKey()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
-            Assert.Throws<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
                 var _ = sut[null, "second"];
             });
 
-            Assert.Throws<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
                 var _ = sut["first", null];
             });
         }
 
         [Test]
-        public void ShouldThrowWhenStoringNullKey() {
+        public void ShouldThrowWhenStoringNullKey()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
             Assert.Throws<ArgumentNullException>(() => sut[null, "second"] = 12);
@@ -106,7 +123,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldThrowWhenCheckingNullKey() {
+        public void ShouldThrowWhenCheckingNullKey()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
             Assert.Throws<ArgumentNullException>(() => sut.Contains(null, "second"));
@@ -115,7 +133,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldThrowWhenRemovingNullKey() {
+        public void ShouldThrowWhenRemovingNullKey()
+        {
             var sut = new DoubleKeyMap<string, string, int>();
 
             Assert.Throws<ArgumentNullException>(() => sut.Remove(null, "second"));

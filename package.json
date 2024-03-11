@@ -1,6 +1,6 @@
 {
   "name": "games.moonrise.cloudsahoyconnect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "Clouds Ahoy! Connect",
   "description": "A network library for easy remote function execution.",
   "unity": "2019.1",

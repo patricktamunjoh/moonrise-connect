@@ -7,11 +7,13 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionDataTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionDataTest
+    {
         [Test]
-        public void ShouldRetainPropertyValues() {
+        public void ShouldRetainPropertyValues()
+        {
             var methodInfo = GetType().GetMethod(nameof(ShouldRetainPropertyValues));
             var function = new NetworkFunction(Groups.Clients, Recipients.Clients);
 
@@ -22,18 +24,23 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDeriveMethodParameterTypes() {
-            var types = typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)).GetParameters().Select(p => p.ParameterType)
-                .ToArray();
+        public void ShouldDeriveMethodParameterTypes()
+        {
+            var types = typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)).GetParameters().Select(p => p.ParameterType).ToArray();
             var sut = new NetworkFunctionData(null, typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)));
 
             Assert.True(sut.ParameterTypes.SequenceEqual(types));
         }
 
         [Test]
-        public void ShouldDeriveMethodParameterAndReturnTypes() {
-            var types = typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)).GetParameters().Select(p => p.ParameterType)
-                .Append(typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)).ReturnType).ToArray();
+        public void ShouldDeriveMethodParameterAndReturnTypes()
+        {
+            var types = typeof(ISample)
+                .GetDeclaredMethod(nameof(ISample.DyadicFunction))
+                .GetParameters()
+                .Select(p => p.ParameterType)
+                .Append(typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)).ReturnType)
+                .ToArray();
 
             var sut = new NetworkFunctionData(null, typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)));
 
@@ -41,7 +48,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDerivePayloadType() {
+        public void ShouldDerivePayloadType()
+        {
             var sut = new NetworkFunctionData(null, typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction)));
 
             Assert.AreEqual((Type)new NetworkPayloadType(sut.ParameterTypes), (Type)sut.PayloadType);

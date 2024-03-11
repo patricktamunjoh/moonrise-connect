@@ -22,8 +22,9 @@ using Steamworks;
 // It handles the basics of starting up and shutting down the SteamAPI for use.
 //
 [DisallowMultipleComponent]
-public class SteamManager : MonoBehaviour {
-    #if !DISABLESTEAMWORKS
+public class SteamManager : MonoBehaviour
+{
+#if !DISABLESTEAMWORKS
     protected static bool s_EverInitialized;
 
     protected static SteamManager s_instance;
@@ -45,14 +46,14 @@ public class SteamManager : MonoBehaviour {
         Debug.LogWarning(pchDebugText);
     }
 
-    #if UNITY_2019_3_OR_NEWER
+#if UNITY_2019_3_OR_NEWER
     // In case of disabled Domain Reload, reset static members before entering Play Mode.
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void InitOnPlayMode() {
         s_EverInitialized = false;
         s_instance = null;
     }
-    #endif
+#endif
 
     protected virtual void Awake() {
         // Only one instance of SteamManager at a time!
@@ -158,11 +159,10 @@ public class SteamManager : MonoBehaviour {
         // Run Steam client callbacks
         SteamAPI.RunCallbacks();
     }
-    #else
-	public static bool Initialized {
-		get {
-			return false;
-		}
-	}
-    #endif // !DISABLESTEAMWORKS
+#else
+    public static bool Initialized
+    {
+        get { return false; }
+    }
+#endif // !DISABLESTEAMWORKS
 }

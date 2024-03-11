@@ -2,53 +2,62 @@
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Assertions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples {
-    public class SampleNetworkTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples
+{
+    public class SampleNetworkTest
+    {
         [Test]
-        public void ShouldCorrectlyTrackNetworkFunctionOnlyBaseFunctionInvocations() {
+        public void ShouldCorrectlyTrackNetworkFunctionOnlyBaseFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.NetworkFunctionOnlyBase));
         }
 
         [Test]
-        public void ShouldCorrectlyTrackNetworkFunctionInvocations() {
+        public void ShouldCorrectlyTrackNetworkFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.NetworkFunction));
         }
 
         [Test]
-        public void ShouldCorrectlyTrackNiladicFunctionInvocations() {
+        public void ShouldCorrectlyTrackNiladicFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.NiladicFunction));
         }
 
         [Test]
-        public void ShouldCorrectlyTrackMonadicFunctionInvocations() {
+        public void ShouldCorrectlyTrackMonadicFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.MonadicFunction), 1);
         }
 
         [Test]
-        public void ShouldCorrectlyTrackDyadicFunctionInvocations() {
+        public void ShouldCorrectlyTrackDyadicFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.DyadicFunction), 1, 2);
         }
 
         [Test]
-        public void ShouldCorrectlyTrackTriadicFunctionInvocations() {
+        public void ShouldCorrectlyTrackTriadicFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.TriadicFunction), 1, 2, 3);
         }
 
         [Test]
-        public void ShouldCorrectlyTrackQuadradicFunctionInvocations() {
+        public void ShouldCorrectlyTrackQuadradicFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.QuadradicFunction), 1, 2, 3, 4);
         }
 
         [Test]
-        public void ShouldCorrectlyTrackNetworkObjectFunctionInvocations() {
+        public void ShouldCorrectlyTrackNetworkObjectFunctionInvocations()
+        {
             var data = new SampleNetworkEmpty();
             var sut = new SampleNetwork();
 
@@ -56,7 +65,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples {
         }
 
         [Test]
-        public void ShouldCorrectlyTrackRegularFunctionInvocations() {
+        public void ShouldCorrectlyTrackRegularFunctionInvocations()
+        {
             var sut = new SampleNetwork();
             SampleAssertions.VerifyInvocations(sut, sut.InvocationCounter, nameof(SampleNetwork.RegularFunction));
         }

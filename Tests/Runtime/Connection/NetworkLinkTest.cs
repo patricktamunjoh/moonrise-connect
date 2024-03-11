@@ -3,11 +3,13 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
-    public class NetworkLinkTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+{
+    public class NetworkLinkTest
+    {
         [Test]
-        public void ShouldRetainProperties() {
+        public void ShouldRetainProperties()
+        {
             var identity = new Mock<NetworkIdentity>().Object;
             var sut = new Mock<NetworkLink>(identity).CallingBase();
 
@@ -15,7 +17,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldInitializeAsActive() {
+        public void ShouldInitializeAsActive()
+        {
             var identity = new Mock<NetworkIdentity>().Object;
             var sut = new Mock<NetworkLink>(identity).CallingBase();
 
@@ -23,7 +26,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotBeActiveAfterClose() {
+        public void ShouldNotBeActiveAfterClose()
+        {
             var identity = new Mock<NetworkIdentity>().Object;
             var sut = new Mock<NetworkLink>(identity).CallingBase();
 

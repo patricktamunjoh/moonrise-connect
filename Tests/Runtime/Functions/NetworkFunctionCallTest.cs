@@ -7,30 +7,35 @@ using MoonriseGames.CloudsAhoyConnect.Payloads;
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionCallTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionCallTest
+    {
         [Test]
-        public void ShouldThrowWhenInvalidFunctionIsSupplied() {
+        public void ShouldThrowWhenInvalidFunctionIsSupplied()
+        {
             var functionId = new NetworkHash();
 
             Assert.Throws<InvalidOperationException>(() => _ = new NetworkFunctionCall(12u, functionId, Transmission.Reliable));
         }
 
         [Test]
-        public void ShouldThrowWhenInvalidByteArrayIsSupplied() {
+        public void ShouldThrowWhenInvalidByteArrayIsSupplied()
+        {
             var bytes = Array.Empty<byte>();
 
             Assert.Throws<InvalidOperationException>(() => _ = new NetworkFunctionCall(bytes));
         }
 
         [Test]
-        public void ShouldRetainPropertyValues() {
+        public void ShouldRetainPropertyValues()
+        {
             const uint objectId = 12u;
 
             var functionId = NetworkHashing.Hash("example functionId");
 
-            foreach (var transmission in typeof(Transmission).EnumValues<Transmission>()) {
+            foreach (var transmission in typeof(Transmission).EnumValues<Transmission>())
+            {
                 var sut = new NetworkFunctionCall(objectId, functionId, transmission);
 
                 Assert.AreEqual(objectId, sut.ObjectId);
@@ -40,12 +45,14 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldEncodeAndDecodeToBytes() {
+        public void ShouldEncodeAndDecodeToBytes()
+        {
             const uint objectId = 12u;
 
             var functionId = NetworkHashing.Hash("example functionId");
 
-            foreach (var transmission in typeof(Transmission).EnumValues<Transmission>()) {
+            foreach (var transmission in typeof(Transmission).EnumValues<Transmission>())
+            {
                 var sut = new NetworkFunctionCall(objectId, functionId, transmission);
 
                 var bytes = sut.ToBytes();
@@ -58,7 +65,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldEncodeAndDecodePayload() {
+        public void ShouldEncodeAndDecodePayload()
+        {
             const uint objectId = 12u;
 
             var functionId = NetworkHashing.Hash("example functionId");
@@ -82,7 +90,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldEncodeAndDecodeSelfWithPayload() {
+        public void ShouldEncodeAndDecodeSelfWithPayload()
+        {
             const uint objectId = 12u;
 
             var functionId = NetworkHashing.Hash("example functionId");

@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection {
-
+namespace MoonriseGames.CloudsAhoyConnect.Connection
+{
     /// <summary>Container class holding information regarding a change on the network connection.</summary>
-    public class NetworkConnectionEventArgs : EventArgs {
-
+    public class NetworkConnectionEventArgs : EventArgs
+    {
         /// <summary>The different types of network connection events that may be raised.</summary>
-        public enum Types {
-
+        public enum Types
+        {
             /// <summary>
             /// A connection between host and client has been established. On a client instance this indicated a successful connection to the host
             /// instance. On the host this indicates a successful connection to all expected client instances.
@@ -44,13 +44,13 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
         /// </summary>
         public NetworkIdentity Target { get; }
 
-        private NetworkConnectionEventArgs(Types type, NetworkIdentity target = null) {
+        private NetworkConnectionEventArgs(Types type, NetworkIdentity target = null)
+        {
             Type = type;
             Target = target;
         }
 
-        internal static NetworkConnectionEventArgs ForConnectionToClientLost(NetworkIdentity client) =>
-            new(Types.ConnectionToClientLost, client);
+        internal static NetworkConnectionEventArgs ForConnectionToClientLost(NetworkIdentity client) => new(Types.ConnectionToClientLost, client);
 
         internal static NetworkConnectionEventArgs ForConnectionEstablished() => new(Types.ConnectionEstablished);
 

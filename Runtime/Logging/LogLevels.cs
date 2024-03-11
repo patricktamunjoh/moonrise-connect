@@ -1,8 +1,8 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Logging {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Logging
+{
     /// <summary>The different log levels at which log messages can be printed.</summary>
-    public enum LogLevels {
-
+    public enum LogLevels
+    {
         /// <summary>The message contains information relevant for debugging.</summary>
         Debug = 0,
 

@@ -2,11 +2,13 @@
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
-    public class NetworkConnectionEventArgsTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+{
+    public class NetworkConnectionEventArgsTest
+    {
         [Test]
-        public void ShouldCreateArgsForConnectionEstablished() {
+        public void ShouldCreateArgsForConnectionEstablished()
+        {
             var sut = NetworkConnectionEventArgs.ForConnectionEstablished();
 
             Assert.AreEqual(NetworkConnectionEventArgs.Types.ConnectionEstablished, sut.Type);
@@ -14,7 +16,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCreateArgsForConnectionEstablishmentFailed() {
+        public void ShouldCreateArgsForConnectionEstablishmentFailed()
+        {
             var sut = NetworkConnectionEventArgs.ForConnectionEstablishmentFailed();
 
             Assert.AreEqual(NetworkConnectionEventArgs.Types.ConnectionEstablishmentFailed, sut.Type);
@@ -22,7 +25,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCreateArgsForConnectionLost() {
+        public void ShouldCreateArgsForConnectionLost()
+        {
             var sut = NetworkConnectionEventArgs.ForConnectionLost();
 
             Assert.AreEqual(NetworkConnectionEventArgs.Types.ConnectionLost, sut.Type);
@@ -30,7 +34,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCreateArgsForConnectionToClientLost() {
+        public void ShouldCreateArgsForConnectionToClientLost()
+        {
             var client = new Mock<NetworkIdentity>();
             var sut = NetworkConnectionEventArgs.ForConnectionToClientLost(client.Object);
 

@@ -2,11 +2,13 @@
 using MoonriseGames.CloudsAhoyConnect.Hashing;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
-    public class NetworkHashTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
+{
+    public class NetworkHashTest
+    {
         [Test]
-        public void ShouldRetainHashValue() {
+        public void ShouldRetainHashValue()
+        {
             var hash = new[] { (byte)0 };
             var sut = new NetworkHash(hash);
 
@@ -14,14 +16,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldEncodeToAndFromString() {
+        public void ShouldEncodeToAndFromString()
+        {
             var sut = new NetworkHash("ZXhhbXBsZQ==");
 
             Assert.AreEqual("ZXhhbXBsZQ==", sut.ToBase64());
         }
 
         [Test]
-        public void ShouldReconstructHashFromString() {
+        public void ShouldReconstructHashFromString()
+        {
             var hash = new[] { (byte)0, (byte)12, (byte)42 };
             var sut = new NetworkHash(new NetworkHash(hash).ToBase64());
 
@@ -29,7 +33,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldEqualEmptyObjects() {
+        public void ShouldEqualEmptyObjects()
+        {
             var a = new NetworkHash();
             var b = new NetworkHash();
 
@@ -37,7 +42,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldEqualEmptyAndDefaultObject() {
+        public void ShouldEqualEmptyAndDefaultObject()
+        {
             var a = new NetworkHash();
             var b = default(NetworkHash);
 
@@ -45,7 +51,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldNotEqualEmptyAndNonEmptyObject() {
+        public void ShouldNotEqualEmptyAndNonEmptyObject()
+        {
             var a = new NetworkHash();
             var b = new NetworkHash(new[] { (byte)0 });
 
@@ -53,7 +60,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldEqualIdenticalHash() {
+        public void ShouldEqualIdenticalHash()
+        {
             var a = new NetworkHash(new[] { (byte)12 });
             var b = new NetworkHash(new[] { (byte)12 });
 
@@ -61,7 +69,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldNotEqualDifferentHash() {
+        public void ShouldNotEqualDifferentHash()
+        {
             var a = new NetworkHash(new[] { (byte)12 });
             var b = new NetworkHash(new[] { (byte)12, (byte)12 });
 
@@ -69,14 +78,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldNotEqualNull() {
+        public void ShouldNotEqualNull()
+        {
             var a = new NetworkHash(new[] { (byte)12 });
 
             Assert.False(a.Equals(null));
         }
 
         [Test]
-        public void ShouldProvideEqualHashCodeForEmptyObjects() {
+        public void ShouldProvideEqualHashCodeForEmptyObjects()
+        {
             var a = new NetworkHash();
             var b = new NetworkHash();
 
@@ -84,7 +95,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldProvideEqualHashCodeForIdenticalHash() {
+        public void ShouldProvideEqualHashCodeForIdenticalHash()
+        {
             var a = new NetworkHash(new[] { (byte)12 });
             var b = new NetworkHash(new[] { (byte)12 });
 
@@ -92,21 +104,24 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing {
         }
 
         [Test]
-        public void ShouldBeValidIfCorrectHashSize() {
+        public void ShouldBeValidIfCorrectHashSize()
+        {
             var a = new NetworkHash(new byte[NetworkHashing.HashSizeBytes]);
 
             Assert.True(a.IsValid);
         }
 
         [Test]
-        public void ShouldBeInvalidIfIncorrectHashSize() {
+        public void ShouldBeInvalidIfIncorrectHashSize()
+        {
             var a = new NetworkHash(new byte[NetworkHashing.HashSizeBytes - 1]);
 
             Assert.False(a.IsValid);
         }
 
         [Test]
-        public void ShouldBeInvalidIfEmpty() {
+        public void ShouldBeInvalidIfEmpty()
+        {
             var a = new NetworkHash();
 
             Assert.False(a.IsValid);

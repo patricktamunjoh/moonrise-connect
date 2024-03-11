@@ -1,11 +1,13 @@
 ﻿using MoonriseGames.CloudsAhoyConnect.Steam;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
-    public class SteamNetworkConnectionConfigBuilderTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+{
+    public class SteamNetworkConnectionConfigBuilderTest
+    {
         [Test]
-        public void ShouldBuildForClient() {
+        public void ShouldBuildForClient()
+        {
             var hostIdentity = new SteamNetworkIdentity(12);
             var sut = new SteamNetworkConnectionConfig.Builder();
 
@@ -17,9 +19,9 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
             Assert.Null(config.Clients);
         }
 
-
         [Test]
-        public void ShouldBuildForClientWithLatestValues() {
+        public void ShouldBuildForClientWithLatestValues()
+        {
             var hostIdentity1 = new SteamNetworkIdentity(12);
             var hostIdentity2 = new SteamNetworkIdentity(42);
             var sut = new SteamNetworkConnectionConfig.Builder();
@@ -34,7 +36,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldBuildForHost() {
+        public void ShouldBuildForHost()
+        {
             var clientIdentity = new SteamNetworkIdentity(12);
             var sut = new SteamNetworkConnectionConfig.Builder();
 
@@ -48,9 +51,9 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
             Assert.Null(config.Host);
         }
 
-
         [Test]
-        public void ShouldBuildForHostWithLatestValues() {
+        public void ShouldBuildForHostWithLatestValues()
+        {
             var clientIdentity = new SteamNetworkIdentity(12);
             var sut = new SteamNetworkConnectionConfig.Builder();
 
@@ -65,7 +68,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldBuildForHostWithNoClients() {
+        public void ShouldBuildForHostWithNoClients()
+        {
             var sut = new SteamNetworkConnectionConfig.Builder();
 
             sut.AsHost();
@@ -78,7 +82,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldBuildForHostWithMultipleClients() {
+        public void ShouldBuildForHostWithMultipleClients()
+        {
             var clientIdentity1 = new SteamNetworkIdentity(12);
             var clientIdentity2 = new SteamNetworkIdentity(60);
             var sut = new SteamNetworkConnectionConfig.Builder();
@@ -95,7 +100,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldBuildForHostAsDefault() {
+        public void ShouldBuildForHostAsDefault()
+        {
             var sut = new SteamNetworkConnectionConfig.Builder();
             var config = sut.Build();
 
@@ -105,7 +111,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldOverwriteClientWithHost() {
+        public void ShouldOverwriteClientWithHost()
+        {
             var hostIdentity = new SteamNetworkIdentity(42);
             var clientIdentity = new SteamNetworkIdentity(12);
             var sut = new SteamNetworkConnectionConfig.Builder();
@@ -122,7 +129,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldOverwriteHostWithClient() {
+        public void ShouldOverwriteHostWithClient()
+        {
             var hostIdentity = new SteamNetworkIdentity(12);
             var sut = new SteamNetworkConnectionConfig.Builder();
 
@@ -136,7 +144,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldUseDefaultEstablishmentTimeout() {
+        public void ShouldUseDefaultEstablishmentTimeout()
+        {
             var sut = new SteamNetworkConnectionConfig.Builder();
             var config = sut.Build();
 
@@ -144,7 +153,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldBuildWithEstablishmentTimeout() {
+        public void ShouldBuildWithEstablishmentTimeout()
+        {
             var sut = new SteamNetworkConnectionConfig.Builder();
 
             sut.WithConnectionEstablishmentTimeout(30);
@@ -155,7 +165,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldAlwaysBuildNewInstance() {
+        public void ShouldAlwaysBuildNewInstance()
+        {
             var sut = new SteamNetworkConnectionConfig.Builder();
             var config1 = sut.Build();
             var config2 = sut.Build();

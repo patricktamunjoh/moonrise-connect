@@ -3,18 +3,21 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
-    public class InvocationCounterTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
+{
+    public class InvocationCounterTest
+    {
         [Test]
-        public void ShouldInitializeToZero() {
+        public void ShouldInitializeToZero()
+        {
             var sut = new InvocationCounter();
 
             Assert.Zero(sut.InvocationCount("example"));
         }
 
         [Test]
-        public void ShouldCorrectlyRecordInvocations() {
+        public void ShouldCorrectlyRecordInvocations()
+        {
             var sut = new InvocationCounter();
 
             sut.RecordInvocation("example");
@@ -25,7 +28,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldCorrectlyRecordArguments() {
+        public void ShouldCorrectlyRecordArguments()
+        {
             var sut = new InvocationCounter();
 
             sut.RecordInvocation("example", "argument");
@@ -33,7 +37,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections {
         }
 
         [Test]
-        public void ShouldProvideInvocationForMethodInfo() {
+        public void ShouldProvideInvocationForMethodInfo()
+        {
             var sut = new InvocationCounter();
 
             sut.RecordInvocation(typeof(ISample).GetDeclaredMethod(nameof(ISample.NiladicFunction)).Name);

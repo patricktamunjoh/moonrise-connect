@@ -1,11 +1,11 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+{
     /// <summary>
     /// The different transmission modes available for sending data. These roughly translate to the connection oriented or connectionless
     /// properties of the TCP and UDP protocols.
     /// </summary>
-    public enum Transmission {
-
+    public enum Transmission
+    {
         /// <summary>
         /// Messages will be sent reliably, ensuring that every message is delivered correctly and that messages are processed in their
         /// original order. This can cause overhead as messages must be acknowledged and missing messages have to be resend. To ensure correct game

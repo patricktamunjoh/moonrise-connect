@@ -1,8 +1,8 @@
 ﻿using System;
 using MoonriseGames.CloudsAhoyConnect.Functions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Objects {
-
+namespace MoonriseGames.CloudsAhoyConnect.Objects
+{
     /// <summary>
     /// Attribute for flagging classes to partake in networking. Object instances of classes with this attribute can be registered to the
     /// network. There are two reasons to do so. First, this attribute is required for <see cref="NetworkFunction" /> to be discovered. Without

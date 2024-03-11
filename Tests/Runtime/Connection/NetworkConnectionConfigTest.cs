@@ -3,11 +3,13 @@ using MoonriseGames.CloudsAhoyConnect.Enums;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
-    public class NetworkConnectionConfigTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+{
+    public class NetworkConnectionConfigTest
+    {
         [Test]
-        public void ShouldConfigureForHost() {
+        public void ShouldConfigureForHost()
+        {
             var host = new Mock<NetworkIdentity>();
             var sut = new NetworkConnectionConfig(host.Object);
 
@@ -17,7 +19,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldConfigureForClient() {
+        public void ShouldConfigureForClient()
+        {
             var clients = new[] { new Mock<NetworkIdentity>().Object };
             var sut = new NetworkConnectionConfig(clients);
 
@@ -27,7 +30,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideDefaultEstablishmentTimeoutForHost() {
+        public void ShouldProvideDefaultEstablishmentTimeoutForHost()
+        {
             var host = new Mock<NetworkIdentity>();
             var sut = new NetworkConnectionConfig(host.Object);
 
@@ -35,7 +39,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideDefaultEstablishmentTimeoutForClient() {
+        public void ShouldProvideDefaultEstablishmentTimeoutForClient()
+        {
             var client = new Mock<NetworkIdentity>();
             var sut = new NetworkConnectionConfig(new[] { client.Object });
 
@@ -43,7 +48,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideEstablishmentTimeoutForHost() {
+        public void ShouldProvideEstablishmentTimeoutForHost()
+        {
             var host = new Mock<NetworkIdentity>();
             var sut = new NetworkConnectionConfig(host.Object, 12);
 
@@ -51,7 +57,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideEstablishmentTimeoutForClient() {
+        public void ShouldProvideEstablishmentTimeoutForClient()
+        {
             var client = new Mock<NetworkIdentity>();
             var sut = new NetworkConnectionConfig(new[] { client.Object }, 12);
 

@@ -12,25 +12,29 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
-    public class NetworkConnectionTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+{
+    public class NetworkConnectionTest
+    {
         [Test]
-        public void ShouldInitializeAsDisconnected() {
+        public void ShouldInitializeAsDisconnected()
+        {
             var sut = NetworkConnectionFactory.Build();
 
             Assert.AreEqual(Connectivity.Disconnected, sut.Connectivity);
         }
 
         [Test]
-        public void ShouldProvideHostRoleAsDefault() {
+        public void ShouldProvideHostRoleAsDefault()
+        {
             var sut = NetworkConnectionFactory.Build();
 
             Assert.AreEqual(Roles.Host, sut.Role);
         }
 
         [Test]
-        public void ShouldProvideHostRole() {
+        public void ShouldProvideHostRole()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
 
@@ -40,7 +44,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideHostRoleAfterDisconnect() {
+        public void ShouldProvideHostRoleAfterDisconnect()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
 
@@ -51,7 +56,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideClientRole() {
+        public void ShouldProvideClientRole()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
 
@@ -61,7 +67,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideAllClients() {
+        public void ShouldProvideAllClients()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var clients = new[] { clientIdentity1, clientIdentity2 };
@@ -75,7 +82,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideAllActiveClients() {
+        public void ShouldProvideAllActiveClients()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var clients = new[] { clientIdentity };
             var config = new NetworkConnectionConfig(clients);
@@ -89,7 +97,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideClientCount() {
+        public void ShouldProvideClientCount()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var config = new NetworkConnectionConfig(new[] { clientIdentity1, clientIdentity2 });
@@ -102,7 +111,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldProvideActiveClientCount() {
+        public void ShouldProvideActiveClientCount()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var config = new NetworkConnectionConfig(new[] { clientIdentity });
 
@@ -115,7 +125,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldRegisterWithStrategy() {
+        public void ShouldRegisterWithStrategy()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var registry = new NetworkFunctionRegistry();
             var queue = new NetworkFunctionQueue(registry);
@@ -126,7 +137,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldDropConnectionBeforeEstablishment() {
+        public void ShouldDropConnectionBeforeEstablishment()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity).CallingBase();
             var sut = NetworkConnectionFactory.Build();
@@ -142,7 +154,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldBeConnectionWhenEstablishingConnection() {
+        public void ShouldBeConnectionWhenEstablishingConnection()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
 
@@ -152,7 +165,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldInstantlyEstablishConnectionForSessionWithoutClients() {
+        public void ShouldInstantlyEstablishConnectionForSessionWithoutClients()
+        {
             var sut = NetworkConnectionFactory.Build();
 
             sut.Establish(new NetworkConnectionConfig(Array.Empty<NetworkIdentity>()));
@@ -161,7 +175,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldListenForClientsWhenEstablishingConnectionAsHost() {
+        public void ShouldListenForClientsWhenEstablishingConnectionAsHost()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build(strategy.Object);
@@ -172,7 +187,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotListenForClientsWhenEstablishingConnectionAsClient() {
+        public void ShouldNotListenForClientsWhenEstablishingConnectionAsClient()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build(strategy.Object);
@@ -183,7 +199,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotStopListeningForClientsWhenEstablishmentIsCompleted() {
+        public void ShouldNotStopListeningForClientsWhenEstablishmentIsCompleted()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity);
@@ -196,7 +213,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldConnectToHostWhenEstablishingConnectionAsClient() {
+        public void ShouldConnectToHostWhenEstablishingConnectionAsClient()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build(strategy.Object);
@@ -207,7 +225,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotConnectToHostWhenEstablishingConnectionAsHost() {
+        public void ShouldNotConnectToHostWhenEstablishingConnectionAsHost()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build(strategy.Object);
@@ -218,7 +237,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldAbortEstablishmentAfterTimeout() {
+        public async Task ShouldAbortEstablishmentAfterTimeout()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var config = new NetworkConnectionConfig(hostIdentity, 2);
             var sut = NetworkConnectionFactory.Build();
@@ -230,7 +250,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldCancelEstablishmentTimeoutAfterSuccessfulEstablishment() {
+        public async Task ShouldCancelEstablishmentTimeoutAfterSuccessfulEstablishment()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var config = new NetworkConnectionConfig(hostIdentity, 100);
             var link = new Mock<NetworkLink>(hostIdentity);
@@ -244,7 +265,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldCancelEstablishmentTimeoutAfterDroppingConnection() {
+        public async Task ShouldCancelEstablishmentTimeoutAfterDroppingConnection()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var config1 = new NetworkConnectionConfig(hostIdentity, 100);
             var config2 = new NetworkConnectionConfig(hostIdentity);
@@ -261,7 +283,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAllClientLinksWhenDroppingConnection() {
+        public void ShouldCloseAllClientLinksWhenDroppingConnection()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1).CallingBase();
@@ -280,7 +303,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAllClientLinksWhenDroppingConnectionDuringEstablishment() {
+        public void ShouldCloseAllClientLinksWhenDroppingConnectionDuringEstablishment()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity1).CallingBase();
@@ -296,7 +320,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseHostLinkWhenDroppingConnection() {
+        public void ShouldCloseHostLinkWhenDroppingConnection()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity).CallingBase();
 
@@ -311,7 +336,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldClearConnectionConfigWhenDroppingConnection() {
+        public void ShouldClearConnectionConfigWhenDroppingConnection()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var config = new NetworkConnectionConfig(new[] { clientIdentity1, clientIdentity2 });
@@ -325,7 +351,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldTransitionToDisconnectedAfterDroppingConnection() {
+        public void ShouldTransitionToDisconnectedAfterDroppingConnection()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
 
@@ -336,7 +363,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldStopListeningForClientsWhenDroppingConnection() {
+        public void ShouldStopListeningForClientsWhenDroppingConnection()
+        {
             var strategy = new Mock<NetworkConnectionStrategy>();
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build(strategy.Object);
@@ -348,7 +376,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldOnlyPollWhenConnected() {
+        public void ShouldOnlyPollWhenConnected()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity1);
@@ -364,7 +393,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldPostIncomingNetworkCallsFromHostToQueue() {
+        public void ShouldPostIncomingNetworkCallsFromHostToQueue()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
             var queue = NetworkFunctionQueueFactory.BuildMock();
@@ -378,13 +408,12 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
             sut.ReceiveNewActiveNetworkLink(link.Object);
             sut.Poll();
 
-            queue.Verify(
-                x => x.EnqueueCall(It.Is<NetworkFunctionCall>(y => y.ObjectId == call.ObjectId && call.FunctionId.Equals(y.FunctionId)),
-                    Roles.Client, false), Times.Once);
+            queue.Verify(x => x.EnqueueCall(It.Is<NetworkFunctionCall>(y => y.ObjectId == call.ObjectId && call.FunctionId.Equals(y.FunctionId)), Roles.Client, false), Times.Once);
         }
 
         [Test]
-        public void ShouldPostIncomingNetworkCallsFromClientToQueue() {
+        public void ShouldPostIncomingNetworkCallsFromClientToQueue()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity);
             var queue = NetworkFunctionQueueFactory.BuildMock();
@@ -398,13 +427,12 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
             sut.ReceiveNewActiveNetworkLink(link.Object);
             sut.Poll();
 
-            queue.Verify(
-                x => x.EnqueueCall(It.Is<NetworkFunctionCall>(y => y.ObjectId == call.ObjectId && call.FunctionId.Equals(y.FunctionId)),
-                    Roles.Host, false), Times.Once);
+            queue.Verify(x => x.EnqueueCall(It.Is<NetworkFunctionCall>(y => y.ObjectId == call.ObjectId && call.FunctionId.Equals(y.FunctionId)), Roles.Host, false), Times.Once);
         }
 
         [Test]
-        public void ShouldPollAllClientNetworkLinks() {
+        public void ShouldPollAllClientNetworkLinks()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1);
@@ -426,7 +454,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldPollHostNetworkLink() {
+        public void ShouldPollHostNetworkLink()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
             var sut = NetworkConnectionFactory.Build();
@@ -441,7 +470,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldPollNetworkLinkUntilAllMessagesAreProcessed() {
+        public void ShouldPollNetworkLinkUntilAllMessagesAreProcessed()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
             var call = new NetworkFunctionCall(12, NetworkHashing.Hash("example"), Transmission.Reliable);
@@ -458,7 +488,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldForwardIncomingNetworkCallsToClientsAsHost() {
+        public void ShouldForwardIncomingNetworkCallsToClientsAsHost()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1);
@@ -479,13 +510,15 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldForwardIncomingNetworkCallsWithSameTransmission() {
+        public void ShouldForwardIncomingNetworkCallsWithSameTransmission()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1);
             var link2 = new Mock<NetworkLink>(clientIdentity2);
 
-            foreach (var transmission in typeof(Transmission).EnumValues<Transmission>()) {
+            foreach (var transmission in typeof(Transmission).EnumValues<Transmission>())
+            {
                 var call = new NetworkFunctionCall(12, NetworkHashing.Hash("example"), transmission);
 
                 var sut = NetworkConnectionFactory.Build();
@@ -503,7 +536,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotForwardIncomingNetworkCallsToSender() {
+        public void ShouldNotForwardIncomingNetworkCallsToSender()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity);
             var call = new NetworkFunctionCall(12, NetworkHashing.Hash("example"), Transmission.Unreliable);
@@ -520,7 +554,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotForwardIncomingNetworkCallsAsHost() {
+        public void ShouldNotForwardIncomingNetworkCallsAsHost()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
             var call = new NetworkFunctionCall(12, NetworkHashing.Hash("example"), Transmission.Unreliable);
@@ -537,7 +572,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldSendMessagesToHostAsClient() {
+        public void ShouldSendMessagesToHostAsClient()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
             var call = new NetworkFunctionCall(12, NetworkHashing.Hash("example"), Transmission.Unreliable);
@@ -552,7 +588,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldBroadcastMessagesToClientsAsHost() {
+        public void ShouldBroadcastMessagesToClientsAsHost()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1);
@@ -571,7 +608,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldOnlySendWhenConnected() {
+        public void ShouldOnlySendWhenConnected()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity1);
@@ -587,7 +625,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingHostLinkWhenNotConnecting() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingHostLinkWhenNotConnecting()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(hostIdentity).CallingBase().Object;
             var link2 = new Mock<NetworkLink>(hostIdentity).CallingBase().Object;
@@ -603,7 +642,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingHostLinkWithWrongIdentity() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingHostLinkWithWrongIdentity()
+        {
             var hostIdentityCorrect = new Mock<NetworkIdentity>().Object;
             var hostIdentityWrong = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentityWrong).CallingBase().Object;
@@ -618,7 +658,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingHostLinkWhileConfiguredAsHost() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingHostLinkWhileConfiguredAsHost()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity).CallingBase().Object;
@@ -633,7 +674,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldFinalizeEstablishmentAfterReceivingHostLink() {
+        public void ShouldFinalizeEstablishmentAfterReceivingHostLink()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
             var sut = NetworkConnectionFactory.Build();
@@ -645,7 +687,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkWhenNotConnecting() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkWhenNotConnecting()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
 
@@ -658,7 +701,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkWithUnknownIdentity() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkWithUnknownIdentity()
+        {
             var clientIdentityKnown = new Mock<NetworkIdentity>().Object;
             var clientIdentityUnknown = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentityUnknown).CallingBase().Object;
@@ -673,7 +717,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkWhileConfiguredAsClient() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkWhileConfiguredAsClient()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
@@ -688,7 +733,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkForAlreadyConnectedClient() {
+        public void ShouldCloseAndIgnoreLinkWhenReceivingClientLinkForAlreadyConnectedClient()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1).CallingBase().Object;
@@ -706,7 +752,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldFinalizeEstablishmentAfterReceivingAllClientLinks() {
+        public void ShouldFinalizeEstablishmentAfterReceivingAllClientLinks()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
 
@@ -719,7 +766,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotFinalizeEstablishmentBeforeReceivingAllClientLinks() {
+        public void ShouldNotFinalizeEstablishmentBeforeReceivingAllClientLinks()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity1).CallingBase().Object;
@@ -733,7 +781,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotFinalizeEstablishmentIfClientLinksBecomeInactive() {
+        public void ShouldNotFinalizeEstablishmentIfClientLinksBecomeInactive()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1).CallingBase().Object;
@@ -751,7 +800,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldFinalizeEstablishmentIfInactiveClientLinkIsReplaced() {
+        public void ShouldFinalizeEstablishmentIfInactiveClientLinkIsReplaced()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link1 = new Mock<NetworkLink>(clientIdentity1).CallingBase().Object;
@@ -771,7 +821,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldDropConnectionWhenConnectionDisruptedToHost() {
+        public void ShouldDropConnectionWhenConnectionDisruptedToHost()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity).CallingBase().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -785,7 +836,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotCancelEstablishmentWhenConnectionDisruptedOtherThanToHost() {
+        public void ShouldNotCancelEstablishmentWhenConnectionDisruptedOtherThanToHost()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var otherIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -797,7 +849,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotDropConnectionWhenConnectionDisruptedOtherThanToHost() {
+        public void ShouldNotDropConnectionWhenConnectionDisruptedOtherThanToHost()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var otherIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity).CallingBase().Object;
@@ -812,7 +865,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldCloseLinkWhenConnectionDisruptedToClient() {
+        public void ShouldCloseLinkWhenConnectionDisruptedToClient()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -825,7 +879,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldAbortConnectionEstablishmentWhenConnectionDisruptedToClient() {
+        public void ShouldAbortConnectionEstablishmentWhenConnectionDisruptedToClient()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity1).CallingBase().Object;
@@ -839,7 +894,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldIgnoreDisruptedConnectionsToUnknownClients() {
+        public void ShouldIgnoreDisruptedConnectionsToUnknownClients()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -851,7 +907,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotDropConnectionWhenConnectionDisruptedToClient() {
+        public void ShouldNotDropConnectionWhenConnectionDisruptedToClient()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -864,7 +921,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldIgnoreFailedEstablishmentWhenNotConnecting() {
+        public void ShouldIgnoreFailedEstablishmentWhenNotConnecting()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -877,7 +935,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldIgnoreFailedEstablishmentToUnknownClients() {
+        public void ShouldIgnoreFailedEstablishmentToUnknownClients()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
@@ -889,7 +948,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldDropConnectionWhenEstablishmentFailedToClient() {
+        public void ShouldDropConnectionWhenEstablishmentFailedToClient()
+        {
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;
             var clientIdentity2 = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity1).CallingBase().Object;
@@ -904,7 +964,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldDropConnectionWhenEstablishmentFailedToHost() {
+        public void ShouldDropConnectionWhenEstablishmentFailedToHost()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var sut = NetworkConnectionFactory.Build();
 
@@ -915,7 +976,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotifyWhenConnectionEstablishmentIsSuccessful() {
+        public void ShouldNotifyWhenConnectionEstablishmentIsSuccessful()
+        {
             var args = new List<NetworkConnectionEventArgs>();
             var sut = NetworkConnectionFactory.Build();
 
@@ -927,7 +989,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotifyWhenConnectionEstablishmentFailed() {
+        public void ShouldNotifyWhenConnectionEstablishmentFailed()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var args = new List<NetworkConnectionEventArgs>();
             var sut = NetworkConnectionFactory.Build();
@@ -941,7 +1004,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotifyWhenConnectionIsLost() {
+        public void ShouldNotifyWhenConnectionIsLost()
+        {
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity).CallingBase().Object;
             var args = new List<NetworkConnectionEventArgs>();
@@ -957,7 +1021,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotifyWhenConnectionIsDropped() {
+        public void ShouldNotifyWhenConnectionIsDropped()
+        {
             var args = new List<NetworkConnectionEventArgs>();
             var sut = NetworkConnectionFactory.Build();
 
@@ -970,7 +1035,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotifyWhenConnectionToClientIsLost() {
+        public void ShouldNotifyWhenConnectionToClientIsLost()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
             var args = new List<NetworkConnectionEventArgs>();
@@ -987,7 +1053,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotifyWhenConnectionToClientIsLostOnlyOnce() {
+        public void ShouldNotifyWhenConnectionToClientIsLostOnlyOnce()
+        {
             var clientIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(clientIdentity).CallingBase().Object;
             var args = new List<NetworkConnectionEventArgs>();
@@ -1003,7 +1070,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldRecordNetworkEventsToSnapshot() {
+        public void ShouldRecordNetworkEventsToSnapshot()
+        {
             var snapshot = new Mock<Snapshot>();
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
@@ -1017,14 +1085,13 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
             sut.ReceiveNewActiveNetworkLink(link.Object);
             sut.Drop();
 
-            snapshot.Verify(x => x.RecordNetworkEvent(
-                It.Is<NetworkConnectionEventArgs>(args => args.Type == NetworkConnectionEventArgs.Types.ConnectionEstablished)));
-            snapshot.Verify(x => x.RecordNetworkEvent(
-                It.Is<NetworkConnectionEventArgs>(args => args.Type == NetworkConnectionEventArgs.Types.ConnectionLost)));
+            snapshot.Verify(x => x.RecordNetworkEvent(It.Is<NetworkConnectionEventArgs>(args => args.Type == NetworkConnectionEventArgs.Types.ConnectionEstablished)));
+            snapshot.Verify(x => x.RecordNetworkEvent(It.Is<NetworkConnectionEventArgs>(args => args.Type == NetworkConnectionEventArgs.Types.ConnectionLost)));
         }
 
         [Test]
-        public void ShouldRecordOutgoingMessagesToSnapshot() {
+        public void ShouldRecordOutgoingMessagesToSnapshot()
+        {
             var snapshot = new Mock<Snapshot>();
             var hostIdentity = new Mock<NetworkIdentity>().Object;
             var link = new Mock<NetworkLink>(hostIdentity);
@@ -1042,7 +1109,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldRecordOutgoingBroadcastsToSnapshot() {
+        public void ShouldRecordOutgoingBroadcastsToSnapshot()
+        {
             var snapshot = new Mock<Snapshot>();
 
             var clientIdentity1 = new Mock<NetworkIdentity>().Object;

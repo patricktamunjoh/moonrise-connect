@@ -1,9 +1,9 @@
 ﻿using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object {
-
-    public class SampleBase : ISample {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object
+{
+    public class SampleBase : ISample
+    {
         public InvocationCounter InvocationCounter { get; } = new();
 
         public static string PrivateFunctionName => nameof(PrivateFunction);

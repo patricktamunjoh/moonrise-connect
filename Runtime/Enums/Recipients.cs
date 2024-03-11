@@ -1,5 +1,5 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+{
     /// <summary>
     /// The different instances or groups of instances messages can be send to. This can be used to determine who should be receiving a message
     /// once it is sent. Recipients may also include the sending instance itself.
@@ -8,8 +8,8 @@
     /// the host itself.
     /// </example>
     /// </summary>
-    public enum Recipients {
-
+    public enum Recipients
+    {
         /// <summary>Messages will only be delivered to the hosting game instance.</summary>
         Host,
 

@@ -3,11 +3,11 @@ using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Objects;
 using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network
+{
     [NetworkObject]
-    public class SampleNetwork : SampleNetworkBase {
-
+    public class SampleNetwork : SampleNetworkBase
+    {
         public new InvocationCounter InvocationCounter { get; } = new();
 
         public override void NetworkFunctionOnlyBase() => InvocationCounter.RecordInvocation(nameof(NetworkFunctionOnlyBase));
@@ -28,8 +28,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network {
         public void TriadicFunction(int a, int b, int c) => InvocationCounter.RecordInvocation(nameof(TriadicFunction), a, b, c);
 
         [NetworkFunction(Groups.All, Recipients.All)]
-        public void QuadradicFunction(int a, int b, int c, int d) =>
-            InvocationCounter.RecordInvocation(nameof(QuadradicFunction), a, b, c, d);
+        public void QuadradicFunction(int a, int b, int c, int d) => InvocationCounter.RecordInvocation(nameof(QuadradicFunction), a, b, c, d);
 
         [NetworkFunction(Groups.All, Recipients.All)]
         public void NetworkObjectFunction(SampleNetworkEmpty obj) => InvocationCounter.RecordInvocation(nameof(NetworkObjectFunction), obj);

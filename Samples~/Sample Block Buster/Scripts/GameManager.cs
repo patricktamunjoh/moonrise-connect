@@ -10,19 +10,28 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [NetworkObject]
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    [SerializeField]
+    private int _connectionTimeout;
 
-    [SerializeField] private int _connectionTimeout;
+    [SerializeField]
+    [Space]
+    private Text _networkStatusText;
 
-    [SerializeField] [Space] private Text _networkStatusText;
-    [SerializeField] private InputField _steamFriendText;
+    [SerializeField]
+    private InputField _steamFriendText;
 
-    [SerializeField] private GameObject _connectionSettingsContainer;
-    [SerializeField] private Character _characterPrefab;
+    [SerializeField]
+    private GameObject _connectionSettingsContainer;
+
+    [SerializeField]
+    private Character _characterPrefab;
 
     private CloudsAhoyConnect CloudsAhoyConnect { get; set; }
 
-    private void Awake() {
+    private void Awake()
+    {
         // Using the builder a new instance of the library is created
         var builder = new CloudsAhoyConnect.Builder();
 
@@ -33,31 +42,40 @@ public class GameManager : MonoBehaviour {
         CloudsAhoyConnect.OnNetworkConnectionChanged += OnNetworkConnectionChanged;
     }
 
-    private void Update() { _networkStatusText.text = $"Network Status: {CloudsAhoyConnect.Connectivity}"; }
+    private void Update()
+    {
+        _networkStatusText.text = $"Network Status: {CloudsAhoyConnect.Connectivity}";
+    }
 
-    private void LateUpdate() {
+    private void LateUpdate()
+    {
         // Every frame incoming messages are collected and processed
         CloudsAhoyConnect.PollConnection();
         CloudsAhoyConnect.ProcessQueuedNetworkFunctionCalls();
     }
 
-    private void InitializeGameSession() {
+    private void InitializeGameSession()
+    {
         // When initializing the game session the characters are spawned
         // Because SpawnCharacter has authority host, this function has no effect on the client
         // This is important, because on client instances only the connection to the host has to be established
         // However, on the host ALL clients have to be connected
         // Therefore, it should always be the host instance that kicks off the game session
         true.Send(SpawnCharacter);
-        if (CloudsAhoyConnect.ConnectedClientsCount > 0) false.Send(SpawnCharacter);
+        if (CloudsAhoyConnect.ConnectedClientsCount > 0)
+            false.Send(SpawnCharacter);
     }
 
-    private void CleanupGameSession() {
+    private void CleanupGameSession()
+    {
         // After each session, ensure the initial state is restored
-        foreach (var character in FindObjectsOfType<Character>()) Destroy(character.gameObject);
+        foreach (var character in FindObjectsOfType<Character>())
+            Destroy(character.gameObject);
     }
 
     [NetworkFunction(Groups.Host, Recipients.All)]
-    private void SpawnCharacter(bool isHostCharacter) {
+    private void SpawnCharacter(bool isHostCharacter)
+    {
         var spawnPosition = isHostCharacter ? Vector2.left : Vector2.right;
         var character = Instantiate(_characterPrefab, spawnPosition, Quaternion.identity);
 
@@ -68,8 +86,10 @@ public class GameManager : MonoBehaviour {
         character.IsControlledLocally = isHostCharacter == (CloudsAhoyConnect.Role == Roles.Host);
     }
 
-    private void OnNetworkConnectionChanged(object sender, NetworkConnectionEventArgs args) {
-        switch (args.Type) {
+    private void OnNetworkConnectionChanged(object sender, NetworkConnectionEventArgs args)
+    {
+        switch (args.Type)
+        {
             case NetworkConnectionEventArgs.Types.ConnectionLost:
                 // On the host instance this is independent from the connection to individual client instances
                 // This allows the host instance to continue the session, even if all clients disconnect
@@ -95,7 +115,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void PlaySolo() {
+    public void PlaySolo()
+    {
         // For a solo session, the config should be set as host but without providing any client identities
         var builder = new SteamNetworkConnectionConfig.Builder();
         var config = builder.WithConnectionEstablishmentTimeout(_connectionTimeout).AsHost().Build();
@@ -103,9 +124,11 @@ public class GameManager : MonoBehaviour {
         EstablishConnection(config);
     }
 
-    public void HostSession() {
+    public void HostSession()
+    {
         var friend = FindSteamFriendWithName();
-        if (friend == CSteamID.Nil) return;
+        if (friend == CSteamID.Nil)
+            return;
 
         // To open a session as host, all the expected client identities must be configured beforehand
         // This is necessary to determine when everyone is connected and the session can be started
@@ -116,9 +139,11 @@ public class GameManager : MonoBehaviour {
         EstablishConnection(config);
     }
 
-    public void JoinSession() {
+    public void JoinSession()
+    {
         var friend = FindSteamFriendWithName();
-        if (friend == CSteamID.Nil) return;
+        if (friend == CSteamID.Nil)
+            return;
 
         // To connect to a session as client, only the identity of the host must be configured
         // It is important that the session already exists, before any client attempts to join
@@ -128,7 +153,8 @@ public class GameManager : MonoBehaviour {
         EstablishConnection(config);
     }
 
-    private void EstablishConnection(SteamNetworkConnectionConfig config) {
+    private void EstablishConnection(SteamNetworkConnectionConfig config)
+    {
         SetConnectionSettingsVisibility(false);
 
         // Before establishing a new connection, all registered objects must be cleared
@@ -143,24 +169,31 @@ public class GameManager : MonoBehaviour {
         CloudsAhoyConnect.EstablishConnection(config);
     }
 
-    private void SetConnectionSettingsVisibility(bool isVisible) {
-        if (_connectionSettingsContainer.activeSelf == isVisible) return;
+    private void SetConnectionSettingsVisibility(bool isVisible)
+    {
+        if (_connectionSettingsContainer.activeSelf == isVisible)
+            return;
         _connectionSettingsContainer.SetActive(isVisible);
     }
 
-    private CSteamID FindSteamFriendWithName() {
+    private CSteamID FindSteamFriendWithName()
+    {
         var friendCount = SteamFriends.GetFriendCount(EFriendFlags.k_EFriendFlagAll);
         var expectedName = _steamFriendText.text.ToLower();
 
-        for (var i = 0; i < friendCount; i++) {
+        for (var i = 0; i < friendCount; i++)
+        {
             var friend = SteamFriends.GetFriendByIndex(i, EFriendFlags.k_EFriendFlagAll);
             var friendName = SteamFriends.GetFriendPersonaName(friend);
 
-            if (string.IsNullOrEmpty(friendName)) continue;
-            if (friendName.ToLower().Equals(expectedName)) return friend;
+            if (string.IsNullOrEmpty(friendName))
+                continue;
+            if (friendName.ToLower().Equals(expectedName))
+                return friend;
         }
 
-        if (_steamFriendText.placeholder is Text placeholder) placeholder.text = "Not found...";
+        if (_steamFriendText.placeholder is Text placeholder)
+            placeholder.text = "Not found...";
         _steamFriendText.text = string.Empty;
         return CSteamID.Nil;
     }

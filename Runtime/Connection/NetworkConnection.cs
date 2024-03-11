@@ -6,10 +6,10 @@ using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Logging;
 using static MoonriseGames.CloudsAhoyConnect.Enums.Connectivity;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection {
-
-    internal class NetworkConnection {
-
+namespace MoonriseGames.CloudsAhoyConnect.Connection
+{
+    internal class NetworkConnection
+    {
         public virtual Snapshot Snapshot { get; set; }
 
         private NetworkConnectionStrategy Strategy { get; }
@@ -31,7 +31,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
 
         private NetworkTimeout Timeout { get; set; }
 
-        public NetworkConnection(NetworkConnectionStrategy strategy, NetworkFunctionQueue queue) {
+        public NetworkConnection(NetworkConnectionStrategy strategy, NetworkFunctionQueue queue)
+        {
             Strategy = strategy;
             Strategy.Connection = this;
 
@@ -43,15 +44,18 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
 
         private void RecordNetworkEventToSnapshot(object _, NetworkConnectionEventArgs args) => Snapshot?.RecordNetworkEvent(args);
 
-        public virtual void Establish(NetworkConnectionConfig config) {
-            if (Connectivity != Disconnected) Drop();
+        public virtual void Establish(NetworkConnectionConfig config)
+        {
+            if (Connectivity != Disconnected)
+                Drop();
 
             ConnectionConfig = config;
             var isSoloSession = config.Clients?.Length == 0;
 
             TransitionState(Connecting);
 
-            switch (config.Role) {
+            switch (config.Role)
+            {
                 case Roles.Host when !isSoloSession:
                     Strategy.StartListeningForClientConnections();
                     break;
@@ -63,14 +67,17 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             Timeout = new NetworkTimeout(config.ConnectionEstablishmentTimeoutMs, HandleConnectionEstablishmentTimeout);
             Timeout.Start();
 
-            if (isSoloSession) HandleConnectionEstablishmentSuccessful();
+            if (isSoloSession)
+                HandleConnectionEstablishmentSuccessful();
         }
 
-        public virtual void Drop() {
+        public virtual void Drop()
+        {
             Timeout?.Cancel();
 
             LinkToHost?.Close();
-            foreach (var client in LinksToClients.Values) client.Close();
+            foreach (var client in LinksToClients.Values)
+                client.Close();
 
             Strategy.StopListeningForClientConnections();
 
@@ -81,53 +88,76 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             TransitionState(Disconnected);
         }
 
-        public virtual void Poll() {
-            if (Connectivity != Connected) return;
+        public virtual void Poll()
+        {
+            if (Connectivity != Connected)
+                return;
 
-            if (LinkToHost != null) Poll(LinkToHost);
-            foreach (var client in LinksToClients.Values) Poll(client);
+            if (LinkToHost != null)
+                Poll(LinkToHost);
+            foreach (var client in LinksToClients.Values)
+                Poll(client);
         }
 
-        private void Poll(NetworkLink link) {
-            if (!link.IsActive) return;
-            while (link.Receive() is { } bytes) ProcessIncomingNetworkCall(new NetworkFunctionCall(bytes), link.Identity);
+        private void Poll(NetworkLink link)
+        {
+            if (!link.IsActive)
+                return;
+            while (link.Receive() is { } bytes)
+                ProcessIncomingNetworkCall(new NetworkFunctionCall(bytes), link.Identity);
         }
 
-        private void ProcessIncomingNetworkCall(NetworkFunctionCall call, NetworkIdentity sender) {
+        private void ProcessIncomingNetworkCall(NetworkFunctionCall call, NetworkIdentity sender)
+        {
             Snapshot?.RecordIncomingNetworkCall(sender, call);
 
-            if (Role == Roles.Host) Broadcast(call, sender);
+            if (Role == Roles.Host)
+                Broadcast(call, sender);
             Queue.EnqueueCall(call, Role, false);
         }
 
-        private void Broadcast(NetworkFunctionCall call, NetworkIdentity exception = null) {
+        private void Broadcast(NetworkFunctionCall call, NetworkIdentity exception = null)
+        {
             var validClients = LinksToClients.Values.Where(x => !x.Identity.Equals(exception));
             var data = call.ToBytes();
 
-            foreach (var client in validClients) Send(call, client, data);
+            foreach (var client in validClients)
+                Send(call, client, data);
         }
 
-        public virtual void Send(NetworkFunctionCall call) {
-            if (Connectivity != Connected) return;
+        public virtual void Send(NetworkFunctionCall call)
+        {
+            if (Connectivity != Connected)
+                return;
 
-            if (Role == Roles.Host) Broadcast(call);
-            else Send(call, LinkToHost);
+            if (Role == Roles.Host)
+                Broadcast(call);
+            else
+                Send(call, LinkToHost);
         }
 
-        private void Send(NetworkFunctionCall call, NetworkLink link, byte[] data = null) {
-            if (!link.IsActive) return;
+        private void Send(NetworkFunctionCall call, NetworkLink link, byte[] data = null)
+        {
+            if (!link.IsActive)
+                return;
             link.Send(data ?? call.ToBytes(), call.Transmission);
             Snapshot?.RecordOutgoingNetworkCall(link.Identity, call);
         }
 
-        public virtual void ReceiveNewActiveNetworkLink(NetworkLink link) {
-            if (link.Identity.Equals(ConnectionConfig?.Host)) ReceiveLinkToHost(link);
-            else ReceiveLinkToClient(link);
+        public virtual void ReceiveNewActiveNetworkLink(NetworkLink link)
+        {
+            if (link.Identity.Equals(ConnectionConfig?.Host))
+                ReceiveLinkToHost(link);
+            else
+                ReceiveLinkToClient(link);
         }
 
-        private void ReceiveLinkToHost(NetworkLink link) {
-            if (Connectivity != Connecting) {
-                var log = $@"Ignoring outgoing connection to {link.Identity.DisplayName}. 
+        private void ReceiveLinkToHost(NetworkLink link)
+        {
+            if (Connectivity != Connecting)
+            {
+                var log =
+                    $@"Ignoring outgoing connection to {link.Identity.DisplayName}. 
                     Connection was received outside the connection establishment window.";
 
                 NetworkLogger.Warn(log);
@@ -135,8 +165,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
                 return;
             }
 
-            if (ConnectionConfig?.Role != Roles.Client) {
-                var log = $@"Ignoring outgoing connection to {link.Identity.DisplayName}. 
+            if (ConnectionConfig?.Role != Roles.Client)
+            {
+                var log =
+                    $@"Ignoring outgoing connection to {link.Identity.DisplayName}. 
                     Connection was received although the current instance is not configured as client.";
 
                 NetworkLogger.Warn(log);
@@ -144,8 +176,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
                 return;
             }
 
-            if (ConnectionConfig?.Host.Equals(link.Identity) != true) {
-                var log = $@"Ignoring outgoing connection to {link.Identity.DisplayName}. 
+            if (ConnectionConfig?.Host.Equals(link.Identity) != true)
+            {
+                var log =
+                    $@"Ignoring outgoing connection to {link.Identity.DisplayName}. 
                     Connection was unexpected because the connection id does not match the configured host identity.";
 
                 NetworkLogger.Warn(log);
@@ -157,9 +191,12 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             HandleConnectionEstablishmentSuccessful();
         }
 
-        private void ReceiveLinkToClient(NetworkLink link) {
-            if (Connectivity != Connecting) {
-                var log = $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
+        private void ReceiveLinkToClient(NetworkLink link)
+        {
+            if (Connectivity != Connecting)
+            {
+                var log =
+                    $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
                     Connection was received outside the connection establishment window.";
 
                 NetworkLogger.Warn(log);
@@ -167,8 +204,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
                 return;
             }
 
-            if (ConnectionConfig?.Role != Roles.Host) {
-                var log = $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
+            if (ConnectionConfig?.Role != Roles.Host)
+            {
+                var log =
+                    $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
                     Connection was received although the current instance is not configured as host.";
 
                 NetworkLogger.Warn(log);
@@ -176,8 +215,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
                 return;
             }
 
-            if (!Clients.Contains(link.Identity)) {
-                var log = $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
+            if (!Clients.Contains(link.Identity))
+            {
+                var log =
+                    $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
                     Connection was unexpected because the client id was not configured.
                     Make sure to include the identity of all required client instances in the connection config.";
 
@@ -186,8 +227,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
                 return;
             }
 
-            if (LinksToClients.TryGetValue(link.Identity, out var currentLink) && currentLink.IsActive) {
-                var log = $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
+            if (LinksToClients.TryGetValue(link.Identity, out var currentLink) && currentLink.IsActive)
+            {
+                var log =
+                    $@"Ignoring incoming connection from {link.Identity.DisplayName}. 
                     Client instance with this identity is already connected.
                     Make sure to only establish a connection to the host instance once from each client instance.";
 
@@ -199,10 +242,12 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             LinksToClients[link.Identity] = link;
 
             var areAllClientsConnected = Clients.All(x => LinksToClients.TryGetValue(x, out var clientLink) && clientLink.IsActive);
-            if (areAllClientsConnected) HandleConnectionEstablishmentSuccessful();
+            if (areAllClientsConnected)
+                HandleConnectionEstablishmentSuccessful();
         }
 
-        private void HandleConnectionEstablishmentSuccessful() {
+        private void HandleConnectionEstablishmentSuccessful()
+        {
             Timeout?.Cancel();
 
             const string log = "Network connection establishment successful.";
@@ -211,21 +256,28 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             TransitionState(Connected);
         }
 
-        public virtual void HandleConnectionDisrupted(NetworkIdentity target) {
-            if (Connectivity == Disconnected) {
-                var log = $@"Ignoring incoming connection error from {target.DisplayName}. 
+        public virtual void HandleConnectionDisrupted(NetworkIdentity target)
+        {
+            if (Connectivity == Disconnected)
+            {
+                var log =
+                    $@"Ignoring incoming connection error from {target.DisplayName}. 
                     Connection is disconnected and will not handle network callbacks.";
 
                 NetworkLogger.Warn(log);
                 return;
             }
 
-            if (ConnectionConfig?.Role == Roles.Client) HandleConnectionDisruptedToHost(target);
-            if (ConnectionConfig?.Role == Roles.Host) HandleConnectionDisruptedToClient(target);
+            if (ConnectionConfig?.Role == Roles.Client)
+                HandleConnectionDisruptedToHost(target);
+            if (ConnectionConfig?.Role == Roles.Host)
+                HandleConnectionDisruptedToClient(target);
         }
 
-        private void HandleConnectionDisruptedToHost(NetworkIdentity host) {
-            if (ConnectionConfig?.Host.Equals(host) != true) return;
+        private void HandleConnectionDisruptedToHost(NetworkIdentity host)
+        {
+            if (ConnectionConfig?.Host.Equals(host) != true)
+                return;
 
             var log = $"Network connection to host {LinkToHost?.Identity.DisplayName} lost.";
             NetworkLogger.Warn(log);
@@ -233,8 +285,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             Drop();
         }
 
-        private void HandleConnectionDisruptedToClient(NetworkIdentity client) {
-            if (!LinksToClients.TryGetValue(client, out var link) || !link.IsActive) return;
+        private void HandleConnectionDisruptedToClient(NetworkIdentity client)
+        {
+            if (!LinksToClients.TryGetValue(client, out var link) || !link.IsActive)
+                return;
 
             var log = $"Network connection to client {link.Identity.DisplayName} lost.";
             NetworkLogger.Warn(log);
@@ -244,21 +298,27 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             var eventArgs = NetworkConnectionEventArgs.ForConnectionToClientLost(client);
             OnNetworkConnectionChanged?.Invoke(this, eventArgs);
 
-            if (Connectivity == Connecting) HandleConnectionEstablishmentFailed(client);
+            if (Connectivity == Connecting)
+                HandleConnectionEstablishmentFailed(client);
         }
 
-        private void HandleConnectionEstablishmentTimeout() {
+        private void HandleConnectionEstablishmentTimeout()
+        {
             const string log = "Network connection establishment failed after timeout.";
             NetworkLogger.Error(log);
 
             HandleConnectionEstablishmentFailed();
         }
 
-        public virtual void HandleConnectionEstablishmentFailed(NetworkIdentity client = null) {
-            if (Connectivity != Connecting) return;
+        public virtual void HandleConnectionEstablishmentFailed(NetworkIdentity client = null)
+        {
+            if (Connectivity != Connecting)
+                return;
 
-            if (client != null && ConnectionConfig?.Clients?.Contains(client) != true) {
-                var log = $@"Ignoring failed connection establishment with {client.DisplayName}. 
+            if (client != null && ConnectionConfig?.Clients?.Contains(client) != true)
+            {
+                var log =
+                    $@"Ignoring failed connection establishment with {client.DisplayName}. 
                     Connection was unexpected because the client id was not configured.";
 
                 NetworkLogger.Warn(log);
@@ -268,18 +328,22 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
             Drop();
         }
 
-        private void TransitionState(Connectivity targetState) {
-            if (targetState == Connectivity) return;
+        private void TransitionState(Connectivity targetState)
+        {
+            if (targetState == Connectivity)
+                return;
 
-            var eventArgs = targetState switch {
-                Connected when Connectivity == Connecting    => NetworkConnectionEventArgs.ForConnectionEstablished(),
-                Disconnected when Connectivity == Connected  => NetworkConnectionEventArgs.ForConnectionLost(),
+            var eventArgs = targetState switch
+            {
+                Connected when Connectivity == Connecting => NetworkConnectionEventArgs.ForConnectionEstablished(),
+                Disconnected when Connectivity == Connected => NetworkConnectionEventArgs.ForConnectionLost(),
                 Disconnected when Connectivity == Connecting => NetworkConnectionEventArgs.ForConnectionEstablishmentFailed(),
-                _                                            => null
+                _ => null
             };
 
             Connectivity = targetState;
-            if (eventArgs != null) OnNetworkConnectionChanged?.Invoke(this, eventArgs);
+            if (eventArgs != null)
+                OnNetworkConnectionChanged?.Invoke(this, eventArgs);
         }
     }
 }

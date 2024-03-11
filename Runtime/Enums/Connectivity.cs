@@ -1,8 +1,8 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+{
     /// <summary>The different states a connection can be in.</summary>
-    public enum Connectivity {
-
+    public enum Connectivity
+    {
         /// <summary>There is no active network connection between client ans host.</summary>
         Disconnected,
 

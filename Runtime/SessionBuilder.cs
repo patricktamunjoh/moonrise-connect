@@ -4,16 +4,18 @@ using MoonriseGames.CloudsAhoyConnect.Extensions;
 using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Steam;
 
-namespace MoonriseGames.CloudsAhoyConnect {
-    public partial class CloudsAhoyConnect {
-
+namespace MoonriseGames.CloudsAhoyConnect
+{
+    public partial class Session
+    {
         /// <summary>Builder for configuring and creating an instance of the Clouds Ahoy Connect library.</summary>
-        public class Builder {
-
+        public class Builder
+        {
             private NetworkConnectionStrategy ConnectionStrategy { get; set; }
 
             /// <summary>Configures the library for using the Steam peer to peer network.</summary>
-            public Builder ForSteam() {
+            public Builder ForSteam()
+            {
                 ConnectionStrategy = new SteamNetworkConnectionStrategy();
                 return this;
             }
@@ -23,9 +25,12 @@ namespace MoonriseGames.CloudsAhoyConnect {
             /// of the application only one instance can be created.
             /// </summary>
             /// <returns>The configuration instance with the defined settings.</returns>
-            public CloudsAhoyConnect Build() {
-                if (Instance != null) {
-                    const string message = @"Clouds Ahoy Connect has already been initialized. 
+            public Session Build()
+            {
+                if (Instance != null)
+                {
+                    const string message =
+                        @"Clouds Ahoy Connect has already been initialized. 
                     Only one instance of Clouds Ahoy Connect should be build during the lifetime of each game instance.";
 
                     throw new InvalidOperationException(message.TrimIndents());
@@ -39,7 +44,7 @@ namespace MoonriseGames.CloudsAhoyConnect {
                 var connection = new NetworkConnection(ConnectionStrategy, queue);
                 var emitter = new NetworkFunctionEmitter(queue, registry, connection);
 
-                return Instance = new CloudsAhoyConnect(connection, queue, registry, emitter);
+                return Instance = new Session(connection, queue, registry, emitter);
             }
         }
     }

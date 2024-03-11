@@ -3,10 +3,12 @@ using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection;
 using Moq;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories {
-    internal static class CloudsAhoyConnectFactory {
-
-        public static CloudsAhoyConnect BuildForIntegrationTest(TestNetworkIdentity id) {
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories
+{
+    internal static class CloudsAhoyConnectFactory
+    {
+        public static Session BuildForIntegrationTest(TestNetworkIdentity id)
+        {
             var registry = new NetworkFunctionRegistry();
             var queue = new NetworkFunctionQueue(registry);
 
@@ -14,55 +16,61 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories {
             var connection = new NetworkConnection(strategy, queue);
             var emitter = new NetworkFunctionEmitter(queue, registry, connection);
 
-            return new CloudsAhoyConnect(connection, queue, registry, emitter);
+            return new Session(connection, queue, registry, emitter);
         }
 
-        public static CloudsAhoyConnect Build() {
+        public static Session Build()
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var registry = new Mock<NetworkFunctionRegistry>();
             var queue = new Mock<NetworkFunctionQueue>(registry.Object);
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
 
-            return new CloudsAhoyConnect(connection.Object, queue.Object, registry.Object, emitter.Object);
+            return new Session(connection.Object, queue.Object, registry.Object, emitter.Object);
         }
 
-        public static CloudsAhoyConnect Build(NetworkFunctionEmitter emitter) {
+        public static Session Build(NetworkFunctionEmitter emitter)
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var registry = new Mock<NetworkFunctionRegistry>();
             var queue = new Mock<NetworkFunctionQueue>(registry.Object);
 
-            return new CloudsAhoyConnect(connection.Object, queue.Object, registry.Object, emitter);
+            return new Session(connection.Object, queue.Object, registry.Object, emitter);
         }
 
-        public static CloudsAhoyConnect Build(NetworkConnection connection) {
+        public static Session Build(NetworkConnection connection)
+        {
             var registry = new Mock<NetworkFunctionRegistry>();
             var queue = new Mock<NetworkFunctionQueue>(registry.Object);
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
 
-            return new CloudsAhoyConnect(connection, queue.Object, registry.Object, emitter.Object);
+            return new Session(connection, queue.Object, registry.Object, emitter.Object);
         }
 
-        public static CloudsAhoyConnect Build(NetworkFunctionRegistry registry) {
+        public static Session Build(NetworkFunctionRegistry registry)
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var queue = new Mock<NetworkFunctionQueue>(registry);
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
 
-            return new CloudsAhoyConnect(connection.Object, queue.Object, registry, emitter.Object);
+            return new Session(connection.Object, queue.Object, registry, emitter.Object);
         }
 
-        public static CloudsAhoyConnect Build(NetworkFunctionRegistry registry, NetworkConnection connection) {
+        public static Session Build(NetworkFunctionRegistry registry, NetworkConnection connection)
+        {
             var queue = new Mock<NetworkFunctionQueue>(registry);
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
 
-            return new CloudsAhoyConnect(connection, queue.Object, registry, emitter.Object);
+            return new Session(connection, queue.Object, registry, emitter.Object);
         }
 
-        public static CloudsAhoyConnect Build(NetworkFunctionQueue queue) {
+        public static Session Build(NetworkFunctionQueue queue)
+        {
             var connection = NetworkConnectionFactory.BuildMock();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
             var registry = new Mock<NetworkFunctionRegistry>();
 
-            return new CloudsAhoyConnect(connection.Object, queue, registry.Object, emitter.Object);
+            return new Session(connection.Object, queue, registry.Object, emitter.Object);
         }
     }
 }

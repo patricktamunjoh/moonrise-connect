@@ -4,13 +4,15 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection;
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration {
-    public class SendReceiveIntegrationTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration
+{
+    public class SendReceiveIntegrationTest
+    {
         [SetUp]
         public void SetUp() => TestNetworkConnectionStrategy.Reset();
 
-        private void CreateConnectedLibraryInstances(out CloudsAhoyConnect a, out CloudsAhoyConnect b) {
+        private void CreateConnectedLibraryInstances(out Session a, out Session b)
+        {
             var id1 = new TestNetworkIdentity("cac 01");
             var id2 = new TestNetworkIdentity("cac 02");
 
@@ -21,7 +23,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration {
             b.EstablishConnection(new NetworkConnectionConfig(id1));
         }
 
-        private void ProcessIncomingNetworkCalls(CloudsAhoyConnect a, CloudsAhoyConnect b) {
+        private void ProcessIncomingNetworkCalls(Session a, Session b)
+        {
             a.PollConnection();
             b.PollConnection();
 
@@ -30,7 +33,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration {
         }
 
         [Test]
-        public void ShouldSendAndReceiveNiladicFunction() {
+        public void ShouldSendAndReceiveNiladicFunction()
+        {
             var sample1 = new SampleNetwork();
             var sample2 = new SampleNetwork();
 
@@ -48,7 +52,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration {
         }
 
         [Test]
-        public void ShouldSendAndReceiveNetworkObjectArgumentFunction() {
+        public void ShouldSendAndReceiveNetworkObjectArgumentFunction()
+        {
             var sample1 = new SampleNetwork();
             var sample2 = new SampleNetwork();
 

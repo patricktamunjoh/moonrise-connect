@@ -5,11 +5,13 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
-    public class ObjectExtensionsTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+{
+    public class ObjectExtensionsTest
+    {
         [Test]
-        public void ShouldProvideFullName() {
+        public void ShouldProvideFullName()
+        {
             var root = new GameObject("parent");
             var child = new GameObject("child") { transform = { parent = root.transform } };
 
@@ -17,28 +19,32 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldThrowIfObjectIsNull() {
+        public void ShouldThrowIfObjectIsNull()
+        {
             var sut = null as object;
 
             Assert.Throws<ArgumentNullException>(() => sut.ThrowIfNull());
         }
 
         [Test]
-        public void ShouldNotThrowIfObjectIsNotNull() {
+        public void ShouldNotThrowIfObjectIsNotNull()
+        {
             const string sut = "example";
 
             Assert.DoesNotThrow(() => sut.ThrowIfNull());
         }
 
         [Test]
-        public void ShouldReturnTheSameObject() {
+        public void ShouldReturnTheSameObject()
+        {
             const string sut = "example";
 
             Assert.AreEqual(sut, sut.ThrowIfNull());
         }
 
         [Test]
-        public void ShouldProvideAllChildObjects() {
+        public void ShouldProvideAllChildObjects()
+        {
             var root = new GameObject();
             var child1 = new GameObject { transform = { parent = root.transform } };
             var child2 = new GameObject { transform = { parent = child1.transform } };
@@ -50,7 +56,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldNotProvideSelfAsChild() {
+        public void ShouldNotProvideSelfAsChild()
+        {
             var root = new GameObject();
             var sut = root.ChildGameObjects().ToList();
 
@@ -58,7 +65,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldFindAllMonoBehavioursOnObject() {
+        public void ShouldFindAllMonoBehavioursOnObject()
+        {
             var root = new GameObject();
             var behaviour1 = root.AddComponent<SampleBehaviour>();
             var behaviour2 = root.AddComponent<SampleBehaviour>();
@@ -70,7 +78,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
         }
 
         [Test]
-        public void ShouldNotProvideMonoBehavioursOnChildObjects() {
+        public void ShouldNotProvideMonoBehavioursOnChildObjects()
+        {
             var root = new GameObject();
             var child1 = new GameObject { transform = { parent = root.transform } };
             var behaviour = child1.AddComponent<SampleBehaviour>();

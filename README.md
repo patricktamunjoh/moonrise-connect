@@ -27,7 +27,7 @@ Next install Clouds Ahoy! Connect [from its git URL via the package manager](htt
 ```c#
 public class Game : MonoBehaviour {
 
-    private CloudsAhoyConnect CloudsAhoyConnect { get; set; }
+    private Session Session { get; set; }
 
     public void Initialize(CSteamID remoteSteamId) {
 
@@ -35,18 +35,18 @@ public class Game : MonoBehaviour {
         // Network Objects have to be registered on all game instances in exactly the same order
         FindObjectOfType<Chicken>().RegisterGameObject();
 
-        // Initialize Clouds Ahoy! Connect by creating a new instance from the builder
-        CloudsAhoyConnect = new CloudsAhoyConnect.Builder().ForSteam().Build();
+        // Initialize Clouds Ahoy! Connect by creating a new session instance from the builder
+        Session = new Session.Builder().ForSteam().Build();
 
         // Register a callback to be notified about changes in the network connection
-        CloudsAhoyConnect.OnNetworkConnectionChanged += OnNetworkConnectionChanged;
+        Session.OnNetworkConnectionChanged += OnNetworkConnectionChanged;
 
         // Define the connection by creating a configuration instance from the builder
         // The configuration determines whether the instance acts as the host or a client game instance
         var connectionConfig = new SteamNetworkConnectionConfig.Builder().AsHost(remoteSteamId).Build();
 
         // Establish a connection with the other game instances
-        CloudsAhoyConnect.EstablishConnection(connectionConfig);
+        Session.EstablishConnection(connectionConfig);
     }
 
     public void OnNetworkConnectionChanged(object sender, NetworkConnectionEventArgs args) {
@@ -58,17 +58,17 @@ public class Game : MonoBehaviour {
 
             // Wrap the function arguments and send them on the network to the target Network Function
             // This will invoke the Network Function on all connected game instances
-            (new Vector2(5, 8), 12f).Send(chicken.LayEgg);
+            Invocation.Invoke(chicken.LayEgg, new Vector2(5, 8), 12f);
         }
     }
 
     public void LateUpdate() {
 
         // Poll the connection, collecting all incoming messages
-        CloudsAhoyConnect.PollConnection();
+        Session.PollConnection();
 
         // Invoke all Network Function calls that were received on the network or queued locally
-        CloudsAhoyConnect.ProcessQueuedNetworkFunctionCalls();
+        Session.ProcessQueuedNetworkFunctionCalls();
     }
 }
 ```

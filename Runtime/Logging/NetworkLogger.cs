@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Logging {
-
+namespace MoonriseGames.CloudsAhoyConnect.Logging
+{
     /// <summary>Logging interface used for all network related logs. The log fidelity can be adjusted by setting the <see cref="LogLevel" />.</summary>
-    public static class NetworkLogger {
-
+    public static class NetworkLogger
+    {
         private const string COLOR_DEBUG = "#ffffff";
         private const string COLOR_INFO = "#66ffff";
         private const string COLOR_WARN = "#ffff99";
@@ -36,23 +36,26 @@ namespace MoonriseGames.CloudsAhoyConnect.Logging {
         /// <param name="message">The message or object to be logged.</param>
         public static void Error(object message) => PrintMessage(LogLevels.Error, message);
 
-        private static void PrintMessage(LogLevels logLevel, object message) {
-            if (!IsDevelopmentBuild || !ShouldPrintMessage(logLevel)) return;
+        private static void PrintMessage(LogLevels logLevel, object message)
+        {
+            if (!IsDevelopmentBuild || !ShouldPrintMessage(logLevel))
+                return;
             var log = "Clouds Ahoy Connect: " + (message ?? "null");
             UnityEngine.Debug.Log(ColorizedLogMessage(log, logLevel));
         }
 
         private static bool ShouldPrintMessage(LogLevels messageLogLevel) => (int)LogLevel <= (int)messageLogLevel;
 
-        private static string ColorizedLogMessage(string message, LogLevels logLevel) =>
-            $"<color={LogLevelColorCode(logLevel)}>{message}</color>";
+        private static string ColorizedLogMessage(string message, LogLevels logLevel) => $"<color={LogLevelColorCode(logLevel)}>{message}</color>";
 
-        private static string LogLevelColorCode(LogLevels logLevel) => logLevel switch {
-            LogLevels.Debug => COLOR_DEBUG,
-            LogLevels.Info  => COLOR_INFO,
-            LogLevels.Warn  => COLOR_WARN,
-            LogLevels.Error => COLOR_ERROR,
-            _               => string.Empty
-        };
+        private static string LogLevelColorCode(LogLevels logLevel) =>
+            logLevel switch
+            {
+                LogLevels.Debug => COLOR_DEBUG,
+                LogLevels.Info => COLOR_INFO,
+                LogLevels.Warn => COLOR_WARN,
+                LogLevels.Error => COLOR_ERROR,
+                _ => string.Empty
+            };
     }
 }

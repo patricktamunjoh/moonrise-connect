@@ -1,16 +1,16 @@
 ﻿using System;
 using MoonriseGames.CloudsAhoyConnect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions {
-
+namespace MoonriseGames.CloudsAhoyConnect.Functions
+{
     /// <summary>
     /// Attribute for configuring instance functions to be synced over the network. Every function that should be called on other game
     /// instances must have this attribute defined. The properties are used to determine how the function should be invoked. Use this attribute
     /// only on not overloaded instance functions. It has no effect on static functions.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class NetworkFunction : Attribute {
-
+    public class NetworkFunction : Attribute
+    {
         internal Groups Authority { get; }
         internal Recipients Recipients { get; }
         internal Transmission Transmission { get; }
@@ -36,7 +36,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
         /// Determines how the function is invoked on the sending game instance. When true the function call is queued and
         /// invoked when processing incoming network calls. Otherwise the function is invoked immediately.
         /// </param>
-        public NetworkFunction(Groups authority, Recipients recipients, Transmission type, bool isDeferred = false) {
+        public NetworkFunction(Groups authority, Recipients recipients, Transmission type, bool isDeferred = false)
+        {
             Authority = authority;
             Recipients = recipients;
             Transmission = type;
@@ -62,7 +63,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Functions {
         /// Determines how the function is invoked on the sending game instance. When true the function call is queued and
         /// invoked when processing incoming network calls. Otherwise the function is invoked immediately.
         /// </param>
-        public NetworkFunction(Groups authority, Recipients recipients, bool isDeferred = false) : this(authority, recipients,
-            Transmission.Reliable, isDeferred) { }
+        public NetworkFunction(Groups authority, Recipients recipients, bool isDeferred = false)
+            : this(authority, recipients, Transmission.Reliable, isDeferred) { }
     }
 }

@@ -47,7 +47,7 @@ In practice, to ensure the same changes are made in the same order on all game i
 ```c#
 // The final damage is determined inside the Network Function
 public void OnPlayerHit() {
-    this.Send(DealDamageToPlayer);
+    Invocation.Invoke(DealDamageToPlayer);
 }
 
 // Each game instance will detract a different amount from the player's health
@@ -60,7 +60,7 @@ public void DealDamageToPlayer() {
 ```c#
 // Instead, determine the final damage first and send that to all game instances
 public void OnPlayerHit() {
-    Random.Range(1, 3).Send(DealDamageToPlayer);
+    Invocation.Invoke(DealDamageToPlayer, Random.Range(1, 3));
 }
 
 [NetworkFunction(Groups.Host, Recipients.All)]
@@ -75,11 +75,11 @@ The following section will take a look at how Clouds Ahoy! Connect can be used t
 
 ### Initialization
 
-Use the `CloudsAhoyConnect.Builder` to initialize the library and create a new `CloudsAhoyConnect` instance. This instance acts as a facade to access all functions of the library. During the lifetime of the application, only one instance of the library should be created. To use with the Steam peer-to-peer network configure the builder with `ForSteam()`.
+Use the `Session.Builder` to initialize the library and create a new `Session` instance. This instance acts as a facade to access all functions of the library. During the lifetime of the application, only one instance of the library should be created. To use with the Steam peer-to-peer network configure the builder with `ForSteam()`.
 
 ```c#
-CloudsAhoyConnect.Builder builder = new CloudsAhoyConnect.Builder();
-CloudsAhoyConnect cloudsAhoyConnect = builder.ForSteam().Build();
+Session.Builder builder = new Session.Builder();
+Session session = builder.ForSteam().Build();
 ```
 
 ### Connecting
@@ -96,7 +96,7 @@ CSteamID hostSteamId;
 SteamNetworkConnectionConfig.Builder builder = new SteamNetworkConnectionConfig.Builder();
 SteamNetworkConnectionConfig clientConfig = builder.AsClient(hostSteamId).Build();
 
-cloudsAhoyConnect.EstablishConnection(clientConfig);
+session.EstablishConnection(clientConfig);
 ```
 
 ```c#
@@ -105,7 +105,7 @@ CSteamID client1SteamId, client2SteamId;
 SteamNetworkConnectionConfig.Builder builder = new SteamNetworkConnectionConfig.Builder();
 SteamNetworkConnectionConfig hostConfig = builder.AsHost(client1SteamId, client2SteamId).Build();
 
-cloudsAhoyConnect.EstablishConnection(hostConfig);
+session.EstablishConnection(hostConfig);
 ```
 
 > :bulb: For singleplayer sessions, a host configuration can be created without providing any client identities. When doing so no network socket is created and the connection establishment succeeds immediately.
@@ -117,8 +117,8 @@ cloudsAhoyConnect.EstablishConnection(hostConfig);
 To disconnect from an ongoing session `DropConnection()` can be used. This will close any ongoing connections to other game instances. However, registered objects and the current object id counter are kept intact. To clear all registered objects and reset object ids `Reset()` can be used.
 
 ```c#
-cloudsAhoyConnect.DropConnection();
-cloudsAhoyConnect.Reset();
+session.DropConnection();
+session.Reset();
 ```
 
 > :bulb: Always clear all registered objects and restore the initial state before creating a new connection. This prevents registrations from previous sessions from leaking and breaking the object registration order.
@@ -130,8 +130,8 @@ To collect incoming messages from all ongoing connections `PollConnection()` sho
 Incoming calls should be processed as soon as possible to avoid delays. Ideally, `ProcessQueuedNetworkFunctionCalls()` is called right after `PollConnection()`. A good place for this is `LateUpdate()` to process network calls after all other game code is done executing.
 
 ```c#
-cloudsAhoyConnect.PollConnection();
-cloudsAhoyConnect.ProcessQueuedNetworkFunctionCalls();
+session.PollConnection();
+session.ProcessQueuedNetworkFunctionCalls();
 ```
 
 > :bulb: There are situations where it can make sense to delay polling the connection. For example, when loading a scene or instantiating a structure over multiple frames Network Function calls might be received for objects that are not yet registered. This can be avoided by holding off on polling until all objects are registered.
@@ -141,7 +141,7 @@ cloudsAhoyConnect.ProcessQueuedNetworkFunctionCalls();
 For important changes to the network connection events are raised. They can be subscribed to through the `OnNetworkConnectionChanged` event delegate. These events can be used to advance the game when a certain state is reached.
 
 ```c#
-cloudsAhoyConnect.OnNetworkConnectionChanged += (sender, args) => {
+session.OnNetworkConnectionChanged += (sender, args) => {
     switch (args.Type) {
         case NetworkConnectionEventArgs.Types.ConnectionEstablished:
             break;
@@ -234,22 +234,19 @@ public class Chicken {
 }
 ```
 
-To call a Network Function and have it be invoked on all recipient instances the `Send()` extension functions can be used. For a function without parameters, call `Send()` on any object instance, usually `this`, and pass the Network Function as argument. For functions with one parameter, call `Send()` on the argument and again pass the Network Functions. For functions with multiple parameters, `Send()` is called on a `Tuple` containing all the arguments in the same order as they appear in the corresponding Network Function.
+To call a Network Function and have it be invoked on all recipient instances the `Invocation.Invoke()` static functions can be used. For a function without parameters, call `Invocation.Invoke()` on any object instance, usually `this`, and pass the Network Function as argument. For functions with one parameter, call `Invocation.Invoke()` on the argument and again pass the Network Functions. For functions with multiple parameters, `Invocation.Invoke()` is called on a `Tuple` containing all the arguments in the same order as they appear in the corresponding Network Function.
 
 ```c#
 Chicken chicken;
 
-// Functions with no parameters can be sent from any object
-this.Send(chicken.LayEgg);
+Invocation.Invoke(chicken.LayEgg);
 
-// Functions with one parameters are sent with the argument
-chicken.Egg.Send(chicken.HatchEgg);
-
-// Multiple arguments are wrapped in a Tuple
-(new Vector2(4, 9), 12f).Send(chicken.WalkToPosition);
+// Function arguments are passed after the reference to the network function
+Invocation.Invoke(chicken.HatchEgg, chicken.Egg);
+Invocation.Invoke(chicken.WalkToPosition, new Vector2(4, 9), 12f);
 ```
 
-> :bulb: Because the library does not use code generation, calling a Network Function directly without `Send()` will invoke the function as usual, only on the current game instance.
+> :bulb: Because the library does not use code generation, calling a Network Function directly without `Invocation.Invoke()` will invoke the function as usual, only on the current game instance.
 
 ### Debugging
 
@@ -278,7 +275,7 @@ public class Farmer {
     [NetworkFunction(Groups.All, Recipients.Host)]
     public void ValidateCollectEgg(Egg egg) {
         // The host instance validates that the call can be executed
-        if (egg.CanBeCollected) egg.Send(ExecuteCollectEgg)
+        if (egg.CanBeCollected) Invocation.Invoke(ExecuteCollectEgg, egg)
     }
 
     [NetworkFunction(Groups.Host, Recipients.All)]
@@ -308,7 +305,7 @@ public class Sprinkler {
         ...
         // On the host instance this is executed immediately
         // On client instances the invocation is skipped
-        this.Send(ConsumeWater);
+        Invocation.Invoke(ConsumeWater);
 
         // Only on the host this will be fulfilled
         if (!IsFilledWithWater) FillWithWater();
@@ -341,7 +338,7 @@ public class Sprinkler {
     private void WaterSurroundingPlants() {
         ...
         // This invocation is now skipped on all game instances
-        this.Send(ConsumeWater);
+        Invocation.Invoke(ConsumeWater);
         if (!IsFilledWithWater) FillWithWater();
     }
 
@@ -349,7 +346,7 @@ public class Sprinkler {
     private void WaterSurroundingPlantsUntilEmpty() {
         // This is an infinite loop because condition is not modified immediately
         while (IsFilledWithWater) {
-            this.Send(WaterSurroundingPlants);
+            Invocation.Invoke(WaterSurroundingPlants);
         }
     }
 

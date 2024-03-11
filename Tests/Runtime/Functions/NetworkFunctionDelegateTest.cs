@@ -8,14 +8,16 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionDelegateTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionDelegateTest
+    {
         private NetworkFunctionData FunctionDataWithInfo(MethodInfo methodInfo, bool isDeferred = false) =>
             new(new NetworkFunction(Groups.Host, Recipients.Clients, isDeferred), methodInfo);
 
         [Test]
-        public void ShouldRetainProperties() {
+        public void ShouldRetainProperties()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.NiladicFunction));
             var function = new NetworkFunction(Groups.Clients, Recipients.Clients);
@@ -27,7 +29,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfEmptyArgumentsArrayIsProvided() {
+        public void ShouldThrowIfEmptyArgumentsArrayIsProvided()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.NiladicFunction));
 
@@ -37,7 +40,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyHandleInvocationWithDeferral() {
+        public void ShouldCorrectlyHandleInvocationWithDeferral()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.MonadicFunction));
 
@@ -47,7 +51,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideStringWithArguments() {
+        public void ShouldProvideStringWithArguments()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.MonadicFunction));
 
@@ -60,7 +65,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideStringWithNullArguments() {
+        public void ShouldProvideStringWithNullArguments()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.MonadicFunction));
 
@@ -72,8 +78,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldProvideEmptyStringWithNoTarget() {
-            var sut = Function.ExecuteInCollectableScope(() => {
+        public void ShouldProvideEmptyStringWithNoTarget()
+        {
+            var sut = Function.ExecuteInCollectableScope(() =>
+            {
                 var target = new Sample();
                 var methodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.PublicFunction));
 
@@ -88,7 +96,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfWrongArrayIsProvided() {
+        public void ShouldThrowIfWrongArrayIsProvided()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction));
 
@@ -98,7 +107,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateAfterGarbageCollection() {
+        public void ShouldDelegateAfterGarbageCollection()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.NiladicFunction));
 
@@ -111,7 +121,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToNiladicFunction() {
+        public void ShouldDelegateToNiladicFunction()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.NiladicFunction));
 
@@ -123,7 +134,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToMonadicFunction() {
+        public void ShouldDelegateToMonadicFunction()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.MonadicFunction));
 
@@ -135,7 +147,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToDyadicFunction() {
+        public void ShouldDelegateToDyadicFunction()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.DyadicFunction));
 
@@ -147,7 +160,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToReturningFunction() {
+        public void ShouldDelegateToReturningFunction()
+        {
             var target = new Mock<ISample>();
             var methodInfo = typeof(ISample).GetDeclaredMethod(nameof(ISample.ReturningFunction));
 
@@ -159,7 +173,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateInterfaceToOverwrittenFunction() {
+        public void ShouldDelegateInterfaceToOverwrittenFunction()
+        {
             var target = new SampleBase();
             var methodInfo = typeof(SampleBase).GetMethod(nameof(ISample.NiladicFunction));
 
@@ -171,7 +186,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToOverwrittenFunction() {
+        public void ShouldDelegateToOverwrittenFunction()
+        {
             var target = new Sample();
             var methodInfo = typeof(Sample).GetDeclaredMethod(nameof(Sample.VirtualFunction));
             var baseMethodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.VirtualFunction));
@@ -185,7 +201,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToOverwrittenFunctionFromBaseType() {
+        public void ShouldDelegateToOverwrittenFunctionFromBaseType()
+        {
             var target = new Sample();
             var methodInfo = typeof(Sample).GetDeclaredMethod(nameof(Sample.VirtualFunction));
             var baseMethodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.VirtualFunction));
@@ -199,7 +216,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToPrivateFunction() {
+        public void ShouldDelegateToPrivateFunction()
+        {
             var target = new Sample();
             var methodInfo = typeof(Sample).GetDeclaredMethod(Sample.PrivateFunctionName);
             var baseMethodInfo = typeof(SampleBase).GetDeclaredMethod(SampleBase.PrivateFunctionName);
@@ -213,7 +231,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToPrivateFunctionOnBaseType() {
+        public void ShouldDelegateToPrivateFunctionOnBaseType()
+        {
             var target = new Sample();
             var methodInfo = typeof(Sample).GetDeclaredMethod(Sample.PrivateFunctionName);
             var baseMethodInfo = typeof(SampleBase).GetDeclaredMethod(SampleBase.PrivateFunctionName);
@@ -227,7 +246,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToHiddenFunction() {
+        public void ShouldDelegateToHiddenFunction()
+        {
             var target = new Sample();
             var methodInfo = typeof(Sample).GetDeclaredMethod(nameof(Sample.PublicFunction));
             var baseMethodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.PublicFunction));
@@ -241,7 +261,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldDelegateToHiddenFunctionOnBaseType() {
+        public void ShouldDelegateToHiddenFunctionOnBaseType()
+        {
             var target = new Sample();
             var methodInfo = typeof(Sample).GetDeclaredMethod(nameof(Sample.PublicFunction));
             var baseMethodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.PublicFunction));
@@ -255,7 +276,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldHaveReferenceToFunction() {
+        public void ShouldHaveReferenceToFunction()
+        {
             var target = new Sample();
             var methodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.PublicFunction));
 
@@ -265,8 +287,10 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldNotHoldStrongReferenceToFunction() {
-            var sut = Function.ExecuteInCollectableScope(() => {
+        public void ShouldNotHoldStrongReferenceToFunction()
+        {
+            var sut = Function.ExecuteInCollectableScope(() =>
+            {
                 var target = new Sample();
                 var methodInfo = typeof(SampleBase).GetDeclaredMethod(nameof(SampleBase.PublicFunction));
 

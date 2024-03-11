@@ -1,10 +1,12 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Utilities {
-    internal class Counter {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Utilities
+{
+    internal class Counter
+    {
         public ulong Value { get; private set; }
         public ulong StartValue { get; }
 
-        public Counter(ulong startValue = 0) {
+        public Counter(ulong startValue = 0)
+        {
             StartValue = startValue;
             Value = startValue;
         }

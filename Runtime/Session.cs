@@ -6,14 +6,15 @@ using MoonriseGames.CloudsAhoyConnect.Extensions;
 using MoonriseGames.CloudsAhoyConnect.Functions;
 using MoonriseGames.CloudsAhoyConnect.Logging;
 
-namespace MoonriseGames.CloudsAhoyConnect {
+namespace MoonriseGames.CloudsAhoyConnect
+{
     /// <summary>
     /// Entry point to the Clouds Ahoy Connect library. All functionality can be assessed through the singleton instance of this class or
     /// static extension functions. Use the <see cref="Builder" /> to configure and instantiate a new instance.
     /// </summary>
-    public partial class CloudsAhoyConnect {
-
-        internal static CloudsAhoyConnect Instance { get; set; }
+    public partial class Session
+    {
+        internal static Session Instance { get; set; }
 
         /// <summary>
         /// The role this game instance holds within the network. The role is determined from the configuration provided during connection
@@ -58,12 +59,8 @@ namespace MoonriseGames.CloudsAhoyConnect {
         internal NetworkFunctionRegistry Registry { get; }
         internal NetworkFunctionEmitter Emitter { get; }
 
-        internal CloudsAhoyConnect(
-            NetworkConnection connection,
-            NetworkFunctionQueue queue,
-            NetworkFunctionRegistry registry,
-            NetworkFunctionEmitter emitter
-        ) {
+        internal Session(NetworkConnection connection, NetworkFunctionQueue queue, NetworkFunctionRegistry registry, NetworkFunctionEmitter emitter)
+        {
             Connection = connection;
             Connection.OnNetworkConnectionChanged += (_, args) => OnNetworkConnectionChanged?.Invoke(this, args);
 
@@ -130,7 +127,8 @@ namespace MoonriseGames.CloudsAhoyConnect {
         /// Starts recording a snapshot which contains information about all object registration and network calls. This should only be used
         /// for debugging purposes and detecting issues with diverging game instance states.
         /// </summary>
-        public void StartRecordingSnapshot() {
+        public void StartRecordingSnapshot()
+        {
             var snapshot = new Snapshot();
 
             Registry.Snapshot = snapshot;
@@ -139,9 +137,12 @@ namespace MoonriseGames.CloudsAhoyConnect {
 
         /// <summary>Stops the recording of the current snapshot</summary>
         /// <returns>A snapshot of all network calls and object registrations since the last call to <see cref="StartRecordingSnapshot" />.</returns>
-        public Snapshot StopRecordingAndCollectSnapshot() {
-            if (Connection.Snapshot == null) {
-                var message = $@"No snapshot is currently being recorded.
+        public Snapshot StopRecordingAndCollectSnapshot()
+        {
+            if (Connection.Snapshot == null)
+            {
+                var message =
+                    $@"No snapshot is currently being recorded.
                     Make sure to call {nameof(StartRecordingSnapshot)} before collecting the snapshot results.";
 
                 throw new InvalidOperationException(message.TrimIndents());

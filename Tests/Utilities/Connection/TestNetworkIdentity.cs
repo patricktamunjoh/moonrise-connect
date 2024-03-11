@@ -1,10 +1,10 @@
 ﻿using System;
 using MoonriseGames.CloudsAhoyConnect.Connection;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection {
-
-    internal class TestNetworkIdentity : NetworkIdentity {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection
+{
+    internal class TestNetworkIdentity : NetworkIdentity
+    {
         private string Id { get; }
         public string DisplayName => Id;
 

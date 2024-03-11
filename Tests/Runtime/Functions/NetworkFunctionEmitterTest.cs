@@ -12,27 +12,29 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionEmitterTest {
-
-        private void VerifyFunctionIdsSent(Mock<NetworkConnection> connection, ulong objectId, NetworkHash functionId) {
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionEmitterTest
+    {
+        private void VerifyFunctionIdsSent(Mock<NetworkConnection> connection, ulong objectId, NetworkHash functionId)
+        {
             connection.Verify(x => x.Send(It.Is<NetworkFunctionCall>(y => y.ObjectId == objectId && y.FunctionId.Equals(functionId))));
         }
 
-        private void VerifyPayloadSent(Mock<NetworkConnection> connection, NetworkFunctionDelegate function, IEnumerable<object> args) {
-            connection.Verify(x => x.Send(It.Is<NetworkFunctionCall>(
-                call => args.SequenceEqual(call.DecodedPayload(function.Data.PayloadType).Arguments()))));
+        private void VerifyPayloadSent(Mock<NetworkConnection> connection, NetworkFunctionDelegate function, IEnumerable<object> args)
+        {
+            connection.Verify(x => x.Send(It.Is<NetworkFunctionCall>(call => args.SequenceEqual(call.DecodedPayload(function.Data.PayloadType).Arguments()))));
         }
 
         private void VerifyDelegateEnqueued(Mock<NetworkFunctionQueue> queue, NetworkFunctionDelegate function, IEnumerable<object> args) =>
-            queue.Verify(x => x.EnqueueDelegate(function, It.Is<INetworkPayload>(payload => args.SequenceEqual(payload.Arguments())),
-                It.IsAny<Roles>(), true));
+            queue.Verify(x => x.EnqueueDelegate(function, It.Is<INetworkPayload>(payload => args.SequenceEqual(payload.Arguments())), It.IsAny<Roles>(), true));
 
         private object[] ExpectedArguments(NetworkFunctionDelegate function, NetworkFunctionRegistry registry, object[] args) =>
             function.Data.PayloadType.CreateInstanceFromArguments(registry, args).Arguments().ToArray();
 
         [Test]
-        public void ShouldCorrectlyProcessNetworkCallWithNoArguments() {
+        public void ShouldCorrectlyProcessNetworkCallWithNoArguments()
+        {
             var sample = new SampleNetwork();
             var registry = new NetworkFunctionRegistry();
             var queue = new Mock<NetworkFunctionQueue>(registry);
@@ -53,7 +55,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyProcessNetworkCallWithOneArgument() {
+        public void ShouldCorrectlyProcessNetworkCallWithOneArgument()
+        {
             var sample = new SampleNetwork();
             var arguments = new object[] { 12 };
 
@@ -77,7 +80,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyProcessNetworkCallWithNetworkObjectArgument() {
+        public void ShouldCorrectlyProcessNetworkCallWithNetworkObjectArgument()
+        {
             var sample = new SampleNetwork();
             var arguments = new object[] { new SampleNetworkEmpty() };
 
@@ -103,7 +107,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyProcessNetworkCallWithTwoArguments() {
+        public void ShouldCorrectlyProcessNetworkCallWithTwoArguments()
+        {
             var sample = new SampleNetwork();
             var arguments = new object[] { 12, 42 };
 
@@ -127,7 +132,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyProcessNetworkCallWithThreeArguments() {
+        public void ShouldCorrectlyProcessNetworkCallWithThreeArguments()
+        {
             var sample = new SampleNetwork();
             var arguments = new object[] { 12, 42, 102 };
 
@@ -151,7 +157,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldCorrectlyProcessNetworkCallWithFourArguments() {
+        public void ShouldCorrectlyProcessNetworkCallWithFourArguments()
+        {
             var sample = new SampleNetwork();
             var arguments = new object[] { 12, 42, 102, 1982 };
 
@@ -175,7 +182,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldThrowIfFunctionIsNull() {
+        public void ShouldThrowIfFunctionIsNull()
+        {
             var connection = NetworkConnectionFactory.BuildMock(out var registry, out var queue);
 
             var sut = new NetworkFunctionEmitter(queue, registry, connection.Object);

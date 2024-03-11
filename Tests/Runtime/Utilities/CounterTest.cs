@@ -1,25 +1,29 @@
 ﻿using MoonriseGames.CloudsAhoyConnect.Utilities;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities {
-    public class CounterTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities
+{
+    public class CounterTest
+    {
         [Test]
-        public void ShouldInitializeToZeroAsDefault() {
+        public void ShouldInitializeToZeroAsDefault()
+        {
             var sut = new Counter();
 
             Assert.AreEqual(0, sut.Value);
         }
 
         [Test]
-        public void ShouldInitializeToStartValue() {
+        public void ShouldInitializeToStartValue()
+        {
             var sut = new Counter(12);
 
             Assert.AreEqual(12, sut.Value);
         }
 
         [Test]
-        public void ShouldCountUpInSingleSteps() {
+        public void ShouldCountUpInSingleSteps()
+        {
             var sut = new Counter();
 
             Assert.AreEqual(0, sut.ReadAndIncrease());
@@ -30,7 +34,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities {
         }
 
         [Test]
-        public void ShouldCountUpFromStartValue() {
+        public void ShouldCountUpFromStartValue()
+        {
             var sut = new Counter(12);
 
             Assert.AreEqual(12, sut.ReadAndIncrease());
@@ -39,7 +44,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities {
         }
 
         [Test]
-        public void ShouldResetToStartValue() {
+        public void ShouldResetToStartValue()
+        {
             var sut = new Counter(12);
 
             sut.ReadAndIncrease();

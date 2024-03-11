@@ -2,13 +2,16 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions {
-    internal static class Function {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions
+{
+    internal static class Function
+    {
         public static T ExecuteInCollectableScope<T>(Func<T> constructor) => constructor.Invoke();
 
-        public static void ClearScene() {
-            foreach (var transform in Object.FindObjectsOfType<Transform>(true)) Object.DestroyImmediate(transform.gameObject);
+        public static void ClearScene()
+        {
+            foreach (var transform in Object.FindObjectsOfType<Transform>(true))
+                Object.DestroyImmediate(transform.gameObject);
         }
     }
 }

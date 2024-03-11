@@ -1,6 +1,7 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object {
-    public interface ISample {
-
+﻿namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object
+{
+    public interface ISample
+    {
         void NiladicFunction();
 
         void MonadicFunction(string a);

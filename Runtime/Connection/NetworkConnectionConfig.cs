@@ -1,13 +1,13 @@
 ﻿using MoonriseGames.CloudsAhoyConnect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection {
-
+namespace MoonriseGames.CloudsAhoyConnect.Connection
+{
     /// <summary>
-    /// Holds the configuration for how a new network connection should be established. Depending on the configuration, a connection to a
-    /// host instance is established or incoming client connections are awaited.
+    ///     Holds the configuration for how a new network connection should be established. Depending on the configuration, a connection to a
+    ///     host instance is established or incoming client connections are awaited.
     /// </summary>
-    public class NetworkConnectionConfig {
-
+    public class NetworkConnectionConfig
+    {
         internal Roles Role { get; }
 
         internal NetworkIdentity Host { get; }
@@ -15,16 +15,20 @@ namespace MoonriseGames.CloudsAhoyConnect.Connection {
 
         internal int ConnectionEstablishmentTimeoutMs { get; private protected set; } = -1;
 
-        internal NetworkConnectionConfig(NetworkIdentity host, int? connectionEstablishmentTimeoutMs = null) {
+        internal NetworkConnectionConfig(NetworkIdentity host, int? connectionEstablishmentTimeoutMs = null)
+        {
             Role = Roles.Client;
             Host = host;
-            if (connectionEstablishmentTimeoutMs.HasValue) ConnectionEstablishmentTimeoutMs = connectionEstablishmentTimeoutMs.Value;
+            if (connectionEstablishmentTimeoutMs.HasValue)
+                ConnectionEstablishmentTimeoutMs = connectionEstablishmentTimeoutMs.Value;
         }
 
-        internal NetworkConnectionConfig(NetworkIdentity[] clients, int? connectionEstablishmentTimeoutMs = null) {
+        internal NetworkConnectionConfig(NetworkIdentity[] clients, int? connectionEstablishmentTimeoutMs = null)
+        {
             Role = Roles.Host;
             Clients = clients;
-            if (connectionEstablishmentTimeoutMs.HasValue) ConnectionEstablishmentTimeoutMs = connectionEstablishmentTimeoutMs.Value;
+            if (connectionEstablishmentTimeoutMs.HasValue)
+                ConnectionEstablishmentTimeoutMs = connectionEstablishmentTimeoutMs.Value;
         }
     }
 }

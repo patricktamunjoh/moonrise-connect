@@ -2,84 +2,92 @@
 using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
 using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
 using NUnit.Framework;
+using static MoonriseGames.CloudsAhoyConnect.Invocation;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
-    public class InvocationExtensionsTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+{
+    public class InvocationTest
+    {
         [Test]
-        public void ShouldNotThrowIfInstanceIsNull() {
+        public void ShouldNotThrowIfInstanceIsNull()
+        {
             var sample = new SampleNetwork();
 
-            CloudsAhoyConnect.Instance = null;
+            Session.Instance = null;
 
-            Assert.DoesNotThrow(() => this.Send(sample.NiladicFunction));
-            Assert.DoesNotThrow(() => 12.Send(sample.MonadicFunction));
-            Assert.DoesNotThrow(() => (12, 42).Send(sample.DyadicFunction));
-            Assert.DoesNotThrow(() => (12, 42, 30).Send(sample.TriadicFunction));
-            Assert.DoesNotThrow(() => (12, 42, 30, 55).Send(sample.QuadradicFunction));
+            Assert.DoesNotThrow(() => Invoke(sample.NiladicFunction));
+            Assert.DoesNotThrow(() => Invoke(sample.MonadicFunction, 12));
+            Assert.DoesNotThrow(() => Invoke(sample.DyadicFunction, 12, 42));
+            Assert.DoesNotThrow(() => Invoke(sample.TriadicFunction, 12, 42, 30));
+            Assert.DoesNotThrow(() => Invoke(sample.QuadradicFunction, 12, 42, 30, 55));
         }
 
         [Test]
-        public void ShouldSendNiladicFunction() {
+        public void ShouldSendNiladicFunction()
+        {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
             var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
-            this.Send(sample.NiladicFunction);
+            Invoke(sample.NiladicFunction);
 
             emitter.Verify(x => x.Call(sample.NiladicFunction));
         }
 
         [Test]
-        public void ShouldSendMonadicFunction() {
+        public void ShouldSendMonadicFunction()
+        {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
             var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
-            12.Send(sample.MonadicFunction);
+            Invoke(sample.MonadicFunction, 12);
 
             emitter.Verify(x => x.Call(sample.MonadicFunction, 12));
         }
 
         [Test]
-        public void ShouldSendDyadicFunction() {
+        public void ShouldSendDyadicFunction()
+        {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
             var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
-            (12, 42).Send(sample.DyadicFunction);
+            Invoke(sample.DyadicFunction, 12, 42);
 
             emitter.Verify(x => x.Call(sample.DyadicFunction, 12, 42));
         }
 
         [Test]
-        public void ShouldSendTriadicFunction() {
+        public void ShouldSendTriadicFunction()
+        {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
             var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
-            (12, 42, 4).Send(sample.TriadicFunction);
+            Invoke(sample.TriadicFunction, 12, 42, 4);
 
             emitter.Verify(x => x.Call(sample.TriadicFunction, 12, 42, 4));
         }
 
         [Test]
-        public void ShouldSendQuadradicFunction() {
+        public void ShouldSendQuadradicFunction()
+        {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
             var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
 
-            CloudsAhoyConnect.Instance = cac;
+            Session.Instance = cac;
 
-            (12, 42, 4, -4).Send(sample.QuadradicFunction);
+            Invoke(sample.QuadradicFunction, 12, 42, 4, -4);
 
             emitter.Verify(x => x.Call(sample.QuadradicFunction, 12, 42, 4, -4));
         }

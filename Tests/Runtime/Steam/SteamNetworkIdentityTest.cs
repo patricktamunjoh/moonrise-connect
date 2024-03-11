@@ -3,11 +3,13 @@ using Moq;
 using NUnit.Framework;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
-    public class SteamNetworkIdentityTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+{
+    public class SteamNetworkIdentityTest
+    {
         [Test]
-        public void ShouldProvideDisplayName() {
+        public void ShouldProvideDisplayName()
+        {
             var steamId = new CSteamID(98234);
             var proxy = new Mock<SteamProxy>();
 
@@ -20,7 +22,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldCastToSteamId() {
+        public void ShouldCastToSteamId()
+        {
             const uint id = 2876U;
             var sut = new SteamNetworkIdentity(id);
 
@@ -28,7 +31,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldCastToSteamNetworkingId() {
+        public void ShouldCastToSteamNetworkingId()
+        {
             var steamId = new CSteamID(27023);
             var sut = new SteamNetworkIdentity(steamId);
 
@@ -36,7 +40,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldCastFromSteamId() {
+        public void ShouldCastFromSteamId()
+        {
             var steamId = new CSteamID(27023);
             var sut = (SteamNetworkIdentity)steamId;
 
@@ -44,7 +49,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldCastFromLongId() {
+        public void ShouldCastFromLongId()
+        {
             const uint id = 2876U;
             var sut = (SteamNetworkIdentity)id;
 
@@ -52,7 +58,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldEqualIdentityWithEqualId() {
+        public void ShouldEqualIdentityWithEqualId()
+        {
             var a = new SteamNetworkIdentity(8246);
             var b = new SteamNetworkIdentity(8246);
 
@@ -60,14 +67,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldNotEqualNull() {
+        public void ShouldNotEqualNull()
+        {
             var sut = new SteamNetworkIdentity(2367);
 
             Assert.False(sut.Equals(null));
         }
 
         [Test]
-        public void ShouldNotEqualIdentityWithDifferentId() {
+        public void ShouldNotEqualIdentityWithDifferentId()
+        {
             var a = new SteamNetworkIdentity(8246);
             var b = new SteamNetworkIdentity(9937);
 
@@ -75,7 +84,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam {
         }
 
         [Test]
-        public void ShouldProvideSameHashCodeForEqualIdentities() {
+        public void ShouldProvideSameHashCodeForEqualIdentities()
+        {
             var a = new SteamNetworkIdentity(8246);
             var b = new SteamNetworkIdentity(8246);
 

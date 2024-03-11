@@ -2,11 +2,13 @@
 using MoonriseGames.CloudsAhoyConnect.Functions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
-    public class NetworkFunctionTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+{
+    public class NetworkFunctionTest
+    {
         [Test]
-        public void ShouldRetainPropertyValues() {
+        public void ShouldRetainPropertyValues()
+        {
             var sut = new NetworkFunction(Groups.Clients, Recipients.Clients, Transmission.Unreliable, true);
 
             Assert.AreEqual(Groups.Clients, sut.Authority);
@@ -16,14 +18,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions {
         }
 
         [Test]
-        public void ShouldHaveTransmissionTypesReliableAsDefault() {
+        public void ShouldHaveTransmissionTypesReliableAsDefault()
+        {
             var sut = new NetworkFunction(Groups.Clients, Recipients.Clients);
 
             Assert.AreEqual(Transmission.Reliable, sut.Transmission);
         }
 
         [Test]
-        public void ShouldHaveDeferredFalseAsDefault() {
+        public void ShouldHaveDeferredFalseAsDefault()
+        {
             var sut = new NetworkFunction(Groups.Clients, Recipients.Clients);
 
             Assert.False(sut.IsDeferred);

@@ -1,12 +1,15 @@
 ﻿using MoonriseGames.CloudsAhoyConnect.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions {
-    public class StringExtensionsTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+{
+    public class StringExtensionsTest
+    {
         [Test]
-        public void ShouldRemoveLineBreaksAndIndents() {
-            const string sut = @"This string contains
+        public void ShouldRemoveLineBreaksAndIndents()
+        {
+            const string sut =
+                @"This string contains
                 line breaks and gaps and is stretched over
                 multiple lines";
 

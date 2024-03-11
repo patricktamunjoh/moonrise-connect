@@ -8,11 +8,13 @@ using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging {
-    public class SnapshotTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging
+{
+    public class SnapshotTest
+    {
         [Test]
-        public void ShouldRecordObjectRegistrations() {
+        public void ShouldRecordObjectRegistrations()
+        {
             var sample = new Sample();
             var sut = new Snapshot();
 
@@ -25,7 +27,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging {
         }
 
         [Test]
-        public void ShouldRecordObjectUnregistrations() {
+        public void ShouldRecordObjectUnregistrations()
+        {
             var sample = new Sample();
             var sut = new Snapshot();
 
@@ -38,7 +41,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging {
         }
 
         [Test]
-        public void ShouldRecordOutgoingNetworkCalls() {
+        public void ShouldRecordOutgoingNetworkCalls()
+        {
             var call1 = new NetworkFunctionCall(12, NetworkHashing.Hash("example A"), Transmission.Unreliable);
             var call2 = new NetworkFunctionCall(42, NetworkHashing.Hash("example B"), Transmission.Reliable);
 
@@ -56,7 +60,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging {
         }
 
         [Test]
-        public void ShouldRecordIncomingNetworkCalls() {
+        public void ShouldRecordIncomingNetworkCalls()
+        {
             var call1 = new NetworkFunctionCall(12, NetworkHashing.Hash("example A"), Transmission.Unreliable);
             var call2 = new NetworkFunctionCall(42, NetworkHashing.Hash("example B"), Transmission.Reliable);
 
@@ -74,7 +79,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging {
         }
 
         [Test]
-        public void ShouldRecordNetworkEvents() {
+        public void ShouldRecordNetworkEvents()
+        {
             var identity = new Mock<NetworkIdentity>();
             identity.Setup(x => x.DisplayName).Returns("display name");
 

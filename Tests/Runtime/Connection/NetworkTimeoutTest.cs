@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using MoonriseGames.CloudsAhoyConnect.Connection;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
-    public class NetworkTimeoutTest {
-
+namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+{
+    public class NetworkTimeoutTest
+    {
         [Test]
-        public async Task ShouldInvokeTimeoutAfterDelay() {
+        public async Task ShouldInvokeTimeoutAfterDelay()
+        {
             const int delay = 2;
             var isTimeout = false;
 
@@ -20,7 +22,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldNotImmediatelyInvokeTimeout() {
+        public void ShouldNotImmediatelyInvokeTimeout()
+        {
             const int delay = 100;
             var isTimeout = false;
 
@@ -32,7 +35,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldNotInvokeTimeoutBeforeDelay() {
+        public async Task ShouldNotInvokeTimeoutBeforeDelay()
+        {
             const int delay = 100;
             var isTimeout = false;
 
@@ -45,7 +49,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldNeverInvokeIfDelayIsNegative() {
+        public async Task ShouldNeverInvokeIfDelayIsNegative()
+        {
             const int delay = -1;
             var isTimeout = false;
 
@@ -58,14 +63,16 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public void ShouldThrowIfActionIsNull() {
+        public void ShouldThrowIfActionIsNull()
+        {
             const int delay = 10;
 
             Assert.Throws<ArgumentNullException>(() => new NetworkTimeout(delay, null));
         }
 
         [Test]
-        public async Task ShouldNotInvokeTimeoutAfterCancel() {
+        public async Task ShouldNotInvokeTimeoutAfterCancel()
+        {
             const int delay = 2;
             var isTimeout = false;
 
@@ -79,7 +86,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldNotInvokeTimeoutAfterLateCancel() {
+        public async Task ShouldNotInvokeTimeoutAfterLateCancel()
+        {
             const int delay = 100;
             var isTimeout = false;
 
@@ -95,7 +103,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldRestartTimeoutAfterCancel() {
+        public async Task ShouldRestartTimeoutAfterCancel()
+        {
             const int delay = 2;
             var isTimeout = false;
 
@@ -110,7 +119,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection {
         }
 
         [Test]
-        public async Task ShouldRestartTimeoutWhenStartedMultipleTimes() {
+        public async Task ShouldRestartTimeoutWhenStartedMultipleTimes()
+        {
             const int delay = 100;
             var isTimeout = false;
 
