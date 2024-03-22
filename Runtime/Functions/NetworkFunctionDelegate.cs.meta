@@ -1,3 +1,7 @@
 fileFormatVersion: 2
 guid: 9bc265b39c5414147afa248fb06946f9
 timeCreated: 1663852436
+
+MonoImporter:
+  icon: {fileID: 2800000, guid: b03bc7e6d6612db4297dd08a98a3752d, type: 3}
+
