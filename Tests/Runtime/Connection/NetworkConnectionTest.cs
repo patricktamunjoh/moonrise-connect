@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
-using MoonriseGames.CloudsAhoyConnect.Logging;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Hashing;
+using MoonriseGames.Connect.Logging;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
+using MoonriseGames.Connect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+namespace MoonriseGames.Connect.Tests.Connection
 {
     public class NetworkConnectionTest
     {
@@ -400,9 +400,9 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
             var queue = NetworkFunctionQueueFactory.BuildMock();
             var call = new NetworkFunctionCall(12, NetworkHashing.Hash("example"), Transmission.Reliable);
 
-            var sut = NetworkConnectionFactory.Build(queue.Object);
+            var sut = NetworkConnectionFactory.Build((NetworkFunctionQueue)queue.Object);
 
-            link.SetupSequence(x => x.Receive()).Returns(call.ToBytes()).Returns(null as byte[]);
+            link.SetupSequence(x => x.Receive()).Returns((byte[])call.ToBytes()).Returns(null as byte[]);
 
             sut.Establish(new NetworkConnectionConfig(hostIdentity));
             sut.ReceiveNewActiveNetworkLink(link.Object);

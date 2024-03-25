@@ -1,7 +1,7 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Steam;
+﻿using MoonriseGames.Connect.Steam;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+namespace MoonriseGames.Connect.Tests.Steam
 {
     public class SteamNetworkConnectionConfigBuilderTest
     {

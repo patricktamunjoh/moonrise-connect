@@ -1,6 +1,6 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Connection;
+﻿using MoonriseGames.Connect.Connection;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam
+namespace MoonriseGames.Connect.Steam
 {
     /// <summary>
     /// Holds the configuration for how a new network connection over the Steam peer to peer servers should be established. Use the

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Functions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Logging
+namespace MoonriseGames.Connect.Logging
 {
     /// <summary>
     /// Collection of network event data through a certain period of time. This class can be used to collect information to debug

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Objects;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Objects;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Payloads
+namespace MoonriseGames.Connect.Payloads
 {
     [Serializable]
     internal class NetworkPayloadType

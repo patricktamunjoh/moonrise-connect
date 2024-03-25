@@ -1,6 +1,6 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
+﻿using MoonriseGames.Connect.Tests.Samples.Collections;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object
+namespace MoonriseGames.Connect.Tests.Samples.Object
 {
     public class SampleBase : ISample
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Logging
+namespace MoonriseGames.Connect.Logging
 {
     /// <summary>Logging interface used for all network related logs. The log fidelity can be adjusted by setting the <see cref="LogLevel" />.</summary>
     public static class NetworkLogger
@@ -40,7 +40,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Logging
         {
             if (!IsDevelopmentBuild || !ShouldPrintMessage(logLevel))
                 return;
-            var log = "Clouds Ahoy Connect: " + (message ?? "null");
+            var log = "Moonrise Connect: " + (message ?? "null");
             UnityEngine.Debug.Log(ColorizedLogMessage(log, logLevel));
         }
 

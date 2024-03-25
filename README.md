@@ -1,10 +1,10 @@
-# Clouds Ahoy! Connect
+# Moonrise Connect
 
 **Networking Library for Unity + Steamworks**
 
-_Clouds Ahoy! Connect_ is a minimalistic [Unity](https://unity.com/) package and library that simplifies the development of peer-to-peer multiplayer games. The library currently only supports the Steam peer-to-peer network, building upon the [Steamworks.Net](https://steamworks.github.io/) wrapper for Valve's Steamworks API, but can be extended for other networking stacks. It was designed with simplicity in mind, to enable even the smallest teams to create realtime multiplayer experiences without spending most of their resources on networking.
+_Moonrise Connect_ is a minimalistic [Unity](https://unity.com/) package and library that simplifies the development of peer-to-peer multiplayer games. The library currently only supports the Steam peer-to-peer network, building upon the [Steamworks.Net](https://steamworks.github.io/) wrapper for Valve's Steamworks API, but can be extended for other networking stacks. It was designed with simplicity in mind, to enable even the smallest teams to create realtime multiplayer experiences without spending most of their resources on networking.
 
-Clouds Ahoy! Connect is built around the concept of [remote procedure calls](https://en.wikipedia.org/wiki/Remote_procedure_call). Any function in the code can be declared a _Network Function_. When a Network Function is called it is invoked simultaneously on all connected game instances. **With this, the code can be written almost as if it was a singleplayer game.** Whenever the host game instance encounters a Network Function, the library transmits the call to all the client game instances. When a client game instance reaches a Network Function it resumes without invoking the function, delaying the call until the corresponding message coming from the host game instance has arrived.
+Moonrise Connect is built around the concept of [remote procedure calls](https://en.wikipedia.org/wiki/Remote_procedure_call). Any function in the code can be declared a _Network Function_. When a Network Function is called it is invoked simultaneously on all connected game instances. **With this, the code can be written almost as if it was a singleplayer game.** Whenever the host game instance encounters a Network Function, the library transmits the call to all the client game instances. When a client game instance reaches a Network Function it resumes without invoking the function, delaying the call until the corresponding message coming from the host game instance has arrived.
 
 With this approach the same Network Functions with the same arguments are invoked on all game instances in the same order at approximately the same time. Resulting in a synchronized experience on all connected game instances.
 
@@ -12,15 +12,15 @@ For a more complete introduction check out the [quickstart guide](./QUICKSTART.m
 
 ## Games
 
-Clouds Ahoy! Connect was originally developed for the frantic coop multiplayer game [Clouds Ahoy!](https://store.steampowered.com/app/2196870/Clouds_Ahoy/).
+Moonrise Connect was originally developed for the frantic coop multiplayer game [Clouds Ahoy!](https://store.steampowered.com/app/2196870/Clouds_Ahoy/).
 
 [<img src="./Images~/clouds-ahoy-cover-small.jpg" width= 300/>](https://store.steampowered.com/app/2196870/Clouds_Ahoy/)
 
 ## Installation
 
-To use Clouds Ahoy! Connect, first install [Steamworks.Net](https://steamworks.github.io/) by following the [official installation instructions for Unity](https://steamworks.github.io/installation/).
+To use Moonrise Connect, first install [Steamworks.Net](https://steamworks.github.io/) by following the [official installation instructions for Unity](https://steamworks.github.io/installation/).
 
-Next install Clouds Ahoy! Connect [from its git URL via the package manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
+Next install Moonrise Connect [from its git URL via the package manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
 
 ## Hello world
 
@@ -35,7 +35,7 @@ public class Game : MonoBehaviour {
         // Network Objects have to be registered on all game instances in exactly the same order
         FindObjectOfType<Chicken>().RegisterGameObject();
 
-        // Initialize Clouds Ahoy! Connect by creating a new session instance from the builder
+        // Initialize Moonrise Connect by creating a new session instance from the builder
         Session = new Session.Builder().ForSteam().Build();
 
         // Register a callback to be notified about changes in the network connection
@@ -90,14 +90,19 @@ public class Chicken : MonoBehaviour {
 
 ## Samples
 
-The Clouds Ahoy! Connect package contains samples which can be imported through the Unity package manager after installing the Clouds Ahoy! Connect package via Git.
+The Moonrise Connect package contains samples which can be imported through the Unity package manager after installing the Moonrise Connect package via Git.
 
 ### Block Buster
 
-The **Block Buster** sample provides a minimal setup demonstrating how Clouds Ahoy! Connect can be used with Steamworks.Net.
+The **Block Buster** sample provides a minimal setup demonstrating how Moonrise Connect can be used with Steamworks.Net.
 
 To try it out make sure to have a valid `steam_appid.txt` file at the root of your Unity project as described by the [Steamworks.Net installation guide](https://steamworks.github.io/installation/). Also, all Steam accounts used for testing must have the game with the corresponding app id in their library.
 
 ## Credits
 
-If you use Clouds Ahoy! Connect in your game please mention it in the credits and reach out to have the game added to this readme.
+If you use Moonrise Connect in your game please mention it in the credits and reach out to have the game added to this readme.
+
+## Development
+
+The package can be installed locally for development purposes.
+To enable unity tests add the package to the `testables` array in the local package manifest of the local project.

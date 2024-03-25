@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Reflection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Tests.Samples.Object;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
+using MoonriseGames.Connect.Tests.Utilities.Functions;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+namespace MoonriseGames.Connect.Tests.Functions
 {
     public class NetworkFunctionDelegateTest
     {

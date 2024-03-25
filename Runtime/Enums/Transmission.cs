@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+﻿namespace MoonriseGames.Connect.Enums
 {
     /// <summary>
     /// The different transmission modes available for sending data. These roughly translate to the connection oriented or connectionless

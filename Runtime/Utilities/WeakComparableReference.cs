@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MoonriseGames.CloudsAhoyConnect.Utilities
+namespace MoonriseGames.Connect.Utilities
 {
     internal class WeakComparableReference<T>
         where T : class

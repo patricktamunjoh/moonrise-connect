@@ -1,9 +1,8 @@
 {
-    "name": "MoonriseGames.Connect.Samples.BlockBuster",
-    "rootNamespace": "",
+    "name": "MoonriseGames.Connect",
+    "rootNamespace": "MoonriseGames.Connect",
     "references": [
-        "GUID:68bd7fdb68ef2684e982e8a9825b18a5",
-        "GUID:bd93e2f1b31f9204b86e858b3d08e3cd"
+        "GUID:68bd7fdb68ef2684e982e8a9825b18a5"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

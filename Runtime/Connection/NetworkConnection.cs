@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Logging;
-using static MoonriseGames.CloudsAhoyConnect.Enums.Connectivity;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Logging;
+using static MoonriseGames.Connect.Enums.Connectivity;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection
+namespace MoonriseGames.Connect.Connection
 {
     internal class NetworkConnection
     {

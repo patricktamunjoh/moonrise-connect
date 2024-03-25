@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
+using MoonriseGames.Connect.Tests.Samples.Collections;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Assertions
+namespace MoonriseGames.Connect.Tests.Utilities.Assertions
 {
     internal static class SampleAssertions
     {

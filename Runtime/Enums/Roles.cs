@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+﻿namespace MoonriseGames.Connect.Enums
 {
     /// <summary>The different roles a game instance can hold within the network.</summary>
     public enum Roles

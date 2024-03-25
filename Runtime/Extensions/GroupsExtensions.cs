@@ -1,6 +1,6 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
+﻿using MoonriseGames.Connect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Extensions
+namespace MoonriseGames.Connect.Extensions
 {
     internal static class GroupsExtensions
     {

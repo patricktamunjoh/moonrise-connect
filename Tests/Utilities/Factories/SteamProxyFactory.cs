@@ -1,7 +1,7 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Steam;
+﻿using MoonriseGames.Connect.Steam;
 using Moq;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories
+namespace MoonriseGames.Connect.Tests.Utilities.Factories
 {
     internal static class SteamProxyFactory
     {

@@ -1,6 +1,6 @@
 ## Copyright Notice
 
-Clouds Ahoy! Connect copyright (c) 2023 Patrick Tamunjoh.
+Moonrise Connect copyright (c) 2023 Patrick Tamunjoh.
 
 Licensed under Mozilla Public License Version 2.0.
 

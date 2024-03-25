@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection
+namespace MoonriseGames.Connect.Tests.Utilities.Connection
 {
     internal class TestNetworkLink : NetworkLink
     {

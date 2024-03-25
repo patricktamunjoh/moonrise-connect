@@ -1,8 +1,8 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
+﻿using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+namespace MoonriseGames.Connect.Tests.Functions
 {
     public class NetworkFunctionTest
     {

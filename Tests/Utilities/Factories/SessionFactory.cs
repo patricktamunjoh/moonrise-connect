@@ -1,11 +1,11 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection;
+﻿using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Tests.Utilities.Connection;
 using Moq;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories
+namespace MoonriseGames.Connect.Tests.Utilities.Factories
 {
-    internal static class CloudsAhoyConnectFactory
+    internal static class SessionFactory
     {
         public static Session BuildForIntegrationTest(TestNetworkIdentity id)
         {

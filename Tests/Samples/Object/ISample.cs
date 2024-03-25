@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object
+﻿namespace MoonriseGames.Connect.Tests.Samples.Object
 {
     public interface ISample
     {

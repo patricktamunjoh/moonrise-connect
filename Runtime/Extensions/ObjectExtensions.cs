@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Extensions
+namespace MoonriseGames.Connect.Extensions
 {
     internal static class ObjectExtensions
     {

@@ -2,7 +2,7 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions
+namespace MoonriseGames.Connect.Tests.Utilities.Functions
 {
     internal static class Function
     {

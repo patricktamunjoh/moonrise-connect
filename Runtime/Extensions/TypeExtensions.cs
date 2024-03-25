@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MoonriseGames.CloudsAhoyConnect.Extensions
+namespace MoonriseGames.Connect.Extensions
 {
     internal static class TypeExtensions
     {

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using Steamworks;
 using ConnectionStatusChangedCallback = Steamworks.Callback<Steamworks.SteamNetConnectionStatusChangedCallback_t>;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam
+namespace MoonriseGames.Connect.Steam
 {
     internal class SteamProxy
     {

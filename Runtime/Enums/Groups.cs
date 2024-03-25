@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+﻿namespace MoonriseGames.Connect.Enums
 {
     /// <summary>
     /// The different groups the network can be divided into. Each session will have exactly one <see cref="Host" /> game instance. All

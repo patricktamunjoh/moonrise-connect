@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace MoonriseGames.CloudsAhoyConnect.Hashing
+namespace MoonriseGames.Connect.Hashing
 {
     internal readonly struct NetworkHash
     {

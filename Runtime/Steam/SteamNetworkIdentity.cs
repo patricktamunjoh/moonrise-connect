@@ -1,8 +1,8 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Connection;
+using MoonriseGames.Connect.Connection;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam
+namespace MoonriseGames.Connect.Steam
 {
     /// <summary>
     /// Represents a games instance within the network. Each game instance belongs to exactly one Steam user. Create network identities

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using MoonriseGames.CloudsAhoyConnect.Collections;
+using MoonriseGames.Connect.Collections;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
+namespace MoonriseGames.Connect.Tests.Collections
 {
     public class BidirectionalMapTest
     {
@@ -30,19 +30,19 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new BidirectionalMap<string, int> { [12] = "example", [12] = "testing" };
 
-            Assert.False(sut.Contains("example"));
+            Assert.False((bool)sut.Contains("example"));
             Assert.AreEqual(12, sut["testing"]);
             Assert.AreEqual("testing", sut[12]);
 
             sut["example"] = 12;
 
-            Assert.False(sut.Contains("testing"));
+            Assert.False((bool)sut.Contains("testing"));
             Assert.AreEqual(12, sut["example"]);
             Assert.AreEqual("example", sut[12]);
 
             sut["example"] = 42;
 
-            Assert.False(sut.Contains(12));
+            Assert.False((bool)sut.Contains(12));
             Assert.AreEqual(42, sut["example"]);
             Assert.AreEqual("example", sut[42]);
         }
@@ -69,8 +69,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new BidirectionalMap<string, int>();
 
-            Assert.False(sut.Remove("example"));
-            Assert.False(sut.Remove(12));
+            Assert.False((bool)sut.Remove("example"));
+            Assert.False((bool)sut.Remove(12));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new BidirectionalMap<string, int> { ["example"] = 12 };
 
-            Assert.True(sut.Remove("example"));
+            Assert.True((bool)sut.Remove("example"));
             Assert.AreEqual(0, sut.Count);
         }
 
@@ -87,7 +87,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new BidirectionalMap<string, int> { [12] = "example" };
 
-            Assert.True(sut.Remove(12));
+            Assert.True((bool)sut.Remove(12));
             Assert.AreEqual(0, sut.Count);
         }
 
@@ -105,8 +105,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new BidirectionalMap<string, int> { [12] = "example" };
 
-            Assert.True(sut.Contains("example"));
-            Assert.True(sut.Contains(12));
+            Assert.True((bool)sut.Contains("example"));
+            Assert.True((bool)sut.Contains(12));
         }
 
         [Test]
@@ -114,8 +114,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new BidirectionalMap<string, int>();
 
-            Assert.False(sut.Contains("example"));
-            Assert.False(sut.Contains(12));
+            Assert.False((bool)sut.Contains("example"));
+            Assert.False((bool)sut.Contains(12));
         }
 
         [Test]

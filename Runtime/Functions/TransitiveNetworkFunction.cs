@@ -1,7 +1,6 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     /// <summary>
     /// Attribute for marking functions to be transitively synced over the network.

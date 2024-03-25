@@ -1,18 +1,18 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
-using MoonriseGames.CloudsAhoyConnect.Logging;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Hashing;
+using MoonriseGames.Connect.Logging;
+using MoonriseGames.Connect.Tests.Samples.Network;
+using MoonriseGames.Connect.Tests.Samples.Object;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
+using MoonriseGames.Connect.Tests.Utilities.Functions;
 using Moq;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Functions
+namespace MoonriseGames.Connect.Tests.Functions
 {
     public class NetworkFunctionRegistryTest
     {

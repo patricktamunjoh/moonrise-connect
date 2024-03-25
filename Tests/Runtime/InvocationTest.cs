@@ -1,10 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
+﻿using MoonriseGames.Connect.Tests.Samples.Network;
+using MoonriseGames.Connect.Tests.Utilities.Factories;
 using NUnit.Framework;
-using static MoonriseGames.CloudsAhoyConnect.Invocation;
+using static MoonriseGames.Connect.Invocation;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+namespace MoonriseGames.Connect.Tests
 {
     public class InvocationTest
     {
@@ -27,7 +26,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
+            var cac = SessionFactory.Build(emitter.Object);
 
             Session.Instance = cac;
 
@@ -41,7 +40,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
+            var cac = SessionFactory.Build(emitter.Object);
 
             Session.Instance = cac;
 
@@ -55,7 +54,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
+            var cac = SessionFactory.Build(emitter.Object);
 
             Session.Instance = cac;
 
@@ -69,7 +68,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
+            var cac = SessionFactory.Build(emitter.Object);
 
             Session.Instance = cac;
 
@@ -83,7 +82,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var sample = new SampleNetwork();
             var emitter = NetworkFunctionEmitterFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(emitter.Object);
+            var cac = SessionFactory.Build(emitter.Object);
 
             Session.Instance = cac;
 

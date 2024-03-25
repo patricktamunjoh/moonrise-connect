@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Extensions
+namespace MoonriseGames.Connect.Extensions
 {
     internal static class StringExtensions
     {

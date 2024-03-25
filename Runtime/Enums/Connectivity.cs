@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+﻿namespace MoonriseGames.Connect.Enums
 {
     /// <summary>The different states a connection can be in.</summary>
     public enum Connectivity

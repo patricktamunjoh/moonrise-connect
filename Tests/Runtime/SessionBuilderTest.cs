@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests
+namespace MoonriseGames.Connect.Tests
 {
     public class SessionBuilderTest
     {

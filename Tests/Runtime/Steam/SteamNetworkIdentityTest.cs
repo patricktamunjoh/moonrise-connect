@@ -1,9 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Steam;
+﻿using MoonriseGames.Connect.Steam;
 using Moq;
 using NUnit.Framework;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+namespace MoonriseGames.Connect.Tests.Steam
 {
     public class SteamNetworkIdentityTest
     {

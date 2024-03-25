@@ -1,7 +1,7 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Connection;
+using MoonriseGames.Connect.Connection;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection
+namespace MoonriseGames.Connect.Tests.Utilities.Connection
 {
     internal class TestNetworkIdentity : NetworkIdentity
     {

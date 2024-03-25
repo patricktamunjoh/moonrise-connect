@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Hashing;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     internal class NetworkFunctionEmitter
     {

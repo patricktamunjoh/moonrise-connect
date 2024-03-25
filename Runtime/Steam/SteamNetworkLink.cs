@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Logging;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Logging;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam
+namespace MoonriseGames.Connect.Steam
 {
     internal class SteamNetworkLink : NetworkLink
     {

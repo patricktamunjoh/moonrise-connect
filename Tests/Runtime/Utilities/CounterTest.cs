@@ -1,7 +1,7 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Utilities;
+﻿using MoonriseGames.Connect.Utilities;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities
+namespace MoonriseGames.Connect.Tests.Utilities
 {
     public class CounterTest
     {

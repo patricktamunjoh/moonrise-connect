@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Tests.Samples.Object;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+namespace MoonriseGames.Connect.Tests.Extensions
 {
     public class ObjectExtensionsTest
     {

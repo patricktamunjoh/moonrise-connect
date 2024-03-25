@@ -1,7 +1,7 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Enums;
+using MoonriseGames.Connect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     /// <summary>
     /// Attribute for configuring instance functions to be synced over the network. Every function that should be called on other game

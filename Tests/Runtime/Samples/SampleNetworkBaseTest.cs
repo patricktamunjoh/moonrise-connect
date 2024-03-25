@@ -1,8 +1,8 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Assertions;
+﻿using MoonriseGames.Connect.Tests.Samples.Network;
+using MoonriseGames.Connect.Tests.Utilities.Assertions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples
+namespace MoonriseGames.Connect.Tests.Samples
 {
     public class SampleNetworkBaseTest
     {

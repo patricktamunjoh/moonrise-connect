@@ -1,10 +1,10 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Connection;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
+﻿using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Tests.Samples.Network;
+using MoonriseGames.Connect.Tests.Utilities.Connection;
+using MoonriseGames.Connect.Tests.Utilities.Factories;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration
+namespace MoonriseGames.Connect.Tests.Integration
 {
     public class SendReceiveIntegrationTest
     {
@@ -16,8 +16,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Integration
             var id1 = new TestNetworkIdentity("cac 01");
             var id2 = new TestNetworkIdentity("cac 02");
 
-            a = CloudsAhoyConnectFactory.BuildForIntegrationTest(id1);
-            b = CloudsAhoyConnectFactory.BuildForIntegrationTest(id2);
+            a = SessionFactory.BuildForIntegrationTest(id1);
+            b = SessionFactory.BuildForIntegrationTest(id2);
 
             a.EstablishConnection(new NetworkConnectionConfig(new NetworkIdentity[] { id2 }));
             b.EstablishConnection(new NetworkConnectionConfig(id1));

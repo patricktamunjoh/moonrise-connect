@@ -1,16 +1,16 @@
 # Quickstart
 
-Clouds Ahoy! Connect was designed to be simple to use, making multiplayer development almost as easy as building a singleplayer game.
+Moonrise Connect was designed to be simple to use, making multiplayer development almost as easy as building a singleplayer game.
 
 This quickstart guide provides an introduction to the core elements of the library.
 
 ## Concepts
 
-The following section discusses some of the fundamental concepts employed in Clouds Ahoy! Connect. It is important to understand these concepts as they can have a significant impact on the architecture of the game code.
+The following section discusses some of the fundamental concepts employed in Moonrise Connect. It is important to understand these concepts as they can have a significant impact on the architecture of the game code.
 
 ### Network Topology
 
-Clouds Ahoy! Connect uses an authoritative host network topology. In this architecture, all client instances are connected to one host instance that simultaneously acts as a game server while the host player is playing the game.
+Moonrise Connect uses an authoritative host network topology. In this architecture, all client instances are connected to one host instance that simultaneously acts as a game server while the host player is playing the game.
 
 ```mermaid
 flowchart LR
@@ -26,7 +26,7 @@ flowchart LR
 
 This is different from a traditional peer-to-peer topology where all client instances communicate with each other, since here client instances only communicate with the host instance. This approach also differs from a dedicated server or listen server topology in that no explicit game server exists. Client and host instances both run the game code with the host instance having authority over when and how functions are invoked.
 
-This topology was chosen for Clouds Ahoy! Connect due to its low cost, as it leverages essentially free peer-to-peer connections, its simple setup, as it does not require any dedicated hardware, and the simplified development, since no dedicated server code has to be written.
+This topology was chosen for Moonrise Connect due to its low cost, as it leverages essentially free peer-to-peer connections, its simple setup, as it does not require any dedicated hardware, and the simplified development, since no dedicated server code has to be written.
 
 There are, however, also disadvantages to this design which include potentially higher latency, as messages between client instances are relayed through the host instance, reliance on the host instance without which the session cannot be continued, and vulnerability to cheating, as the host instance has access and authority over the entire game state.
 
@@ -38,7 +38,7 @@ The easiest way of achieving this is by ensuring that all object registrations a
 
 ### Consistency
 
-The most challenging task when using Clouds Ahoy! Connect is to ensure that the game state is consistent across all game instances.
+The most challenging task when using Moonrise Connect is to ensure that the game state is consistent across all game instances.
 
 Since each game instance runs the game code locally, they all have their own game state which is continuously modified as the game progresses. For players to have a shared experience these separate game states must be as similar as possible. This is done by starting off with the same initial state and performing the same deterministic operations in the same order on all game instances.
 
@@ -71,7 +71,7 @@ public void DealDamageToPlayer(float damage) {
 
 ## Using the Library
 
-The following section will take a look at how Clouds Ahoy! Connect can be used to build a multiplayer game. This quickstart guide only covers the most essential features and concepts. For a more detailed view check out documentation inside the library itself or the sample project.
+The following section will take a look at how Moonrise Connect can be used to build a multiplayer game. This quickstart guide only covers the most essential features and concepts. For a more detailed view check out documentation inside the library itself or the sample project.
 
 ### Initialization
 
@@ -366,4 +366,4 @@ public class Sprinkler {
 
 ### Reconnecting
 
-At this point, there is no supported way of allowing a disconnected client game instance to reconnect to a running session. Because Clouds Ahoy! Connect ensures consistent game states by replicating Network Function calls across instances, it is not necessary to define the game state as a data structure. This, however, makes reconnecting more challenging. To resynchronize a reconnected client instance it either requires the complete game state or all the changes that were made since the disconnect. Both approaches would require significant additional work from the development team and would have to be taken into consideration when writing the game code. This goes against the idea of making the development as straightforward as possible. Consequently, the current approach to deal with disconnects is to gracefully remove the disconnected player from the game and to provide the players an option to restart the session from a synchronized point.
+At this point, there is no supported way of allowing a disconnected client game instance to reconnect to a running session. Because Moonrise Connect ensures consistent game states by replicating Network Function calls across instances, it is not necessary to define the game state as a data structure. This, however, makes reconnecting more challenging. To resynchronize a reconnected client instance it either requires the complete game state or all the changes that were made since the disconnect. Both approaches would require significant additional work from the development team and would have to be taken into consideration when writing the game code. This goes against the idea of making the development as straightforward as possible. Consequently, the current approach to deal with disconnects is to gracefully remove the disconnected player from the game and to provide the players an option to restart the session from a synchronized point.

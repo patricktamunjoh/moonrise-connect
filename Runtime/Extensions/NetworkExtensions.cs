@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Extensions
+namespace MoonriseGames.Connect.Extensions
 {
     public static class NetworkExtensions
     {

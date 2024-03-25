@@ -1,7 +1,7 @@
 {
-  "name": "games.moonrise.cloudsahoyconnect",
+  "name": "games.moonrise.connect",
   "version": "1.1.0",
-  "displayName": "Clouds Ahoy! Connect",
+  "displayName": "Moonrise Connect",
   "description": "A network library for easy remote function execution.",
   "unity": "2019.1",
   "documentationUrl": "https://github.com/TheMoonrise/clouds-ahoy-connect/blob/main/QUICKSTART.md",

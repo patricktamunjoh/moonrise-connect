@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MoonriseGames.CloudsAhoyConnect.Hashing
+namespace MoonriseGames.Connect.Hashing
 {
     internal static class NetworkHashing
     {

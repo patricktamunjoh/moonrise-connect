@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Payloads;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Payloads;
+using MoonriseGames.Connect.Tests.Samples.Network;
+using MoonriseGames.Connect.Tests.Samples.Object;
 using Moq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
+namespace MoonriseGames.Connect.Tests.Payloads
 {
     public class NetworkPayloadTypeTest
     {
@@ -244,7 +244,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
             var sut = new NetworkPayloadType(types);
             var output = sut.CreateInstanceFromArguments(registry.Object, arguments).Arguments();
 
-            Assert.True(output.SequenceEqual(arguments));
+            Assert.True(Enumerable.SequenceEqual<object>(output, arguments));
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
             var registry = new Mock<NetworkFunctionRegistry>();
 
             var sut = new NetworkPayloadType(types);
-            var output = sut.CreateInstanceFromArguments(registry.Object, arguments).Arguments().FirstOrDefault();
+            var output = Enumerable.FirstOrDefault<object>(sut.CreateInstanceFromArguments(registry.Object, arguments).Arguments());
 
             Assert.AreEqual(arguments[0], output);
         }
@@ -275,7 +275,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
             registry.Setup(x => x.GetRegisteredObjectId(sample)).Returns(objectId);
 
             var sut = new NetworkPayloadType(types);
-            var output = sut.CreateInstanceFromArguments(registry.Object, arguments).Arguments().FirstOrDefault();
+            var output = Enumerable.FirstOrDefault<object>(sut.CreateInstanceFromArguments(registry.Object, arguments).Arguments());
 
             Assert.NotNull(output);
             Assert.AreEqual(objectId, (ulong)output);
@@ -309,7 +309,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
             var sut = new NetworkPayloadType(types);
             var output = sut.RecoverArgumentsFromInstance(registry.Object, payload);
 
-            Assert.True(output.SequenceEqual(arguments));
+            Assert.True(Enumerable.SequenceEqual<object>(output, arguments));
         }
 
         [Test]
@@ -340,7 +340,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Payloads
             var sut = new NetworkPayloadType(types);
             var output = sut.RecoverArgumentsFromInstance(registry.Object, payload);
 
-            Assert.NotZero(output.Length);
+            Assert.NotZero((int)output.Length);
             Assert.AreEqual(sample, output[0]);
         }
     }

@@ -1,14 +1,14 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
-using MoonriseGames.CloudsAhoyConnect.Logging;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Hashing;
+using MoonriseGames.Connect.Logging;
+using MoonriseGames.Connect.Tests.Samples.Object;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Logging
+namespace MoonriseGames.Connect.Tests.Logging
 {
     public class SnapshotTest
     {

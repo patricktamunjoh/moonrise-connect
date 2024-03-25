@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Logging;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Logging;
 
-namespace MoonriseGames.CloudsAhoyConnect
+namespace MoonriseGames.Connect
 {
     /// <summary>
-    /// Entry point to the Clouds Ahoy Connect library. All functionality can be assessed through the singleton instance of this class or
+    /// Entry point to the Moonrise Connect library. All functionality can be assessed through the singleton instance of this class or
     /// static extension functions. Use the <see cref="Builder" /> to configure and instantiate a new instance.
     /// </summary>
     public partial class Session

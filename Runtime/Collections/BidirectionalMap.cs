@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MoonriseGames.CloudsAhoyConnect.Collections
+namespace MoonriseGames.Connect.Collections
 {
     internal class BidirectionalMap<THead, TTail>
     {

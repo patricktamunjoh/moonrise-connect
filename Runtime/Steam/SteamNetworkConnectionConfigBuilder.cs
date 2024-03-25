@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam
+namespace MoonriseGames.Connect.Steam
 {
     public partial class SteamNetworkConnectionConfig
     {

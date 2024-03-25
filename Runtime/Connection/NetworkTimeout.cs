@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
+using MoonriseGames.Connect.Extensions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection
+namespace MoonriseGames.Connect.Connection
 {
     internal class NetworkTimeout
     {

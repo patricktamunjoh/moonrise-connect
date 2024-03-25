@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Logging
+﻿namespace MoonriseGames.Connect.Logging
 {
     /// <summary>The different log levels at which log messages can be printed.</summary>
     public enum LogLevels

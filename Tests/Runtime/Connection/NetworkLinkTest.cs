@@ -1,9 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
+﻿using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+namespace MoonriseGames.Connect.Tests.Connection
 {
     public class NetworkLinkTest
     {

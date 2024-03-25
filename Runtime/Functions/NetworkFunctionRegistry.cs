@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MoonriseGames.CloudsAhoyConnect.Collections;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
-using MoonriseGames.CloudsAhoyConnect.Logging;
-using MoonriseGames.CloudsAhoyConnect.Objects;
-using MoonriseGames.CloudsAhoyConnect.Utilities;
+using MoonriseGames.Connect.Collections;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Hashing;
+using MoonriseGames.Connect.Logging;
+using MoonriseGames.Connect.Objects;
+using MoonriseGames.Connect.Utilities;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     internal class NetworkFunctionRegistry
     {

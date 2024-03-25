@@ -1,9 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
+﻿using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Tests.Samples.Network;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories
+namespace MoonriseGames.Connect.Tests.Utilities.Factories
 {
     internal static class NetworkFunctionDelegateFactory
     {

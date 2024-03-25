@@ -1,9 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Steam;
+﻿using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Steam;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+namespace MoonriseGames.Connect.Tests.Steam
 {
     public class SteamNetworkConnectionConfigTest
     {

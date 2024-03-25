@@ -1,7 +1,7 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Functions;
+using MoonriseGames.Connect.Functions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Objects
+namespace MoonriseGames.Connect.Objects
 {
     /// <summary>
     /// Attribute for flagging classes to partake in networking. Object instances of classes with this attribute can be registered to the

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections
+namespace MoonriseGames.Connect.Tests.Samples.Collections
 {
     public class InvocationCounter
     {

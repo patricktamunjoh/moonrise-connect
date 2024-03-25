@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Utilities
+﻿namespace MoonriseGames.Connect.Utilities
 {
     internal class Counter
     {

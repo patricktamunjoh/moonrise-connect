@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Connection
+﻿namespace MoonriseGames.Connect.Connection
 {
     /// <summary>
     /// Represents a games instance within the network. Each game instance must have a unique identity it can be referenced and identified

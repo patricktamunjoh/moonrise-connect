@@ -1,9 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Objects;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
+﻿using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Objects;
+using MoonriseGames.Connect.Tests.Samples.Collections;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network
+namespace MoonriseGames.Connect.Tests.Samples.Network
 {
     [NetworkObject]
     public class SampleNetworkOverload

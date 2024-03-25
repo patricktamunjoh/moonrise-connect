@@ -1,10 +1,10 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Steam;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Steam;
 
-namespace MoonriseGames.CloudsAhoyConnect
+namespace MoonriseGames.Connect
 {
     public partial class Session
     {
@@ -30,8 +30,8 @@ namespace MoonriseGames.CloudsAhoyConnect
                 if (Instance != null)
                 {
                     const string message =
-                        @"Clouds Ahoy Connect has already been initialized. 
-                    Only one instance of Clouds Ahoy Connect should be build during the lifetime of each game instance.";
+                        @"Moonrise Connect has already been initialized. 
+                    Only one instance of Moonrise Connect should be build during the lifetime of each game instance.";
 
                     throw new InvalidOperationException(message.TrimIndents());
                 }

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
+using MoonriseGames.Connect.Hashing;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
+namespace MoonriseGames.Connect.Tests.Hashing
 {
     public class NetworkHashTest
     {
@@ -38,7 +38,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash();
             var b = new NetworkHash();
 
-            Assert.True(a.Equals(b));
+            Assert.True((bool)a.Equals(b));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash();
             var b = default(NetworkHash);
 
-            Assert.True(a.Equals(b));
+            Assert.True((bool)a.Equals(b));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash();
             var b = new NetworkHash(new[] { (byte)0 });
 
-            Assert.False(a.Equals(b));
+            Assert.False((bool)a.Equals(b));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash(new[] { (byte)12 });
             var b = new NetworkHash(new[] { (byte)12 });
 
-            Assert.True(a.Equals(b));
+            Assert.True((bool)a.Equals(b));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash(new[] { (byte)12 });
             var b = new NetworkHash(new[] { (byte)12, (byte)12 });
 
-            Assert.False(a.Equals(b));
+            Assert.False((bool)a.Equals(b));
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
         {
             var a = new NetworkHash(new[] { (byte)12 });
 
-            Assert.False(a.Equals(null));
+            Assert.False((bool)a.Equals(null));
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash();
             var b = new NetworkHash();
 
-            Assert.True(a.GetHashCode() == b.GetHashCode());
+            Assert.True((bool)(a.GetHashCode() == b.GetHashCode()));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
             var a = new NetworkHash(new[] { (byte)12 });
             var b = new NetworkHash(new[] { (byte)12 });
 
-            Assert.True(a.GetHashCode() == b.GetHashCode());
+            Assert.True((bool)(a.GetHashCode() == b.GetHashCode()));
         }
 
         [Test]

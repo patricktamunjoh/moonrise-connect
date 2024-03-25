@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
+using MoonriseGames.Connect.Hashing;
+using MoonriseGames.Connect.Tests.Samples.Object;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Hashing
+namespace MoonriseGames.Connect.Tests.Hashing
 {
     public class NetworkHashingTest
     {

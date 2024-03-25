@@ -1,6 +1,6 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Objects;
+﻿using MoonriseGames.Connect.Objects;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Network
+namespace MoonriseGames.Connect.Tests.Samples.Network
 {
     [NetworkObject]
     public class SampleNetworkEmpty { }

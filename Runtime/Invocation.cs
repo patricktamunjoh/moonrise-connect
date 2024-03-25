@@ -1,10 +1,6 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Steam;
 
-namespace MoonriseGames.CloudsAhoyConnect
+namespace MoonriseGames.Connect
 {
     public static class Invocation
     {

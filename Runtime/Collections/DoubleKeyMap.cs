@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MoonriseGames.CloudsAhoyConnect.Collections
+namespace MoonriseGames.Connect.Collections
 {
     internal class DoubleKeyMap<TKey1, TKey2, TValue>
     {

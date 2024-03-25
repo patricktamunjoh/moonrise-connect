@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using MoonriseGames.CloudsAhoyConnect.Collections;
+using MoonriseGames.Connect.Collections;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
+namespace MoonriseGames.Connect.Tests.Collections
 {
     public class DoubleKeyMapTest
     {
@@ -20,8 +20,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new DoubleKeyMap<string, string, int>();
 
-            Assert.False(sut.Remove("first", "second"));
-            Assert.False(sut.Remove("first"));
+            Assert.False((bool)sut.Remove("first", "second"));
+            Assert.False((bool)sut.Remove("first"));
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12 };
 
-            Assert.True(sut.Remove("first", "second"));
+            Assert.True((bool)sut.Remove("first", "second"));
 
             Assert.Throws<KeyNotFoundException>(() =>
             {
@@ -42,7 +42,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12, ["first", "third"] = 42 };
 
-            Assert.True(sut.Remove("first"));
+            Assert.True((bool)sut.Remove("first"));
 
             Assert.Throws<KeyNotFoundException>(() =>
             {
@@ -73,8 +73,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new DoubleKeyMap<string, string, int> { ["first", "second"] = 12 };
 
-            Assert.True(sut.Contains("first", "second"));
-            Assert.True(sut.Contains("first"));
+            Assert.True((bool)sut.Contains("first", "second"));
+            Assert.True((bool)sut.Contains("first"));
         }
 
         [Test]
@@ -82,8 +82,8 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
         {
             var sut = new DoubleKeyMap<string, string, int>();
 
-            Assert.False(sut.Contains("first", "second"));
-            Assert.False(sut.Contains("first"));
+            Assert.False((bool)sut.Contains("first", "second"));
+            Assert.False((bool)sut.Contains("first"));
         }
 
         [Test]

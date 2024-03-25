@@ -1,10 +1,10 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Objects;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
+﻿using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Objects;
+using MoonriseGames.Connect.Tests.Samples.Collections;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object
+namespace MoonriseGames.Connect.Tests.Samples.Object
 {
     [NetworkObject]
     public class SampleBehaviour : MonoBehaviour

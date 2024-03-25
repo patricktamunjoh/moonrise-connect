@@ -1,10 +1,10 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Functions;
-using MoonriseGames.CloudsAhoyConnect.Utilities;
+using MoonriseGames.Connect.Tests.Samples.Object;
+using MoonriseGames.Connect.Tests.Utilities.Functions;
+using MoonriseGames.Connect.Utilities;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities
+namespace MoonriseGames.Connect.Tests.Utilities
 {
     public class WeakComparableReferenceTest
     {
@@ -37,13 +37,13 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities
         {
             var sut = new WeakComparableReference<string>(null);
 
-            Assert.Zero(sut.GetHashCode());
+            Assert.Zero((int)sut.GetHashCode());
         }
 
         [Test]
         public void ShouldNotHoldStrongReference()
         {
-            var sut = Function.ExecuteInCollectableScope(() => new WeakComparableReference<Sample>(new Sample()));
+            var sut = Function.ExecuteInCollectableScope<WeakComparableReference<Sample>>(() => new WeakComparableReference<Sample>(new Sample()));
 
             GC.Collect();
             Assert.Null(sut.Target);

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
+using MoonriseGames.Connect.Extensions;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     internal class NetworkFunctionDelegate
     {

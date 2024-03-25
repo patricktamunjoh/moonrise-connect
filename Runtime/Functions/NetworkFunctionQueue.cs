@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Payloads;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Payloads;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     internal class NetworkFunctionQueue
     {

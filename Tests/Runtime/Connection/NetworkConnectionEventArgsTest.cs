@@ -1,8 +1,8 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Connection;
+﻿using MoonriseGames.Connect.Connection;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Connection
+namespace MoonriseGames.Connect.Tests.Connection
 {
     public class NetworkConnectionEventArgsTest
     {

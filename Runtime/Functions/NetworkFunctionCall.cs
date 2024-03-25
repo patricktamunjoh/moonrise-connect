@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Hashing;
-using MoonriseGames.CloudsAhoyConnect.Payloads;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Hashing;
+using MoonriseGames.Connect.Payloads;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     internal class NetworkFunctionCall
     {

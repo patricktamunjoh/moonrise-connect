@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Connection
+﻿namespace MoonriseGames.Connect.Connection
 {
     internal abstract class NetworkConnectionStrategy
     {

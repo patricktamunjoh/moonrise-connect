@@ -1,6 +1,6 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
+﻿using MoonriseGames.Connect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection
+namespace MoonriseGames.Connect.Connection
 {
     /// <summary>
     ///     Holds the configuration for how a new network connection should be established. Depending on the configuration, a connection to a

@@ -1,12 +1,12 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
+﻿using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Tests.Samples.Object;
+using MoonriseGames.Connect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+namespace MoonriseGames.Connect.Tests.Extensions
 {
     public class RegistrationExtensionsTest
     {
@@ -28,7 +28,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
-            var cac = CloudsAhoyConnectFactory.Build(registry.Object);
+            var cac = SessionFactory.Build(registry.Object);
 
             Session.Instance = cac;
 
@@ -42,7 +42,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var behaviour = new GameObject().AddComponent<SampleBehaviour>();
             var registry = new Mock<NetworkFunctionRegistry>();
-            var cac = CloudsAhoyConnectFactory.Build(registry.Object);
+            var cac = SessionFactory.Build(registry.Object);
 
             Session.Instance = cac;
 
@@ -56,7 +56,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
-            var cac = CloudsAhoyConnectFactory.Build(registry.Object);
+            var cac = SessionFactory.Build(registry.Object);
 
             Session.Instance = cac;
 
@@ -70,7 +70,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var behaviour = new GameObject().AddComponent<SampleBehaviour>();
             var registry = new Mock<NetworkFunctionRegistry>();
-            var cac = CloudsAhoyConnectFactory.Build(registry.Object);
+            var cac = SessionFactory.Build(registry.Object);
 
             Session.Instance = cac;
 
@@ -100,7 +100,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
-            var cac = CloudsAhoyConnectFactory.Build(registry.Object);
+            var cac = SessionFactory.Build(registry.Object);
 
             Session.Instance = cac;
 
@@ -114,7 +114,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var gameObj = new GameObject();
             var registry = new Mock<NetworkFunctionRegistry>();
-            var cac = CloudsAhoyConnectFactory.Build(registry.Object);
+            var cac = SessionFactory.Build(registry.Object);
 
             Session.Instance = cac;
 

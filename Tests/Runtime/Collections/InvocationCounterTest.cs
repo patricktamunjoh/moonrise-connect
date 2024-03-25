@@ -1,9 +1,9 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Collections;
-using MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions;
+﻿using MoonriseGames.Connect.Tests.Samples.Collections;
+using MoonriseGames.Connect.Tests.Samples.Object;
+using MoonriseGames.Connect.Tests.Utilities.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Collections
+namespace MoonriseGames.Connect.Tests.Collections
 {
     public class InvocationCounterTest
     {

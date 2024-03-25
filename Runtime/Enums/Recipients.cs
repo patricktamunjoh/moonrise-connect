@@ -1,4 +1,4 @@
-﻿namespace MoonriseGames.CloudsAhoyConnect.Enums
+﻿namespace MoonriseGames.Connect.Enums
 {
     /// <summary>
     /// The different instances or groups of instances messages can be send to. This can be used to determine who should be receiving a message

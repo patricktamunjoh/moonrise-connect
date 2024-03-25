@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Steam;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Steam;
+using MoonriseGames.Connect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 using Steamworks;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Steam
+namespace MoonriseGames.Connect.Tests.Steam
 {
     public class SteamNetworkLinkTest
     {

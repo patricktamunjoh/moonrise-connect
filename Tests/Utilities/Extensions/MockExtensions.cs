@@ -1,6 +1,6 @@
 ﻿using Moq;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Extensions
+namespace MoonriseGames.Connect.Tests.Utilities.Extensions
 {
     internal static class MockExtensions
     {

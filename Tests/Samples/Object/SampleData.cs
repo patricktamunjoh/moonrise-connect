@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Samples.Object
+namespace MoonriseGames.Connect.Tests.Samples.Object
 {
     [Serializable]
     public struct SampleData

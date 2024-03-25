@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection
+namespace MoonriseGames.Connect.Connection
 {
     /// <summary>Container class holding information regarding a change on the network connection.</summary>
     public class NetworkConnectionEventArgs : EventArgs

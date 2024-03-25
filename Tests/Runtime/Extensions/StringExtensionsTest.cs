@@ -1,7 +1,7 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Extensions;
+﻿using MoonriseGames.Connect.Extensions;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+namespace MoonriseGames.Connect.Tests.Extensions
 {
     public class StringExtensionsTest
     {

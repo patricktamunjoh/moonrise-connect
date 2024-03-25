@@ -337,7 +337,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2089233001}
-        m_TargetAssemblyTypeName: ConnectionManager, MoonriseGames.CloudsAhoyConnect.Samples.BlockBuster
+        m_TargetAssemblyTypeName: ConnectionManager, MoonriseGames.Connect.Samples.BlockBuster
         m_MethodName: JoinSession
         m_Mode: 1
         m_Arguments:
@@ -1654,7 +1654,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2089233001}
-        m_TargetAssemblyTypeName: GameManager, MoonriseGames.CloudsAhoyConnect.Samples.BlockBuster
+        m_TargetAssemblyTypeName: GameManager, MoonriseGames.Connect.Samples.BlockBuster
         m_MethodName: PlaySolo
         m_Mode: 1
         m_Arguments:
@@ -1787,7 +1787,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2089233001}
-        m_TargetAssemblyTypeName: ConnectionManager, MoonriseGames.CloudsAhoyConnect.Samples.BlockBuster
+        m_TargetAssemblyTypeName: ConnectionManager, MoonriseGames.Connect.Samples.BlockBuster
         m_MethodName: HostSession
         m_Mode: 1
         m_Arguments:

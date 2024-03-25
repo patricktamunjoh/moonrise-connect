@@ -1,12 +1,12 @@
 ﻿using System;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Logging;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Logging;
 using Steamworks;
 using static Steamworks.ESteamNetworkingConnectionState;
 
-namespace MoonriseGames.CloudsAhoyConnect.Steam
+namespace MoonriseGames.Connect.Steam
 {
     internal class SteamNetworkConnectionStrategy : NetworkConnectionStrategy
     {

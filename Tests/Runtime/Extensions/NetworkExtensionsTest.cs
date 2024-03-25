@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using MoonriseGames.CloudsAhoyConnect.Connection;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories;
+using MoonriseGames.Connect.Connection;
+using MoonriseGames.Connect.Extensions;
+using MoonriseGames.Connect.Tests.Utilities.Factories;
 using Moq;
 using NUnit.Framework;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
+namespace MoonriseGames.Connect.Tests.Extensions
 {
     public class NetworkExtensionsTest
     {
@@ -34,7 +34,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var identity = new Mock<NetworkIdentity>().Object;
             var connection = NetworkConnectionFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(connection.Object);
+            var cac = SessionFactory.Build(connection.Object);
 
             connection.Setup(x => x.ActiveClients).Returns(Enumerable.Empty<NetworkIdentity>());
 
@@ -48,7 +48,7 @@ namespace MoonriseGames.CloudsAhoyConnect.Tests.Extensions
         {
             var identity = new Mock<NetworkIdentity>().Object;
             var connection = NetworkConnectionFactory.BuildMock();
-            var cac = CloudsAhoyConnectFactory.Build(connection.Object);
+            var cac = SessionFactory.Build(connection.Object);
 
             connection.Setup(x => x.ActiveClients).Returns(new[] { identity });
 

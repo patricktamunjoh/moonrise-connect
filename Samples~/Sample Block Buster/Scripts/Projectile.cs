@@ -1,34 +1,36 @@
-using MoonriseGames.CloudsAhoyConnect.Enums;
-using MoonriseGames.CloudsAhoyConnect.Extensions;
-using MoonriseGames.CloudsAhoyConnect.Functions;
-using MoonriseGames.CloudsAhoyConnect.Objects;
+using MoonriseGames.Connect.Enums;
+using MoonriseGames.Connect.Functions;
+using MoonriseGames.Connect.Objects;
 using UnityEngine;
-using static MoonriseGames.CloudsAhoyConnect.Invocation;
+using static MoonriseGames.Connect.Invocation;
 
-[NetworkObject]
-public class Projectile : MonoBehaviour
+namespace Samples.Block_Buster.Scripts
 {
-    public Vector2 Velocity { get; set; }
-
-    private void Update()
+    [NetworkObject]
+    public class Projectile : MonoBehaviour
     {
-        // The projectile is only translated into a set direction
-        transform.Translate(Velocity * Time.deltaTime);
-    }
+        public Vector2 Velocity { get; set; }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        var character = other.gameObject.GetComponentInParent<Character>();
-        if (character != null)
-            Call(character.HitByProjectile);
-        Call(DestroyAfterCollision);
-    }
+        private void Update()
+        {
+            // The projectile is only translated into a set direction
+            transform.Translate(Velocity * Time.deltaTime);
+        }
 
-    [NetworkFunction(Groups.Host, Recipients.All)]
-    private void DestroyAfterCollision()
-    {
-        // Only the host instance should destroy network objects
-        // Otherwise, calls might not reach the instance in time before it is destroyed
-        Destroy(gameObject);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            var character = other.gameObject.GetComponentInParent<Character>();
+            if (character != null)
+                Call(character.HitByProjectile);
+            Call(DestroyAfterCollision);
+        }
+
+        [NetworkFunction(Groups.Host, Recipients.All)]
+        private void DestroyAfterCollision()
+        {
+            // Only the host instance should destroy network objects
+            // Otherwise, calls might not reach the instance in time before it is destroyed
+            Destroy(gameObject);
+        }
     }
 }

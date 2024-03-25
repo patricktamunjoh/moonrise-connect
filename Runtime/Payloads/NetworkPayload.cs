@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Payloads
+namespace MoonriseGames.Connect.Payloads
 {
     internal interface INetworkPayload
     {

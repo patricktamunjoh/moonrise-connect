@@ -1,7 +1,7 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Functions;
+﻿using MoonriseGames.Connect.Functions;
 using Moq;
 
-namespace MoonriseGames.CloudsAhoyConnect.Tests.Utilities.Factories
+namespace MoonriseGames.Connect.Tests.Utilities.Factories
 {
     internal static class NetworkFunctionEmitterFactory
     {

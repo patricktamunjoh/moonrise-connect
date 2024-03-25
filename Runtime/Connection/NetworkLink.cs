@@ -1,6 +1,6 @@
-﻿using MoonriseGames.CloudsAhoyConnect.Enums;
+﻿using MoonriseGames.Connect.Enums;
 
-namespace MoonriseGames.CloudsAhoyConnect.Connection
+namespace MoonriseGames.Connect.Connection
 {
     public abstract class NetworkLink
     {

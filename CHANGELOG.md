@@ -7,9 +7,9 @@ Changed network function invocation syntax from extension methods to static meth
 Invocation.Call(ExampleNetworkFunction, 12, "example"); // New syntax
 ```
 
-Renamed `CloudsAhoyConnect` class to `Session`.
+Renamed `Connect` class to `Session`.
 
 ```c#
-CloudsAhoyConnect cloudsAhoyConnect = new CloudsAhoyConnect.Builder().ForSteam().Build(); // Old name
+Connect cloudsAhoyConnect = new Connect.Builder().ForSteam().Build(); // Old name
 Session session = new Session.Builder().ForSteam().Build(); // New name
 ```

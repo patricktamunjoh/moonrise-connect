@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using MoonriseGames.CloudsAhoyConnect.Payloads;
+using MoonriseGames.Connect.Payloads;
 
-namespace MoonriseGames.CloudsAhoyConnect.Functions
+namespace MoonriseGames.Connect.Functions
 {
     internal class NetworkFunctionData
     {

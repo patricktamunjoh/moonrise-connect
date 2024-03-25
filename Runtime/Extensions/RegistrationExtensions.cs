@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MoonriseGames.CloudsAhoyConnect.Extensions
+namespace MoonriseGames.Connect.Extensions
 {
     public static class RegistrationExtensions
     {
